@@ -1,0 +1,108 @@
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+h1, h2, p, .challenger {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 1.25rem;
+}
+
+button {
+    flex-grow: 1;
+    margin: 0;
+    .btn-check-text {display: none;}
+
+    &.btn-back {flex-grow: 0; width: 4rem;}
+    &.disabled {opacity: 0.5;}
+    &.check-answer {
+        .btn-skip-text {display: none;}
+        .btn-check-text {display: inline;}
+    }
+}
+
+.quiz-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.quiz-container {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.progress {
+    width: 100%;
+    height: 4rem;
+    flex-shrink: 0;
+}
+
+.sections-container {
+    flex-grow: 1;
+    height: calc(100% - 4rem);
+    position: relative;
+}
+
+section {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    display: none;
+    opacity: 0;
+
+    &.active {display: flex; opacity: 1;}
+}
+
+.section-content {
+    padding: 1.5rem;
+}
+
+.section-controls {
+    height: 4rem;
+    display: flex;
+}
+
+.challenger {
+    padding: 0.5rem;
+    background-color: lightgrey;
+}
+
+.q-choice-set {
+    fieldset {
+        display: flex;
+        padding: 0;
+        border: 0;
+        margin-bottom: 1rem;
+    }
+}
+
+.q-choice {
+    display: block;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0.5625rem;
+}
+
+label {
+    display: block;
+}
