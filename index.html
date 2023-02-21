@@ -19,9 +19,9 @@
                 </div>
             </div>
             <div class="sections-container">
-                <section class="active" sectype="start" id="s-start">
+                <section class="active" sectype="walkthrough" id="s-start">
                     <div class="section-content">
-                        <h1>Responsible Sports Betting: Quiz Challenge</h1>
+                        <h1>The Smart Play: <br>Responsible Betting <br>Quiz Challenge</h1>
                         <div class="challenger">
                             <div class="chal-label">
                                 Your Challenger
@@ -31,18 +31,31 @@
                                 <span class="chal-score">(500 points)</span>
                             </div>
                         </div>
-                        <input id="nickname" type="text" placeholder="Enter a nickname…">
                     </div>
                     <div class="section-controls">
-                        <button class="btn-nav btn-next disabled" id="btn-start">
+                        <button class="btn-nav btn-next"">
                             Get Started
                         </button>
                     </div>
                 </section>
 
-                <section sectype="instruction" id="s-instruction-00">
+                <section class="" sectype="text-input" id="s-nickname">
                     <div class="section-content">
-                        <h2>How to Play</h2>
+                        <input id="nickname" type="text" placeholder="Enter a nickname…">
+                    </div>
+                    <div class="section-controls">
+                        <button class="btn-nav btn-back">
+                            Back
+                        </button>
+                        <button class="btn-nav btn-next disabled" id="btn-nickname">
+                            How to Play
+                        </button>
+                    </div>
+                </section>
+
+                <section sectype="walkthrough" id="s-instruction-00">
+                    <div class="section-content">
+                        <h2>How to play</h2>
                         <p>Tap to choose your answer. Tap again (and again) to raise the stakes!</p>
                     </div>
                     <div class="section-controls">
@@ -53,9 +66,9 @@
                     </div>
                 </section>
 
-                <section sectype="instruction" id="s-instruction-01">
+                <section sectype="walkthrough" id="s-instruction-01">
                     <div class="section-content">
-                        <h2>How to Play</h2>
+                        <h2>How to play</h2>
                         <p>If you're right, you win points! If you're wrong, you lose points :(</p>
                     </div>
                     <div class="section-controls">
@@ -91,51 +104,6 @@
                             Start Quiz
                         </button>
                     </div>
-                </section>
-
-                <section class="" sectype="question">
-                    <div class="section-content">
-                        <div class="q-question">
-                            <h2>What is problem gambling?</h2>
-                        </div>
-                        <div class="q-choice-set">
-                            <fieldset>
-                                <input class="q-choice" type="radio" name="problem-gambling">
-                                <label>Gambling activity that has a negative impact on the gambler’s life</label>
-                            </fieldset>
-                            <fieldset>
-                                <input class="q-choice" type="radio" name="problem-gambling">
-                                <label>An addictive form of gambling involving solving complex puzzles</label>
-                            </fieldset>
-                            <fieldset>
-                                <input class="q-choice" type="radio" name="problem-gambling">
-                                <label>The technical term for gambling addiction in the DSM-5</label>
-                            </fieldset>
-                            <fieldset>
-                                <input class="q-choice" type="radio" name="problem-gambling">
-                                <label>Excessive gambling due to the gambler’s inability to control their urges</label>
-                            </fieldset>
-                        </div>
-                    </div>
-                    <div class="section-controls">
-                        <button class="btn-nav btn-back">Back</button>
-                        <button class="btn-nav btn-next">
-                            <span class="btn-skip-text">Skip</span>
-                            <span class="btn-check-text">Check Answer</span>
-                        </button>
-                    </div>
-                </section>
-                <section sectype="answer">
-                    <div class="section-content">
-
-                        <div class="a-your">
-                        </div>
-                        <div class="a-correct">
-                        </div>
-                    </div>
-                </section>
-
-                <section sectype="end">
                 </section>
             </div>
         </div>
