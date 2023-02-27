@@ -75,7 +75,9 @@ let questionData = [
         ],
         answerCorrect: 3,
         answerRandomize: true,
-        answerExplain: ""
+        answerExplain: "",
+        buttonName: "",
+        buttonLink: ""
     */
     {
         type: "radio",
@@ -89,7 +91,7 @@ let questionData = [
         ],
         answerCorrect: 0,
         answerRandomize: true,
-        answerExplain: ""
+        answerExplain: "Test answer explanation"
     },
     {
         type: "radio",
@@ -191,7 +193,7 @@ function shuffleArray(array) { // shuffle items in array
     return array;
 }
 
-function addQSection(qObj) {
+function addQSection(qObj) { // add question section
 
     // Answer choices
     let qFieldsets = new Array();
@@ -226,7 +228,7 @@ function addQSection(qObj) {
     qContent.appendChild(qChoiceSet);  
 
     // Navigation controls
-    let qControls = '<div class="section-controls"><button class="btn-nav btn-back">Back</button><button class="btn-nav btn-next"><span class="btn-skip-text">Skip</span><span class="btn-check-text">Check Answer</span></button></div>';
+    let qControls = '<div class=section-controls><div class=controls-wager><h3>Your Bet</h3><div class=wager-fields><fieldset><label>Wager</label><input class=input-wager value=100 max=500 min=100></fieldset><fieldset><label>To Win</label><input class=input-payout value=200><fieldset></div><fieldset><input class=slider-wager value=100 max=500 min=100 type=range></fieldset></div><div class=controls-nav><button class="btn-nav btn-back">Back</button> <button class="btn-nav btn-next"><span class=btn-skip-text>Skip</span> <span class=btn-check-text>Check Answer</span></button></div></div>';
     
     // Section container
     let qSection = document.createElement("section");

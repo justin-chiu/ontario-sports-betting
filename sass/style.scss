@@ -1,3 +1,7 @@
+$vp-padding: 1.5rem;
+$default-margin: 1rem;
+
+
 * {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
@@ -10,9 +14,14 @@ body {
     height: 100vh;
 }
 
-h1, h2, p, .challenger {
+
+
+
+// ELEMENTS
+
+h1, h2, h3, p, .challenger {
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: $default-margin;
 }
 
 h2 {
@@ -32,6 +41,24 @@ button {
     }
 }
 
+fieldset {
+    border: none;
+    padding: 0;
+}
+
+input {
+    width: 100%;
+    margin: 0;
+}
+
+label {
+    display: block;
+}
+
+
+
+// CONTAINERS
+
 .quiz-wrapper {
     width: 100%;
     height: 100%;
@@ -49,8 +76,29 @@ button {
 
 .progress {
     width: 100%;
-    height: 4rem;
+    height: 6rem;
     flex-shrink: 0;
+}
+
+.progress-bar {
+    height: 0.5rem;
+    background-color: lightgrey;
+}
+
+.progress-indicator {
+    height: 100%;
+    width: 20%;
+    background-color: grey;
+}
+
+.progress-content {
+    padding: $vp-padding;
+    display: flex;
+    justify-content: space-between;
+}
+
+.progress-content-right {
+    text-align: right;
 }
 
 .sections-container {
@@ -74,35 +122,56 @@ section {
 }
 
 .section-content {
-    padding: 1.5rem;
+    padding: $vp-padding;
 }
 
 .section-controls {
-    height: 4rem;
-    display: flex;
 }
 
-.challenger {
-    padding: 0.5rem;
-    background-color: lightgrey;
+.controls-wager {
+    padding: $vp-padding;
+    border-top: 1px solid black;
+
+    > *:not(:last-child) {margin-bottom: $default-margin;}
+
 }
+
+.wager-fields {
+    display: flex;
+    fieldset {flex-grow: 1;}
+}
+
+.slider-wager {
+
+}
+
+.controls-nav {
+    display: flex;
+    height: 4rem;
+}
+
+
+
+// QUESTION
 
 .q-choice-set {
-    fieldset {
-        display: flex;
-        padding: 0;
-        border: 0;
-        margin-bottom: 1rem;
-    }
+    > * {margin-bottom: $default-margin;}
+    fieldset {display: flex;}
 }
 
 .q-choice {
     display: block;
+    width: auto;
     margin-top: 0;
     margin-left: 0;
-    margin-right: 0.5625rem;
+    margin-right: 0.675rem;
 }
 
-label {
-    display: block;
+
+
+// SPECIAL
+
+.challenger {
+    padding: 0.5rem;
+    background-color: lightgrey;
 }

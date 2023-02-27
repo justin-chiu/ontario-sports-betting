@@ -14,12 +14,22 @@
         <div class="quiz-container">
             <div class="progress">
                 <div class="progress-bar">
+                    <div class="progress-indicator">
+                    </div>
                 </div>
-                <div class="section-number">
+                <div class="progress-content">
+                    <div class="progress-content-left">
+                        <div><b>Question</b></div>
+                        <div><span class="current-q">1</span>/<span class="total-q">15</span></div>
+                    </div>
+                    <div class="progress-content-right">
+                        <div><b><span class="your-nickname">You</span> <span class="your-score">3000</span></b></div>
+                        <div><span class="chal-nickname">Maxim</span> <span class="chal-score">3000</span></div>
+                    </div>
                 </div>
             </div>
             <div class="sections-container">
-                <section class="active" sectype="walkthrough" id="s-start">
+                <section class="" sectype="walkthrough" id="s-start">
                     <div class="section-content">
                         <h1>The Smart Play: <br>Responsible Betting <br>Quiz Challenge</h1>
                         <div class="challenger">
@@ -33,76 +43,42 @@
                         </div>
                     </div>
                     <div class="section-controls">
-                        <button class="btn-nav btn-next"">
-                            Get Started
-                        </button>
+                        <div class="controls-nav">
+                            <button class="btn-nav btn-next"">
+                                Get Started
+                            </button>
+                        </div>
                     </div>
                 </section>
 
                 <section class="" sectype="text-input" id="s-nickname">
                     <div class="section-content">
-                        <input id="nickname" type="text" placeholder="Enter a nickname…">
+                        <h2>Enter a nickname</h2>
+                        <input id="nickname" type="text">
                     </div>
                     <div class="section-controls">
-                        <button class="btn-nav btn-back">
-                            Back
-                        </button>
-                        <button class="btn-nav btn-next disabled" id="btn-nickname">
-                            How to Play
-                        </button>
-                    </div>
-                </section>
-
-                <section sectype="walkthrough" id="s-instruction-00">
-                    <div class="section-content">
-                        <h2>How to play</h2>
-                        <p>Tap to choose your answer. Tap again (and again) to raise the stakes!</p>
-                    </div>
-                    <div class="section-controls">
-                        <button class="btn-nav btn-back">Back</button>
-                        <button class="btn-nav btn-next">
-                            Next
-                        </button>
-                    </div>
-                </section>
-
-                <section sectype="walkthrough" id="s-instruction-01">
-                    <div class="section-content">
-                        <h2>How to play</h2>
-                        <p>If you're right, you win points! If you're wrong, you lose points :(</p>
-                    </div>
-                    <div class="section-controls">
-                        <button class="btn-nav btn-back">Back</button>
-                        <button class="btn-nav btn-next">
-                            Next
-                        </button>
-                    </div>
-                </section>
-
-
-                <section sectype="question-required" id="s-difficulty">
-                    <div class="section-content">
-                        <div class="q-question">
-                            <h2>Are you familiar with sports betting?</h2>
-                        </div>
-                        <div class="q-choice-set">
-                            <fieldset>
-                                <input class="q-choice" type="radio" name="difficulty" >
-                                <label>I'm familiar</label>
-                            </fieldset>
-                            <fieldset>
-                                <input class="q-choice" type="radio" name="difficulty">
-                                <label>I'm not familiar</label>
-                            </fieldset>
+                        <div class="controls-nav">
+                            <button class="btn-nav btn-back">
+                                Back
+                            </button>
+                            <button class="btn-nav btn-next disabled" id="btn-nickname">
+                                How to Play
+                            </button>
                         </div>
                     </div>
+                </section>
+                <section sectype="walkthrough" id="s-instruction-00" class="active">
+                    <div class="section-content">
+                        <h2>How to play</h2>
+                        <p>Instructions lorem ipsum dolor sit amet</p>
+                    </div>
                     <div class="section-controls">
-                        <button class="btn-nav btn-back">
-                            Back
-                        </button>
-                        <button class="btn-nav btn-next disabled">
-                            Start Quiz
-                        </button>
+                        <div class="controls-nav">
+                            <button class="btn-nav btn-back">Back</button>
+                            <button class="btn-nav btn-next">
+                                Next
+                            </button>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -110,5 +86,4 @@
     </div>
     <script src="js/scripts.js"></script>
 </body>
-
 </html>
