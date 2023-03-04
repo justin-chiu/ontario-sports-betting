@@ -43,11 +43,11 @@ let sectionData = [ // section types and rules for navigation forward/backward f
         approval: function (sectionTgt) { // check if answer choice has been selected
             let sectionRadioChoices = sectionTgt.querySelectorAll(".q-choice");
             let choicePicked = false;
-            sectionRadioChoices.forEach(function (choice) {
-                if (choice.checked) {
-                    choicePicked = true;
-                }
-            });
+            // sectionRadioChoices.forEach(function (choice) {
+            //     if (choice.checked) {
+            //         choicePicked = true; // if answer selected, approve navigation to next section
+            //     }
+            // });
 
             if (!choicePicked) {
                 if (confirm("Are you sure you want to leave this question blank?")) {
@@ -67,6 +67,7 @@ let questionData = [
         type: "radio",
         question: "",
         slug: "",
+        img: "",
         answers: [
             "",
             "",
@@ -77,12 +78,13 @@ let questionData = [
         answerRandomize: true,
         answerExplain: "",
         buttonName: "",
-        buttonLink: ""
+        buttonLink: "",
     */
     {
         type: "radio",
         question: "What is problem gambling?",
         slug: "problem-gambling",
+        img: "",
         answers: [
             "Gambling activity that has a negative impact on the gambler’s life",
             "An addictive form of gambling involving solving complex puzzles",
@@ -97,6 +99,7 @@ let questionData = [
         type: "radio",
         question: "Which of the following statements is true?",
         slug: "gambling-beliefs",
+        img: "",
         answers: [
             "Betting is a good way to earn extra cash if you are skilled and knowledgeable enough",
             "Near misses mean that you were close to winning",
@@ -119,7 +122,7 @@ function goNext(sectionTgt) { // navigate forward
     let sectionNext = sectionTgt.nextElementSibling;
     sectionNext.classList.add("active");
 
-    console.log("next triggered");
+    return "next triggered";
 }
 
 function goPrevious(sectionTgt) { // navigate backward
@@ -131,7 +134,7 @@ function goPrevious(sectionTgt) { // navigate backward
     let sectionPrev = sectionTgt.previousElementSibling;
     sectionPrev.classList.add("active");
 
-    console.log("back triggered");
+    return "back triggered";
 }
 
 function tapNavButton(e) { // whenever the navigation buttons are tapped
@@ -145,15 +148,18 @@ function tapNavButton(e) { // whenever the navigation buttons are tapped
         return obj.sectype === sectionTgt.getAttribute("sectype");
     })
 
-    if (e.currentTarget.classList.contains("btn-next")) {
+    if (e.currentTarget.classList.contains("btn-next")) { // button next
 
         approved = sectionObj.approval(sectionTgt); // running approval function to see whether navigation is allowed
-
+        
         if (approved) {
             console.log(goNext(sectionTgt)); // navigate forward
+
+        } else if (e.currentTarget.classList.contains("check-answer")) {
+            console.log(checkAnswer(sectionTgt));
         }
 
-    } else if (e.currentTarget.classList.contains("btn-back")) {
+    } else if (e.currentTarget.classList.contains("btn-back")) { // button back
         console.log(goPrevious(sectionTgt)); // navigate backward
     }
 }
@@ -233,6 +239,9 @@ function addQSection(qObj) { // add question section
     // Section container
     let qSection = document.createElement("section");
     qSection.setAttribute("sectype", "question");
+    qSection.setAttribute("attempts", "0");
+    qSection.classList.add(qObj.type);
+    qSection.id = qObj.slug;
     qSection.appendChild(qContent); // add question content
     qSection.innerHTML += qControls; // add standard controls
 
@@ -240,6 +249,63 @@ function addQSection(qObj) { // add question section
     let container = quiz.querySelector(".sections-container");
     container.appendChild(qSection);
 
+}
+
+
+function checkAnswer(sectionTgt = quiz.querySelector(".active")) { // takes sectionTgt, returns true if answer is correct
+    let correct = false;
+
+    let qObj = questionData.find(obj => { // find questionData obj for the section
+        return obj.slug === sectionTgt.id; // id is questionData[#].slug
+    });
+
+    let ansChoices = sectionTgt.querySelectorAll("input"); // get answerChoice inputs
+
+    sectionTgt.setAttribute(""  )
+
+    if (sectionTgt.classList.contains("radio")) { // if question is single-answer
+        ansChoices.forEach(function (choice) {
+
+            // set to true if the choice selected has ansindex that matches correct answer
+
+            if (choice.checked == true && choice.getAttribute("ansindex") == qObj.answerCorrect) {
+                correct = true;
+            } 
+        });
+    }
+    
+    return correct;
+}
+
+
+
+let yourScore = 0; // total score
+let yourStreak = 0; // answer streak
+
+function updateScore(timeGiven, timeLeft, streak = 0, attempts = 1, boost = false) { // answer scoring scheme
+
+    let pointsValue = 200; // minimum points if player answers correct
+    let timePoints = 200; // points amount that changes based on how fast player answers
+    let streakMultiply = 1.5;
+    let boostMultiply = 1.5;
+
+    if (attempts <= 1) {
+        pointsValue += timeLeft/timeGiven * timePoints; // subtract points based on time taken to answer question
+        pointsValue *= Math.pow(streakMultiply, streak); // multiplies for every consecutive correct answer
+        if (boost) {pointsValue *= boostMultiply;} // boost
+
+    } else {
+        pointsValue /= attempts; // divided by number of attempts taken to get question correct
+    }
+
+    pointsValue = Math.round(pointsValue); // round
+
+    console.log("Old score: " + yourScore);
+    console.log("Points added: " + pointsValue);
+
+    yourScore += pointsValue; // add to overall score
+
+    console.log("Current score: " + yourScore);
 }
 
 // add all question sections
