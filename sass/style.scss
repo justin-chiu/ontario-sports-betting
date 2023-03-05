@@ -32,6 +32,7 @@ button {
     flex-grow: 1;
     margin: 0;
     .btn-check-text {display: none;}
+    .btn-next-text {display: none;}
 
     &.btn-back {flex-grow: 0; width: 4rem;}
     &.disabled {opacity: 0.5;}
@@ -39,6 +40,11 @@ button {
         .btn-skip-text {display: none;}
         .btn-check-text {display: inline;}
     }
+    &.continue {
+        .btn-skip-text {display: none;}
+        .btn-next-text {display: inline;}
+    }
+
 }
 
 fieldset {
@@ -78,11 +84,19 @@ label {
     width: 100%;
     height: 6rem;
     flex-shrink: 0;
+    padding: $vp-padding;
+
+    &.disabled {
+        .progress-indicator {opacity: 0;}
+        .progress-content {opacity: 0;}
+    }
+
 }
 
 .progress-bar {
     height: 0.5rem;
     background-color: lightgrey;
+    margin-bottom: $default-margin;
 }
 
 .progress-indicator {
@@ -92,7 +106,6 @@ label {
 }
 
 .progress-content {
-    padding: $vp-padding;
     display: flex;
     justify-content: space-between;
 }
@@ -119,14 +132,46 @@ section {
     opacity: 0;
 
     &.active {display: flex; opacity: 1;}
+
+    &.answer {
+        fieldset {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    }
 }
 
 .section-content {
     padding: $vp-padding;
+    overflow-x: none;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {display: none;}
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
 }
 
 .section-controls {
+    position: relative;
 }
+
+.controls-powerups {
+    position: absolute;
+    width: 100%;
+    padding: 0 $vp-padding;
+    top: 0;
+    left: 0;
+    transform: translateY(-3rem);
+
+    display: none;
+    justify-content: center;
+
+    &.show {display: flex;}
+
+    button {flex-grow: 0;}
+}
+
 
 .controls-wager {
     padding: $vp-padding;

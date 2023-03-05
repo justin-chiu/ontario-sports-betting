@@ -1,10 +1,10 @@
 let quiz = document.querySelector(".quiz-container");
+let progress = document.querySelector(".progress");
 
 let sectionData = [ // section types and rules for navigation forward/backward from each type
     // sectype == type of section [start, end, instruction, question]
     // approval == function that determines whether conditions are met to navigate back/forward
-    {
-        sectype: "text-input",
+    {   sectype: "text-input",
         approval: function () { // check if nickname field is filled
             if (nickname.value.length == 0) {
                 alert("Choose a nickname and we'll get started!");
@@ -14,14 +14,12 @@ let sectionData = [ // section types and rules for navigation forward/backward f
             }
         },
     },
-    {
-        sectype: "walkthrough",
+    {   sectype: "walkthrough",
         approval: function () {
             return true;
         }
     },
-    {
-        sectype: "question-required",
+    {   sectype: "question-required",
         approval: function (sectionTgt) {
             let sectionRadioChoices = sectionTgt.querySelectorAll(".q-choice");
             let choicePicked = false;
@@ -38,35 +36,44 @@ let sectionData = [ // section types and rules for navigation forward/backward f
             return choicePicked;
         }
     },
-    {
-        sectype: "question",
+    {   sectype: "question",
         approval: function (sectionTgt) { // check if answer choice has been selected
+
             let sectionRadioChoices = sectionTgt.querySelectorAll(".q-choice");
             let choicePicked = false;
-            // sectionRadioChoices.forEach(function (choice) {
-            //     if (choice.checked) {
-            //         choicePicked = true; // if answer selected, approve navigation to next section
-            //     }
-            // });
+            sectionRadioChoices.forEach(function (choice) {
+                if (choice.checked) {
+                    choicePicked = true; // if answer selected, approve navigation to next section
+                }
+            });
 
-            if (!choicePicked) {
+            if (!choicePicked) { // if no radio button on checkbox is checked
+                
+                // confirm that player wants to leave question blank
                 if (confirm("Are you sure you want to leave this question blank?")) {
                     return true;
                 } else {
-                    return false;
+                    return false; // do not approve navigation
                 }
-            } else {
-                return choicePicked;
+            } else { // if radio button or checkbox is checked
+                if (!sectionTgt.classList.contains("answer")) { // if answer has not been revealed
+                    checkAnswer(sectionTgt);
+                    return false; // do not approve navigation
+                } else { // if answer has been revealed
+                    return true; // approve navigation forward
+                }
+
             }
         }
     }
 ]
 
-let questionData = [
+let questionData = [ // questions and answers
     /*
         type: "radio",
         question: "",
         slug: "",
+        duration: 60,
         img: "",
         answers: [
             "",
@@ -77,14 +84,13 @@ let questionData = [
         answerCorrect: 3,
         answerRandomize: true,
         answerExplain: "",
-        buttonName: "",
-        buttonLink: "",
+        linkName: "",
+        linkURL: ""
     */
-    {
+    {   slug: "problem-gambling",
         type: "radio",
+        duration: 90,
         question: "What is problem gambling?",
-        slug: "problem-gambling",
-        img: "",
         answers: [
             "Gambling activity that has a negative impact on the gambler’s life",
             "An addictive form of gambling involving solving complex puzzles",
@@ -93,13 +99,14 @@ let questionData = [
         ],
         answerCorrect: 0,
         answerRandomize: true,
-        answerExplain: "Test answer explanation"
+        answerExplain: "Test answer explanation",
+        linkName: "Test link",
+        linkURL: "https://google.ca"
     },
-    {
+    {   slug: "gambling-beliefs",
         type: "radio",
+        duration: 60,
         question: "Which of the following statements is true?",
-        slug: "gambling-beliefs",
-        img: "",
         answers: [
             "Betting is a good way to earn extra cash if you are skilled and knowledgeable enough",
             "Near misses mean that you were close to winning",
@@ -112,6 +119,13 @@ let questionData = [
     }
 ]
 
+let totalQs = questionData.length; // number of questions in quiz
+
+
+
+
+
+// NAVIGATION
 
 function goNext(sectionTgt) { // navigate forward
 
@@ -121,6 +135,9 @@ function goNext(sectionTgt) { // navigate forward
     // show next section
     let sectionNext = sectionTgt.nextElementSibling;
     sectionNext.classList.add("active");
+
+    // update progress elements
+    setProgress(sectionNext);
 
     return "next triggered";
 }
@@ -133,6 +150,9 @@ function goPrevious(sectionTgt) { // navigate backward
     // show previous section
     let sectionPrev = sectionTgt.previousElementSibling;
     sectionPrev.classList.add("active");
+
+    // update progress elements
+    setProgress(sectionPrev);
 
     return "back triggered";
 }
@@ -154,9 +174,6 @@ function tapNavButton(e) { // whenever the navigation buttons are tapped
         
         if (approved) {
             console.log(goNext(sectionTgt)); // navigate forward
-
-        } else if (e.currentTarget.classList.contains("check-answer")) {
-            console.log(checkAnswer(sectionTgt));
         }
 
     } else if (e.currentTarget.classList.contains("btn-back")) { // button back
@@ -165,11 +182,148 @@ function tapNavButton(e) { // whenever the navigation buttons are tapped
 }
 
 function enableButton(e) { // removes "disabled" class, add "check-answer" class
+
+    // enable button and change to check-answer
     let sectionTgt = e.currentTarget.closest("section");
-    let sectionBtn = sectionTgt.querySelector(".btn-next");
-    sectionBtn.classList.remove("disabled");
-    sectionBtn.classList.add("check-answer");
+    let nextBtn = sectionTgt.querySelector(".btn-next");
+    nextBtn.classList.remove("disabled");
+    nextBtn.classList.add("check-answer");
+
+    // show powerups
+    let powerups = sectionTgt.querySelector(".controls-powerups");
+    powerups.classList.add("show");
 }
+
+function checkAnswer(sectionTgt) { // evaluates answer, presents answer explanation, and updates score
+
+    clearInterval(timerInterval);
+
+    let qObj = getQObj(sectionTgt);
+    let correct = evalAnswer(sectionTgt);
+
+    if (correct) {
+        updateScore(qObj.duration, timeRemain, yourStreak);
+    }
+
+    presentAnswer(sectionTgt);
+}
+
+
+
+
+
+
+// STATUS
+
+
+let timeRemain; // time in seconds
+let minutes; // minutes integer
+let seconds; // seconds integer
+
+let timerInterval; // interval function goes here
+let timerMinutes = progress.querySelector(".timer-minutes"); // minutes string
+let timerSeconds = progress.querySelector(".timer-seconds"); // seconds string
+
+function startTimer(duration) {
+
+    clearInterval(timerInterval);
+
+    minutes = Math.floor(duration / 60);
+    seconds = duration % 60;
+    timeRemain = duration;
+    timerMinutes.innerText = minutes;
+    timerSeconds.innerText = addZeroes(seconds); // adding leading zeroes
+
+    timerInterval = setInterval(function () {
+
+        if (seconds > 0 && seconds <= 59) {
+            seconds --;
+        } else if (seconds == 0) {
+            if (minutes > 0) {
+                minutes --;
+                seconds = 59;
+            }
+        }
+
+        if (timeRemain > 0) {
+            timeRemain--;
+        }
+
+        timerMinutes.innerText = minutes;
+        timerSeconds.innerText = addZeroes(seconds);
+
+    }, 1000);
+}
+
+function setProgress(sectionTgt) { // sets progress bar and indicators
+
+    if (sectionTgt.getAttribute("sectype") == "question") {
+
+        let qObj = getQObj(sectionTgt);
+
+        // show progress elements
+        progress.classList.remove("disabled");
+
+        // set progress indicator
+        let indicator = progress.querySelector(".progress-indicator");
+        indicator.style.width = (100 * (sectionTgt.getAttribute("qnum") - 1) / totalQs) + "%";
+
+        // start timer
+
+        if (!sectionTgt.classList.contains("answer")) {
+            startTimer(qObj.duration);
+        }
+
+    } else {
+        // hide progress elements
+        progress.classList.add("disabled");
+    }
+}
+
+
+
+
+
+
+// UTILITY
+
+function shuffleArray(array) { // shuffle items in array
+
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+
+    return array;
+}
+
+function getQObj(sectionTgt) {
+    let qObj = questionData.find(obj => { // find questionData obj for the section
+        return obj.slug === sectionTgt.id; // id is questionData[#].slug
+    });
+
+    return qObj;
+}
+
+function addZeroes(input, digits = 2) {
+
+    let zeroes = digits - input.toString().length;
+    let output = input.toString();
+
+    for (let i = 0; i < zeroes; i++) {
+        output = "0" + output;
+    }
+
+    return output;
+
+}
+
+
+
+
+
+
+// CONTENT
 
 function createFieldset(type, slug, ansChoice, ansIndex) {
     
@@ -189,17 +343,7 @@ function createFieldset(type, slug, ansChoice, ansIndex) {
     return fieldset;
 }
 
-function shuffleArray(array) { // shuffle items in array
-
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-
-    return array;
-}
-
-function addQSection(qObj) { // add question section
+function addQSection(qObj, qIndex) { // add question section
 
     // Answer choices
     let qFieldsets = new Array();
@@ -234,12 +378,14 @@ function addQSection(qObj) { // add question section
     qContent.appendChild(qChoiceSet);  
 
     // Navigation controls
-    let qControls = '<div class=section-controls><div class=controls-wager><h3>Your Bet</h3><div class=wager-fields><fieldset><label>Wager</label><input class=input-wager value=100 max=500 min=100></fieldset><fieldset><label>To Win</label><input class=input-payout value=200><fieldset></div><fieldset><input class=slider-wager value=100 max=500 min=100 type=range></fieldset></div><div class=controls-nav><button class="btn-nav btn-back">Back</button> <button class="btn-nav btn-next"><span class=btn-skip-text>Skip</span> <span class=btn-check-text>Check Answer</span></button></div></div>';
+    let qControls = '<div class=section-controls><div class=controls-powerups><button class=powerup-boost>Boost</button></div><div class=controls-nav><button class="btn-nav btn-back">Back</button> <button class="btn-nav btn-next"><span class=btn-skip-text>Skip</span><span class=btn-check-text>Check Answer</span><span class=btn-next-text>Next</span></button></div></div>';
     
     // Section container
     let qSection = document.createElement("section");
     qSection.setAttribute("sectype", "question");
-    qSection.setAttribute("attempts", "0");
+    qSection.setAttribute("qnum", (qIndex + 1));
+    qSection.setAttribute("duration", qObj.duration);
+    // qSection.setAttribute("attempts", "0");
     qSection.classList.add(qObj.type);
     qSection.id = qObj.slug;
     qSection.appendChild(qContent); // add question content
@@ -251,17 +397,54 @@ function addQSection(qObj) { // add question section
 
 }
 
+function presentAnswer(sectionTgt = quiz.querySelector(".active")) {
 
-function checkAnswer(sectionTgt = quiz.querySelector(".active")) { // takes sectionTgt, returns true if answer is correct
+    let qObj = getQObj(sectionTgt);
+
+    // create nodes and add answer explanation from questionData obj
+
+    let ansExplain = document.createElement("p");
+    ansExplain.innerText = qObj.answerExplain;
+
+    let ansLink;
+    if (qObj.linkName && qObj.linkURL) {
+        ansLink = document.createElement("a");
+        ansLink.setAttribute("href", qObj.linkURL);
+        ansLink.setAttribute("target", "_blank");
+        ansLink.innerText = qObj.linkName;
+    }
+
+    let ansContainer = document.createElement("div");
+    ansContainer.classList.add("q-answer");
+    ansContainer.appendChild(ansExplain);
+    if (ansLink !== undefined && ansLink !== null) {ansContainer.appendChild(ansLink);}
+
+    let sectionContent = sectionTgt.querySelector(".section-content");
+    sectionContent.appendChild(ansContainer);
+
+    // change button from "check-answer" to "continue" class
+
+    let nextBtn = sectionTgt.querySelector(".btn-next");
+    nextBtn.classList.remove("check-answer");
+    nextBtn.classList.add("continue");
+
+    // add class "answer" to indicate that answer has been revealed
+
+    sectionTgt.classList.add("answer");
+}
+
+
+
+
+
+// SCORING
+
+function evalAnswer (sectionTgt = quiz.querySelector(".active")) { // takes sectionTgt, returns true if answer is correct
     let correct = false;
 
-    let qObj = questionData.find(obj => { // find questionData obj for the section
-        return obj.slug === sectionTgt.id; // id is questionData[#].slug
-    });
+    let qObj = getQObj(sectionTgt);
 
     let ansChoices = sectionTgt.querySelectorAll("input"); // get answerChoice inputs
-
-    sectionTgt.setAttribute(""  )
 
     if (sectionTgt.classList.contains("radio")) { // if question is single-answer
         ansChoices.forEach(function (choice) {
@@ -273,11 +456,15 @@ function checkAnswer(sectionTgt = quiz.querySelector(".active")) { // takes sect
             } 
         });
     }
-    
+
+    if (correct) {
+        console.log("answer correct");
+    } else {
+        console.log("answer incorrect");
+    }
+
     return correct;
 }
-
-
 
 let yourScore = 0; // total score
 let yourStreak = 0; // answer streak
@@ -300,17 +487,27 @@ function updateScore(timeGiven, timeLeft, streak = 0, attempts = 1, boost = fals
 
     pointsValue = Math.round(pointsValue); // round
 
-    console.log("Old score: " + yourScore);
-    console.log("Points added: " + pointsValue);
+    console.log("old score: " + yourScore);
+    console.log("points added: " + pointsValue);
 
     yourScore += pointsValue; // add to overall score
 
-    console.log("Current score: " + yourScore);
+    console.log("current score: " + yourScore);
+
+    let totalScore = progress.querySelector(".total-score");
+    totalScore.innerText = yourScore; 
 }
 
+
+
+
+
+
+// RUNNING...
+
 // add all question sections
-questionData.forEach(function (qObj) {
-    addQSection(qObj);
+questionData.forEach(function (qObj, qIndex) {
+    addQSection(qObj, qIndex);
 });
 
 let navButtons = quiz.querySelectorAll(".btn-nav");
