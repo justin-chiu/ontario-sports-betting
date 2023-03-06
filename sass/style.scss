@@ -1,6 +1,12 @@
+// VARIABLES
+
 $vp-padding: 1.5rem;
 $default-margin: 1rem;
 
+
+
+
+// BASE
 
 * {
     box-sizing: border-box;
@@ -13,6 +19,8 @@ body {
     width: 100vw;
     height: 100vh;
 }
+
+
 
 
 
@@ -61,7 +69,10 @@ label {
     display: block;
 }
 
-
+figure {
+    margin: 0;
+    padding: 0;
+}
 
 // CONTAINERS
 
@@ -79,6 +90,14 @@ label {
     display: flex;
     flex-direction: column;
 }
+
+.sections-container {
+    flex-grow: 1;
+    height: calc(100% - 4rem);
+    position: relative;
+}
+
+// PROGRESS
 
 .progress {
     width: 100%;
@@ -114,11 +133,11 @@ label {
     text-align: right;
 }
 
-.sections-container {
-    flex-grow: 1;
-    height: calc(100% - 4rem);
-    position: relative;
-}
+
+
+
+
+// SECTION
 
 section {
     position: absolute;
@@ -134,8 +153,12 @@ section {
     &.active {display: flex; opacity: 1;}
 
     &.answer {
-        fieldset {
+        input, label {
             opacity: 0.5;
+            pointer-events: none;
+        }
+
+        fieldset {
             pointer-events: none;
         }
     }
@@ -151,6 +174,12 @@ section {
     scrollbar-width: none;
 
 }
+
+
+
+
+
+// CONTROLS
 
 .section-controls {
     position: relative;
@@ -197,11 +226,27 @@ section {
 
 
 
+
+
 // QUESTION
 
+.q-number {
+    width: fit-content;
+    margin-bottom: $default-margin;
+    padding: 0.5rem 0.75rem;
+    background-color: lightgrey;
+}
+
 .q-choice-set {
-    > * {margin-bottom: $default-margin;}
-    fieldset {display: flex;}
+
+    margin-bottom: $default-margin;
+
+    > *:not(:last-child) {margin-bottom: $default-margin;}
+}
+
+.q-fieldset {
+    display: flex;
+    position: relative;
 }
 
 .q-choice {
@@ -210,6 +255,29 @@ section {
     margin-top: 0;
     margin-left: 0;
     margin-right: 0.675rem;
+}
+
+.q-result-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    pointer-events: none;
+    width: 13px;
+    height: 13px;
+
+    &.correct-selected {
+        display: block;
+        background-color: green;
+    }
+    &.correct-blank {
+        display: block;
+        background-color: lightblue;
+    }
+    &.incorrect {
+        display: block;
+        background-color: salmon;
+    }
 }
 
 

@@ -1,5 +1,13 @@
+// STATIC DOM ELEMENTS
+
 let quiz = document.querySelector(".quiz-container");
 let progress = document.querySelector(".progress");
+
+
+
+
+
+// DATA
 
 let sectionData = [ // section types and rules for navigation forward/backward from each type
     // sectype == type of section [start, end, instruction, question]
@@ -20,8 +28,8 @@ let sectionData = [ // section types and rules for navigation forward/backward f
         }
     },
     {   sectype: "question-required",
-        approval: function (sectionTgt) {
-            let sectionRadioChoices = sectionTgt.querySelectorAll(".q-choice");
+        approval: function () {
+            let sectionRadioChoices = activeSection.querySelectorAll(".q-choice");
             let choicePicked = false;
             sectionRadioChoices.forEach(function (choice) {
                 if (choice.checked) {
@@ -37,15 +45,9 @@ let sectionData = [ // section types and rules for navigation forward/backward f
         }
     },
     {   sectype: "question",
-        approval: function (sectionTgt) { // check if answer choice has been selected
+        approval: function () { // check if answer choice has been selected
 
-            let sectionRadioChoices = sectionTgt.querySelectorAll(".q-choice");
-            let choicePicked = false;
-            sectionRadioChoices.forEach(function (choice) {
-                if (choice.checked) {
-                    choicePicked = true; // if answer selected, approve navigation to next section
-                }
-            });
+            let choicePicked = checkPicked(activeSection);
 
             if (!choicePicked) { // if no radio button on checkbox is checked
                 
@@ -56,8 +58,8 @@ let sectionData = [ // section types and rules for navigation forward/backward f
                     return false; // do not approve navigation
                 }
             } else { // if radio button or checkbox is checked
-                if (!sectionTgt.classList.contains("answer")) { // if answer has not been revealed
-                    checkAnswer(sectionTgt);
+                if (!activeSection.classList.contains("answer")) { // if answer has not been revealed
+                    checkAnswer(activeSection);
                     return false; // do not approve navigation
                 } else { // if answer has been revealed
                     return true; // approve navigation forward
@@ -89,7 +91,7 @@ let questionData = [ // questions and answers
     */
     {   slug: "problem-gambling",
         type: "radio",
-        duration: 90,
+        duration: 5,
         question: "What is problem gambling?",
         answers: [
             "Gambling activity that has a negative impact on the gambler’s life",
@@ -105,7 +107,7 @@ let questionData = [ // questions and answers
     },
     {   slug: "gambling-beliefs",
         type: "radio",
-        duration: 60,
+        duration: 5,
         question: "Which of the following statements is true?",
         answers: [
             "Betting is a good way to earn extra cash if you are skilled and knowledgeable enough",
@@ -125,167 +127,8 @@ let totalQs = questionData.length; // number of questions in quiz
 
 
 
-// NAVIGATION
 
-function goNext(sectionTgt) { // navigate forward
-
-    // hide current section
-    sectionTgt.classList.remove("active");
-
-    // show next section
-    let sectionNext = sectionTgt.nextElementSibling;
-    sectionNext.classList.add("active");
-
-    // update progress elements
-    setProgress(sectionNext);
-
-    return "next triggered";
-}
-
-function goPrevious(sectionTgt) { // navigate backward
-
-    // hide current section
-    sectionTgt.classList.remove("active");
-
-    // show previous section
-    let sectionPrev = sectionTgt.previousElementSibling;
-    sectionPrev.classList.add("active");
-
-    // update progress elements
-    setProgress(sectionPrev);
-
-    return "back triggered";
-}
-
-function tapNavButton(e) { // whenever the navigation buttons are tapped
-
-    console.log("button tapped");
-
-    let approved; // value == true if navigation back/forward is allowed
-    let sectionTgt = e.currentTarget.closest("section"); // button's parent section element
-    let sectionObj = sectionData.find(obj => { 
-        // getting approval function to determine whether navigation back/forward is allowed
-        return obj.sectype === sectionTgt.getAttribute("sectype");
-    })
-
-    if (e.currentTarget.classList.contains("btn-next")) { // button next
-
-        approved = sectionObj.approval(sectionTgt); // running approval function to see whether navigation is allowed
-        
-        if (approved) {
-            console.log(goNext(sectionTgt)); // navigate forward
-        }
-
-    } else if (e.currentTarget.classList.contains("btn-back")) { // button back
-        console.log(goPrevious(sectionTgt)); // navigate backward
-    }
-}
-
-function enableButton(e) { // removes "disabled" class, add "check-answer" class
-
-    // enable button and change to check-answer
-    let sectionTgt = e.currentTarget.closest("section");
-    let nextBtn = sectionTgt.querySelector(".btn-next");
-    nextBtn.classList.remove("disabled");
-    nextBtn.classList.add("check-answer");
-
-    // show powerups
-    let powerups = sectionTgt.querySelector(".controls-powerups");
-    powerups.classList.add("show");
-}
-
-function checkAnswer(sectionTgt) { // evaluates answer, presents answer explanation, and updates score
-
-    clearInterval(timerInterval);
-
-    let qObj = getQObj(sectionTgt);
-    let correct = evalAnswer(sectionTgt);
-
-    if (correct) {
-        updateScore(qObj.duration, timeRemain, yourStreak);
-    }
-
-    presentAnswer(sectionTgt);
-}
-
-
-
-
-
-
-// STATUS
-
-
-let timeRemain; // time in seconds
-let minutes; // minutes integer
-let seconds; // seconds integer
-
-let timerInterval; // interval function goes here
-let timerMinutes = progress.querySelector(".timer-minutes"); // minutes string
-let timerSeconds = progress.querySelector(".timer-seconds"); // seconds string
-
-function startTimer(duration) {
-
-    clearInterval(timerInterval);
-
-    minutes = Math.floor(duration / 60);
-    seconds = duration % 60;
-    timeRemain = duration;
-    timerMinutes.innerText = minutes;
-    timerSeconds.innerText = addZeroes(seconds); // adding leading zeroes
-
-    timerInterval = setInterval(function () {
-
-        if (seconds > 0 && seconds <= 59) {
-            seconds --;
-        } else if (seconds == 0) {
-            if (minutes > 0) {
-                minutes --;
-                seconds = 59;
-            }
-        }
-
-        if (timeRemain > 0) {
-            timeRemain--;
-        }
-
-        timerMinutes.innerText = minutes;
-        timerSeconds.innerText = addZeroes(seconds);
-
-    }, 1000);
-}
-
-function setProgress(sectionTgt) { // sets progress bar and indicators
-
-    if (sectionTgt.getAttribute("sectype") == "question") {
-
-        let qObj = getQObj(sectionTgt);
-
-        // show progress elements
-        progress.classList.remove("disabled");
-
-        // set progress indicator
-        let indicator = progress.querySelector(".progress-indicator");
-        indicator.style.width = (100 * (sectionTgt.getAttribute("qnum") - 1) / totalQs) + "%";
-
-        // start timer
-
-        if (!sectionTgt.classList.contains("answer")) {
-            startTimer(qObj.duration);
-        }
-
-    } else {
-        // hide progress elements
-        progress.classList.add("disabled");
-    }
-}
-
-
-
-
-
-
-// UTILITY
+// UTILITY FUNCTIONS
 
 function shuffleArray(array) { // shuffle items in array
 
@@ -297,7 +140,7 @@ function shuffleArray(array) { // shuffle items in array
     return array;
 }
 
-function getQObj(sectionTgt) {
+function getQObj(sectionTgt = activeSection) { // gets questionData object based on section DOM node
     let qObj = questionData.find(obj => { // find questionData obj for the section
         return obj.slug === sectionTgt.id; // id is questionData[#].slug
     });
@@ -305,7 +148,7 @@ function getQObj(sectionTgt) {
     return qObj;
 }
 
-function addZeroes(input, digits = 2) {
+function addZeroes(input, digits = 2) { // add leading zeroes to number
 
     let zeroes = digits - input.toString().length;
     let output = input.toString();
@@ -318,6 +161,203 @@ function addZeroes(input, digits = 2) {
 
 }
 
+function checkPicked() { // check if answer has been selected
+
+    let sectionRadioChoices = activeSection.querySelectorAll(".q-choice");
+    let choicePicked = false;
+    sectionRadioChoices.forEach(function (choice) {
+        if (choice.checked) {
+            choicePicked = true; // if answer selected, approve navigation to next section
+        }
+    });
+
+    return choicePicked;
+
+}
+
+
+
+
+
+// NAVIGATION
+
+function tapNavButton(e) { // whenever the navigation buttons are tapped
+
+    console.log("button tapped");
+
+    let approved; // value == true if navigation back/forward is allowed
+    let sectionObj = sectionData.find(obj => { 
+        // getting approval function to determine whether navigation back/forward is allowed
+        return obj.sectype === activeSection.getAttribute("sectype");
+    })
+
+    if (e.currentTarget.classList.contains("btn-next")) { // button next
+
+        approved = sectionObj.approval(); // running approval function to see whether navigation is allowed
+        
+        if (approved) {
+            console.log(goNext()); // navigate forward
+        }
+
+    } else if (e.currentTarget.classList.contains("btn-back")) { // button back
+        console.log(goPrevious()); // navigate backward
+    }
+}
+
+function goNext() { // navigate forward
+
+    // hide current section
+    activeSection.classList.remove("active");
+
+    // show next section
+    let sectionNext = activeSection.nextElementSibling;
+    sectionNext.classList.add("active");
+
+    // update activeSection and activeQObj
+    activeSection = sectionNext;
+    activeQObj = getQObj();
+
+    // update progress elements
+    setProgress();
+
+    return "next triggered";
+}
+
+function goPrevious() { // navigate backward
+
+    // hide current section
+    activeSection.classList.remove("active");
+
+    // show previous section
+    let sectionPrev = activeSection.previousElementSibling;
+    sectionPrev.classList.add("active");
+
+    // update activeSection and activeQObj
+    activeSection = sectionPrev;
+    activeQObj = getQObj();
+
+    // update progress elements
+    setProgress();
+
+    return "back triggered";
+}
+
+function enableButton(e) { // removes "disabled" class, add "check-answer" class
+
+    // enable button and change to check-answer
+    let nextBtn = activeSection.querySelector(".btn-next");
+    nextBtn.classList.remove("disabled");
+    nextBtn.classList.add("check-answer");
+
+    // show powerups
+    let powerups = activeSection.querySelector(".controls-powerups");
+    powerups.classList.add("show");
+}
+
+function checkAnswer() { // evaluates answer, presents answer explanation, and updates score
+
+    clearInterval(timerInterval);
+
+    let timeLeft = activeSection.getAttribute("timeleft");
+
+    if (evalAnswer()) {
+        updateScore(activeQObj.duration, timeLeft, yourStreak);
+    }
+
+    presentAnswer(activeSection);
+}
+
+function timeoutAnswer() { // evaluates answer, presents answer explanation, and updates score when timer times out
+
+    clearInterval(timerInterval);
+
+    let timeLeft = activeSection.getAttribute("timeleft");
+
+    if (evalAnswer()) {
+        updateScore(activeQObj.duration, timeLeft, yourStreak);
+    }
+
+    presentAnswer();
+}
+
+
+
+
+
+// STATUS
+
+let minutes; // minutes integer
+let seconds; // seconds integer
+
+let timerInterval; // interval function goes here
+let timerMinutes = progress.querySelector(".timer-minutes"); // minutes string
+let timerSeconds = progress.querySelector(".timer-seconds"); // seconds string
+
+function startTimer(timeLeft) {
+
+    clearInterval(timerInterval);
+
+    // counters
+    minutes = Math.floor(timeLeft / 60);
+    seconds = timeLeft % 60;
+
+    // inner text
+    timerMinutes.innerText = minutes;
+    timerSeconds.innerText = addZeroes(seconds); // adding leading zeroes
+
+    timerInterval = setInterval(function () {
+
+        // m:ss display
+
+        if (seconds > 0 && seconds <= 59) {
+            seconds --;
+        } else if (seconds == 0) {
+            if (minutes > 0) {
+                minutes --;
+                seconds = 59;
+            }
+        }
+
+        // counter
+
+        let timeLeft = activeSection.getAttribute("timeleft");
+
+        if (timeLeft > 0) {
+            activeSection.setAttribute("timeleft", (timeLeft - 1));
+        } else {
+            timeoutAnswer();
+        }
+
+        timerMinutes.innerText = minutes;
+        timerSeconds.innerText = addZeroes(seconds);
+
+    }, 1000);
+}
+
+function setProgress() { // sets progress bar and indicators
+
+    if (activeSection.getAttribute("sectype") == "question") {
+
+        // show progress elements
+        progress.classList.remove("disabled");
+
+        // set progress indicator
+        let indicator = progress.querySelector(".progress-indicator");
+        indicator.style.width = (100 * (activeSection.getAttribute("qnum") - 1) / totalQs) + "%";
+
+        // start timer
+        
+        let timeLeft = activeSection.getAttribute("timeleft");
+
+        if (!activeSection.classList.contains("answer")) {
+            startTimer(timeLeft);
+        }
+
+    } else {
+        // hide progress elements
+        progress.classList.add("disabled");
+    }
+}
 
 
 
@@ -336,9 +376,14 @@ function createFieldset(type, slug, ansChoice, ansIndex) {
     let label = document.createElement("label");
     label.innerText = ansChoice;
 
+    let resultIcon = document.createElement("figure");
+    resultIcon.classList.add("q-result-icon");
+
     let fieldset = document.createElement("fieldset");
+    fieldset.classList.add("q-fieldset");
     fieldset.appendChild(input);
     fieldset.appendChild(label);
+    fieldset.appendChild(resultIcon);
 
     return fieldset;
 }
@@ -367,8 +412,12 @@ function addQSection(qObj, qIndex) { // add question section
     // Question heading
     let qHeading = document.createElement("h2");
     qHeading.innerText = qObj.question;
+    let qNumber = document.createElement("div");
+    qNumber.classList.add("q-number");
+    qNumber.innerText = "Q" + (qIndex + 1);
     let qQuestion = document.createElement("div");
     qQuestion.classList.add("q-question");
+    qQuestion.appendChild(qNumber);
     qQuestion.appendChild(qHeading);
     
     // Question content container
@@ -384,8 +433,7 @@ function addQSection(qObj, qIndex) { // add question section
     let qSection = document.createElement("section");
     qSection.setAttribute("sectype", "question");
     qSection.setAttribute("qnum", (qIndex + 1));
-    qSection.setAttribute("duration", qObj.duration);
-    // qSection.setAttribute("attempts", "0");
+    qSection.setAttribute("timeleft", qObj.duration);
     qSection.classList.add(qObj.type);
     qSection.id = qObj.slug;
     qSection.appendChild(qContent); // add question content
@@ -397,21 +445,19 @@ function addQSection(qObj, qIndex) { // add question section
 
 }
 
-function presentAnswer(sectionTgt = quiz.querySelector(".active")) {
-
-    let qObj = getQObj(sectionTgt);
+function presentAnswer() {
 
     // create nodes and add answer explanation from questionData obj
 
     let ansExplain = document.createElement("p");
-    ansExplain.innerText = qObj.answerExplain;
+    ansExplain.innerText = activeQObj.answerExplain;
 
     let ansLink;
-    if (qObj.linkName && qObj.linkURL) {
+    if (activeQObj.linkName && activeQObj.linkURL) {
         ansLink = document.createElement("a");
-        ansLink.setAttribute("href", qObj.linkURL);
+        ansLink.setAttribute("href", activeQObj.linkURL);
         ansLink.setAttribute("target", "_blank");
-        ansLink.innerText = qObj.linkName;
+        ansLink.innerText = activeQObj.linkName;
     }
 
     let ansContainer = document.createElement("div");
@@ -419,18 +465,18 @@ function presentAnswer(sectionTgt = quiz.querySelector(".active")) {
     ansContainer.appendChild(ansExplain);
     if (ansLink !== undefined && ansLink !== null) {ansContainer.appendChild(ansLink);}
 
-    let sectionContent = sectionTgt.querySelector(".section-content");
+    let sectionContent = activeSection.querySelector(".section-content");
     sectionContent.appendChild(ansContainer);
 
     // change button from "check-answer" to "continue" class
 
-    let nextBtn = sectionTgt.querySelector(".btn-next");
+    let nextBtn = activeSection.querySelector(".btn-next");
     nextBtn.classList.remove("check-answer");
     nextBtn.classList.add("continue");
 
     // add class "answer" to indicate that answer has been revealed
 
-    sectionTgt.classList.add("answer");
+    activeSection.classList.add("answer");
 }
 
 
@@ -439,21 +485,28 @@ function presentAnswer(sectionTgt = quiz.querySelector(".active")) {
 
 // SCORING
 
-function evalAnswer (sectionTgt = quiz.querySelector(".active")) { // takes sectionTgt, returns true if answer is correct
+function evalAnswer () { // returns true if answer is correct
     let correct = false;
 
-    let qObj = getQObj(sectionTgt);
+    let ansChoices = activeSection.querySelectorAll("input"); // get answerChoice inputs
 
-    let ansChoices = sectionTgt.querySelectorAll("input"); // get answerChoice inputs
-
-    if (sectionTgt.classList.contains("radio")) { // if question is single-answer
+    if (activeSection.classList.contains("radio")) { // if question is single-answer
         ansChoices.forEach(function (choice) {
 
             // set to true if the choice selected has ansindex that matches correct answer
-
-            if (choice.checked == true && choice.getAttribute("ansindex") == qObj.answerCorrect) {
-                correct = true;
-            } 
+            if (choice.checked) {
+                if (choice.getAttribute("ansindex") == activeQObj.answerCorrect) {
+                    correct = true;
+                    let icon = choice.parentElement.querySelector(".q-result-icon");
+                    icon.classList.add("correct-selected");
+                } else {
+                    let icon = choice.parentElement.querySelector(".q-result-icon");
+                    icon.classList.add("incorrect");
+                }
+            } else if (choice.getAttribute("ansindex") == activeQObj.answerCorrect) {
+                let icon = choice.parentElement.querySelector(".q-result-icon");
+                icon.classList.add("correct-blank");
+            }
         });
     }
 
@@ -502,7 +555,6 @@ function updateScore(timeGiven, timeLeft, streak = 0, attempts = 1, boost = fals
 
 
 
-
 // RUNNING...
 
 // add all question sections
@@ -542,3 +594,6 @@ fieldsets.forEach(function (set) {
         enableButton(e);
     }
 })
+
+let activeSection = document.querySelector(".active");
+let activeQObj = getQObj(activeSection);
