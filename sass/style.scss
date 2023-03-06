@@ -280,6 +280,10 @@ section {
     }
 }
 
+.q-answer {
+    > *:not(:last-child) {margin-bottom: $default-margin;}
+}
+
 
 
 // SPECIAL

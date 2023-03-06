@@ -9,7 +9,7 @@ let progress = document.querySelector(".progress");
 
 // DATA
 
-let sectionData = [ // section types and rules for navigation forward/backward from each type
+let sectionApprovals = [ // section types and rules for navigation forward/backward from each type
     // sectype == type of section [start, end, instruction, question]
     // approval == function that determines whether conditions are met to navigate back/forward
     {   sectype: "text-input",
@@ -47,9 +47,10 @@ let sectionData = [ // section types and rules for navigation forward/backward f
     {   sectype: "question",
         approval: function () { // check if answer choice has been selected
 
-            let choicePicked = checkPicked(activeSection);
+            let choicePicked = checkPicked();
+            let ansRevealed = activeSection.classList.contains("answer");
 
-            if (!choicePicked) { // if no radio button on checkbox is checked
+            if (!choicePicked && !ansRevealed) { // if no radio button on checkbox is checked
                 
                 // confirm that player wants to leave question blank
                 if (confirm("Are you sure you want to leave this question blank?")) {
@@ -57,6 +58,7 @@ let sectionData = [ // section types and rules for navigation forward/backward f
                 } else {
                     return false; // do not approve navigation
                 }
+
             } else { // if radio button or checkbox is checked
                 if (!activeSection.classList.contains("answer")) { // if answer has not been revealed
                     checkAnswer(activeSection);
@@ -121,14 +123,17 @@ let questionData = [ // questions and answers
     }
 ]
 
-let totalQs = questionData.length; // number of questions in quiz
+let ansPhrases = {
+    correct: ["You got it!"],
+    incorrect: ["Not quite…"],
+    blank: ["The answer"]
+}
 
 
 
 
 
-
-// UTILITY FUNCTIONS
+// UTILITY
 
 function shuffleArray(array) { // shuffle items in array
 
@@ -186,7 +191,7 @@ function tapNavButton(e) { // whenever the navigation buttons are tapped
     console.log("button tapped");
 
     let approved; // value == true if navigation back/forward is allowed
-    let sectionObj = sectionData.find(obj => { 
+    let sectionObj = sectionApprovals.find(obj => { 
         // getting approval function to determine whether navigation back/forward is allowed
         return obj.sectype === activeSection.getAttribute("sectype");
     })
@@ -197,6 +202,8 @@ function tapNavButton(e) { // whenever the navigation buttons are tapped
         
         if (approved) {
             console.log(goNext()); // navigate forward
+        } else {
+            console.log("navigation not allowed");
         }
 
     } else if (e.currentTarget.classList.contains("btn-back")) { // button back
@@ -208,6 +215,7 @@ function goNext() { // navigate forward
 
     // hide current section
     activeSection.classList.remove("active");
+    clearTimeout(timerInterval);
 
     // show next section
     let sectionNext = activeSection.nextElementSibling;
@@ -220,13 +228,14 @@ function goNext() { // navigate forward
     // update progress elements
     setProgress();
 
-    return "next triggered";
+    return "navigated to next section";
 }
 
 function goPrevious() { // navigate backward
 
     // hide current section
     activeSection.classList.remove("active");
+    clearTimeout(timerInterval);
 
     // show previous section
     let sectionPrev = activeSection.previousElementSibling;
@@ -239,7 +248,7 @@ function goPrevious() { // navigate backward
     // update progress elements
     setProgress();
 
-    return "back triggered";
+    return "navigated to previous section";
 }
 
 function enableButton(e) { // removes "disabled" class, add "check-answer" class
@@ -254,30 +263,13 @@ function enableButton(e) { // removes "disabled" class, add "check-answer" class
     powerups.classList.add("show");
 }
 
-function checkAnswer() { // evaluates answer, presents answer explanation, and updates score
+function toggleBoost() { // turns boost on and off
 
-    clearInterval(timerInterval);
-
-    let timeLeft = activeSection.getAttribute("timeleft");
-
-    if (evalAnswer()) {
-        updateScore(activeQObj.duration, timeLeft, yourStreak);
+    if (activeSection.getAttribute("boost")) {
+        activeSection.setAttribute("boost", false);
+    } else {
+        activeSection.setAttribute("boost", true);
     }
-
-    presentAnswer(activeSection);
-}
-
-function timeoutAnswer() { // evaluates answer, presents answer explanation, and updates score when timer times out
-
-    clearInterval(timerInterval);
-
-    let timeLeft = activeSection.getAttribute("timeleft");
-
-    if (evalAnswer()) {
-        updateScore(activeQObj.duration, timeLeft, yourStreak);
-    }
-
-    presentAnswer();
 }
 
 
@@ -325,7 +317,7 @@ function startTimer(timeLeft) {
         if (timeLeft > 0) {
             activeSection.setAttribute("timeleft", (timeLeft - 1));
         } else {
-            timeoutAnswer();
+            checkAnswer();
         }
 
         timerMinutes.innerText = minutes;
@@ -343,7 +335,7 @@ function setProgress() { // sets progress bar and indicators
 
         // set progress indicator
         let indicator = progress.querySelector(".progress-indicator");
-        indicator.style.width = (100 * (activeSection.getAttribute("qnum") - 1) / totalQs) + "%";
+        indicator.style.width = (100 * (activeSection.getAttribute("qnum") - 1) / questionData.length) + "%";
 
         // start timer
         
@@ -431,11 +423,12 @@ function addQSection(qObj, qIndex) { // add question section
     
     // Section container
     let qSection = document.createElement("section");
+    qSection.classList.add(qObj.type);
+    qSection.id = qObj.slug;
     qSection.setAttribute("sectype", "question");
     qSection.setAttribute("qnum", (qIndex + 1));
     qSection.setAttribute("timeleft", qObj.duration);
-    qSection.classList.add(qObj.type);
-    qSection.id = qObj.slug;
+    qSection.setAttribute("boost", false);
     qSection.appendChild(qContent); // add question content
     qSection.innerHTML += qControls; // add standard controls
 
@@ -445,9 +438,33 @@ function addQSection(qObj, qIndex) { // add question section
 
 }
 
-function presentAnswer() {
+function presentAnswer(result) { // show answer explanation
 
     // create nodes and add answer explanation from questionData obj
+
+    let ansHeading;
+    let ansScore;
+
+    // heading logic
+
+    if (result && result !== null) {
+
+        let randomPhrase = Math.round(Math.random() * (ansPhrases.correct.length - 1));
+        ansHeading = document.createElement("h3");
+        ansHeading.innerText = ansPhrases.correct[randomPhrase];
+
+        ansScore = document.createElement("div");
+        ansScore.innerText = "+" + result.pointsValue;
+    } else if (result == null) {
+        let randomPhrase = Math.round(Math.random() * (ansPhrases.blank.length - 1));
+        ansHeading = document.createElement("h3");
+        ansHeading.innerText = ansPhrases.blank[randomPhrase];
+
+    } else {
+        let randomPhrase = Math.round(Math.random() * (ansPhrases.incorrect.length - 1));
+        ansHeading = document.createElement("h3");
+        ansHeading.innerText = ansPhrases.incorrect[randomPhrase];
+    }
 
     let ansExplain = document.createElement("p");
     ansExplain.innerText = activeQObj.answerExplain;
@@ -462,8 +479,10 @@ function presentAnswer() {
 
     let ansContainer = document.createElement("div");
     ansContainer.classList.add("q-answer");
+    if (ansHeading !== undefined) {ansContainer.appendChild(ansHeading)}
+    if (ansScore !== undefined) {ansContainer.appendChild(ansScore)}
     ansContainer.appendChild(ansExplain);
-    if (ansLink !== undefined && ansLink !== null) {ansContainer.appendChild(ansLink);}
+    if (ansLink !== undefined) {ansContainer.appendChild(ansLink);}
 
     let sectionContent = activeSection.querySelector(".section-content");
     sectionContent.appendChild(ansContainer);
@@ -484,6 +503,30 @@ function presentAnswer() {
 
 
 // SCORING
+
+let yourScore = 0; // total score
+let yourStreak = 0; // answer streak
+
+function checkAnswer() { // evaluates answer, presents answer explanation, and updates score
+
+    clearInterval(timerInterval);
+
+    let powerups = activeSection.querySelector(".controls-powerups");
+    powerups.classList.remove("show");
+
+    let timeLeft = activeSection.getAttribute("timeleft");
+
+    if (checkPicked()) { // if any answer choice was selected
+        if (evalAnswer()) { // if answer is correct 
+            presentAnswer(updateScore(activeQObj.duration, timeLeft, yourStreak, activeSection.getAttribute("boost")));
+        } else { // if answer is incorrect
+            presentAnswer(false);
+        }
+    } else { // if answer is blank
+        evalAnswer();
+        presentAnswer(null);        
+    }
+}
 
 function evalAnswer () { // returns true if answer is correct
     let correct = false;
@@ -511,61 +554,89 @@ function evalAnswer () { // returns true if answer is correct
     }
 
     if (correct) {
+        yourStreak++;
         console.log("answer correct");
     } else {
+        yourStreak = 0;
         console.log("answer incorrect");
     }
 
     return correct;
 }
 
-let yourScore = 0; // total score
-let yourStreak = 0; // answer streak
+function updateScore(timeGiven, timeLeft, streak = 0, boost = false) { // answer scoring scheme
 
-function updateScore(timeGiven, timeLeft, streak = 0, attempts = 1, boost = false) { // answer scoring scheme
+    let oldScore = yourScore; // score before update
 
-    let pointsValue = 200; // minimum points if player answers correct
+    let basePoints = 200; // minimum points if player answers correct
     let timePoints = 200; // points amount that changes based on how fast player answers
     let streakMultiply = 1.5;
     let boostMultiply = 1.5;
 
-    if (attempts <= 1) {
-        pointsValue += timeLeft/timeGiven * timePoints; // subtract points based on time taken to answer question
-        pointsValue *= Math.pow(streakMultiply, streak); // multiplies for every consecutive correct answer
-        if (boost) {pointsValue *= boostMultiply;} // boost
+    let pointsValue = basePoints; // give minimum amount
+    let timeBonus = timeLeft / timeGiven * timePoints; // points earned for answering quickly
+    pointsValue += timeBonus; // add points based on time taken to answer question
 
-    } else {
-        pointsValue /= attempts; // divided by number of attempts taken to get question correct
+    let streakBonus = pointsValue * Math.pow(streakMultiply, streak - 1) - pointsValue; // multiplies for every consecutive correct answer
+    pointsValue += streakBonus; 
+
+    let boostBonus; // boost
+    if (boost) {
+        boostBonus = pointsValue * boostMultiply - pointsValue;
+        pointsValue += boostBonus;
     }
-
     pointsValue = Math.round(pointsValue); // round
 
-    console.log("old score: " + yourScore);
-    console.log("points added: " + pointsValue);
-
-    yourScore += pointsValue; // add to overall score
-
-    console.log("current score: " + yourScore);
-
+    // add to overall score, update score indicator
+    yourScore += pointsValue;
     let totalScore = progress.querySelector(".total-score");
     totalScore.innerText = yourScore; 
+
+    let pointsCalc = {
+        "oldScore": oldScore,
+        "yourScore": yourScore,
+        "pointsValue": pointsValue,
+        "basePoints": basePoints,
+        "timeBonus": timeBonus,
+        "streakBonus": streakBonus,
+        "boostBonus": boostBonus
+    };
+
+    console.log(pointsCalc);
+
+    return pointsCalc;
 }
 
 
 
 
 
-// RUNNING...
+// RUNNING
 
 // add all question sections
 questionData.forEach(function (qObj, qIndex) {
     addQSection(qObj, qIndex);
 });
 
+
+// DYNAMIC DOM ELEMENTS
+
 let navButtons = quiz.querySelectorAll(".btn-nav");
 let nickname = quiz.querySelector("#nickname");
 let fieldsets = quiz.querySelectorAll("fieldset");
 let radioChoices = quiz.querySelectorAll(".q-choice");
+let boostButtons = quiz.querySelectorAll(".powerup-boost");
+
+// ACTIVE OBJECTS
+
+let activeSection = document.querySelector(".active");
+let activeQObj = getQObj(activeSection);
+
+
+
+
+
+// EVENT LISTENERS
 
 // nav button events
 navButtons.forEach(function (btn) {
@@ -585,7 +656,7 @@ nickname.onkeyup = function (e) {
 // change to answer choice enables button
 radioChoices.forEach(function (radio) {
     radio.onchange = enableButton;
-})
+});
 
 // clicking fieldset changes radio button
 fieldsets.forEach(function (set) {
@@ -593,7 +664,9 @@ fieldsets.forEach(function (set) {
         set.querySelector("input").checked = true;
         enableButton(e);
     }
-})
+});
 
-let activeSection = document.querySelector(".active");
-let activeQObj = getQObj(activeSection);
+// boost button events
+boostButtons.forEach(function (btn) {
+    btn.onclick = toggleBoost();
+});
