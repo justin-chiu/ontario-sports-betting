@@ -32,8 +32,16 @@ h1, h2, h3, p, .challenger {
     margin-bottom: $default-margin;
 }
 
+h1 {
+    font-size: 1.75rem;
+}
+
 h2 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1.125rem;
 }
 
 button {
@@ -97,6 +105,16 @@ figure {
     position: relative;
 }
 
+.dflt-margin-self {
+    margin-bottom: $default-margin;
+}
+
+.dflt-margin-child {
+    > *:not(:last-child) {margin-bottom: $default-margin;}
+}
+
+
+
 // PROGRESS
 
 .progress {
@@ -115,7 +133,6 @@ figure {
 .progress-bar {
     height: 0.5rem;
     background-color: lightgrey;
-    margin-bottom: $default-margin;
 }
 
 .progress-indicator {
@@ -201,15 +218,6 @@ section {
     button {flex-grow: 0;}
 }
 
-
-.controls-wager {
-    padding: $vp-padding;
-    border-top: 1px solid black;
-
-    > *:not(:last-child) {margin-bottom: $default-margin;}
-
-}
-
 .wager-fields {
     display: flex;
     fieldset {flex-grow: 1;}
@@ -232,16 +240,12 @@ section {
 
 .q-number {
     width: fit-content;
-    margin-bottom: $default-margin;
     padding: 0.5rem 0.75rem;
     background-color: lightgrey;
 }
 
 .q-choice-set {
 
-    margin-bottom: $default-margin;
-
-    > *:not(:last-child) {margin-bottom: $default-margin;}
 }
 
 .q-fieldset {
@@ -281,14 +285,31 @@ section {
 }
 
 .q-answer {
-    > *:not(:last-child) {margin-bottom: $default-margin;}
+
 }
 
 
 
+
+// RESULTS
+
+.results-total-scores {
+
+}
+
+.results-stats {
+
+}
+
+.nominate-link {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 // SPECIAL
 
-.challenger {
+.chal-container {
     padding: 0.5rem;
     background-color: lightgrey;
 }

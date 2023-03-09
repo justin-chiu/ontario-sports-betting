@@ -13,7 +13,7 @@
     <div class="quiz-wrapper">
         <div class="quiz-container">
             <div class="progress disabled">
-                <div class="progress-bar">
+                <div class="progress-bar dflt-margin-self">
                     <div class="progress-indicator">
                     </div>
                 </div>
@@ -27,22 +27,21 @@
                             <div><span class="timer-minutes">0</span>:<span class="timer-seconds">00</span></div>
                         </div>
                         <div class="inventory">
-                            <div>x<span class="num-boosts">3</span></div>
+                            <div>Boosts x<span class="num-boosts">0</span></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="sections-container">
-                <section class="" sectype="walkthrough" id="s-start">
+                <section class="active" sectype="walkthrough" id="s-start">
                     <div class="section-content">
                         <h1>The Smart Play: <br>Responsible Betting <br>Quiz Challenge</h1>
-                        <div class="challenger">
+                        <div class="chal-container">
                             <div class="chal-label">
-                                Your Challenger
+                                <b>Your Challenger</b>
                             </div>
                             <div class="chal-info">
-                                <span class="chal-name"><b>Maxim</b> </span>
-                                <span class="chal-score">(500 points)</span>
+                                <span class="chal-name"><b>Maxim</b></span> (<span class="chal-score">0</span> points)
                             </div>
                         </div>
                     </div>
@@ -70,7 +69,7 @@
                         </div>
                     </div>
                 </section>
-                <section sectype="walkthrough" id="s-instruction-00" class="active">
+                <section sectype="walkthrough" id="s-instruction-00">
                     <div class="section-content">
                         <h2>How to play</h2>
                         <p>Instructions lorem ipsum dolor sit amet</p>
@@ -78,11 +77,35 @@
                     <div class="section-controls">
                         <div class="controls-nav">
                             <button class="btn-nav btn-back">Back</button>
-                            <button class="btn-nav btn-next">
-                                Next
-                            </button>
+                            <button class="btn-nav btn-next">Start Challenge</button>
                         </div>
                     </div>
+                </section>
+                <section class="" id="s-results" sectype="walkthrough">
+                    <div class="section-content">
+                        <h2>How you did</h2>
+                        <div class="results-total-scores dflt-margin-self">
+                            <div class="results-your"><span class="your-name">You</span>: <span class="total-score">0</span></div>
+                            <div class="results-chal"><span class="chal-name"></span>: <span class="chal-score">0</span></div>
+                        </div>
+                        <div class="results-stats dflt-margin-self">
+                            <h3>Quick stats</h3>
+                            <div>Correct: <span class="stats-correct">0</span> of <span class="stats-total-qs"></span></div>
+                            <div>Longest streak: <span class="stats-streak">0</span></div>
+                            <div>Highest-scoring question: <span class="stats-hs-qnum"">--</span> <span class="stats-hs-value"></span></div>
+                        </div>
+                        <div class="results-nominate dflt-margin-child">
+                            <h3>Challenge a friend</h3>
+                            <input class="nominate-link" type="text" readonly>
+                            <button class="nominate-button">Copy Link</button>
+                        </div>
+                    </div>
+                    <div class="controls-nav">
+                        <button class="btn-nav btn-back">Back</button>
+                        <button class="btn-nav btn-next">
+                            Next
+                        </button>
+                        </div>
                 </section>
             </div>
         </div>
