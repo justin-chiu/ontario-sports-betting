@@ -82,6 +82,14 @@ figure {
     padding: 0;
 }
 
+ol {
+    padding-left: 1em;
+}
+
+
+
+
+
 // CONTAINERS
 
 .quiz-wrapper {
@@ -218,15 +226,6 @@ section {
     button {flex-grow: 0;}
 }
 
-.wager-fields {
-    display: flex;
-    fieldset {flex-grow: 1;}
-}
-
-.slider-wager {
-
-}
-
 .controls-nav {
     display: flex;
     height: 4rem;
@@ -307,9 +306,24 @@ section {
     text-overflow: ellipsis;
 }
 
-// SPECIAL
+
+
+
+
+// INTRO
 
 .chal-container {
     padding: 0.5rem;
     background-color: lightgrey;
+}
+
+
+
+
+// INSTRUCTIONS
+
+.instruct-img {
+    height: 5rem;
+    background-color: lightgrey;
+    margin-left: -1em;
 }

@@ -13,7 +13,7 @@ let resultsChal = quiz.querySelector(".results-chal");
 
 
 
-// QUERY
+// URL QUERY
 
 let query = window.location.search; // ?chal=nickname&score=0&qset=1&ans=000000000000
 console.log("query: " + query);
@@ -35,6 +35,79 @@ if (queryObj) {
     resultsChal.remove();
 }
 
+
+
+
+
+
+// ASYNC START QUIZ
+
+function startQuiz(qData) {
+
+    questionData = qData;
+
+    // ADD DYNAMIC CONTENT
+
+    // add all question sections
+    questionData.forEach(function (qObj, qIndex) {
+        addQSection(qObj, qIndex);
+    });
+
+    // DYNAMIC DOM ELEMENTS
+
+    let navButtons = quiz.querySelectorAll(".btn-nav");
+    let fieldsets = quiz.querySelectorAll("fieldset");
+    let radioFieldsets = quiz.querySelectorAll("fieldset.radio");
+    let checkboxFieldsets = quiz.querySelectorAll("fieldset.checkbox");
+    let inputChoices = quiz.querySelectorAll(".q-choice");
+    let boostButtons = quiz.querySelectorAll(".powerup-boost");
+
+    // ACTIVE OBJECTS
+
+    activeSection = document.querySelector(".active");
+    activeQObj = getQObj(activeSection);
+    activeQIndex = activeSection.getAttribute("qindex");
+    
+    // CONTENT
+
+    let statsTotalQs = quiz.querySelector(".stats-total-qs");
+    statsTotalQs.innerText = questionData.length;
+
+    // DYNAMIC ELEMENT EVENTS
+
+    // nav button events
+    navButtons.forEach(function (btn) {
+        btn.onclick = tapNavButton;
+    });
+
+    // change to answer choice enables button
+    inputChoices.forEach(function (radio) {
+        radio.onchange = enableButton;
+    });
+
+    // clicking fieldset changes radio button
+    radioFieldsets.forEach(function (set) {
+        set.onclick = function (e) {
+            e.currentTarget.querySelector("input").checked = true;
+            enableButton(e);
+        }
+    });
+
+    // clicking fieldset changes checkbox
+    checkboxFieldsets.forEach(function (set) {
+        set.onclick = function (e) {
+            if (e.target.tagName !== "INPUT") {
+                let thisInput = e.currentTarget.querySelector("input");
+                thisInput.checked = !thisInput.checked;
+            }
+        }
+    });
+
+    // boost button events
+    boostButtons.forEach(function (btn) {
+        btn.onclick = toggleBoost;
+    });
+}
 
 
 
@@ -299,6 +372,7 @@ function createFieldset(type, slug, ansChoice, ansIndex) {
 
     let fieldset = document.createElement("fieldset");
     fieldset.classList.add("q-fieldset");
+    fieldset.classList.add(type);
     fieldset.appendChild(input);
     fieldset.appendChild(label);
     fieldset.appendChild(resultIcon);
@@ -350,6 +424,7 @@ function addQSection(qObj, qIndex) { // add question section
     // Navigation controls
     let qControls = '<div class=section-controls><div class=controls-powerups><button class=powerup-boost>Boost</button></div><div class=controls-nav><button class="btn-nav btn-back">Back</button> <button class="btn-nav btn-next"><span class=btn-skip-text>Skip</span><span class=btn-check-text>Check Answer</span><span class=btn-next-text>Next</span></button></div></div>';
     
+
     // Section container
     let qSection = document.createElement("section");
     qSection.classList.add(qObj.type);
@@ -361,6 +436,11 @@ function addQSection(qObj, qIndex) { // add question section
     qSection.setAttribute("boost", false);
     qSection.appendChild(qContent); // add question content
     qSection.innerHTML += qControls; // add standard controls
+
+    // For checkbox questions
+    if (qSection.classList.contains("checkbox")) {
+        qSection.querySelector(".btn-next").classList.add("check-answer");
+    }
 
     // Append everything
     let container = quiz.querySelector(".sections-container");
@@ -480,26 +560,55 @@ function checkAnswer() { // evaluates answer, presents answer explanation, and u
 }
 
 function evalAnswer () { // returns true if answer is correct
-    let correct = false;
+
+    let correct;
 
     let ansChoices = activeSection.querySelectorAll("input"); // get answerChoice inputs
 
     if (activeSection.classList.contains("radio")) { // if question is single-answer
+
+        correct = false;
+
         ansChoices.forEach(function (choice) {
 
             // set to true if the choice selected has ansindex that matches correct answer
             if (choice.checked) {
+
+                let icon = choice.parentElement.querySelector(".q-result-icon");
+
                 if (choice.getAttribute("ansindex") == activeQObj.answerCorrect) {
                     correct = true;
-                    let icon = choice.parentElement.querySelector(".q-result-icon");
                     icon.classList.add("correct-selected");
                 } else {
-                    let icon = choice.parentElement.querySelector(".q-result-icon");
                     icon.classList.add("incorrect");
                 }
+
             } else if (choice.getAttribute("ansindex") == activeQObj.answerCorrect) {
+
                 let icon = choice.parentElement.querySelector(".q-result-icon");
                 icon.classList.add("correct-blank");
+            }
+        });
+    } else if (activeSection.classList.contains("checkbox")) {
+
+        correct = true;
+
+        ansChoices.forEach(function (choice) {
+
+            let ansIndex = parseInt(choice.getAttribute("ansindex"));
+            let icon = choice.parentElement.querySelector(".q-result-icon");
+
+            if (choice.checked !== activeQObj.answerCorrect[ansIndex]) {
+                correct = false;
+
+                if (choice.checked) {
+                    icon.classList.add("incorrect");
+                } else {
+                    icon.classList.add("correct-blank");
+                }
+
+            } else if (choice.checked) {
+                icon.classList.add("correct-selected");
             }
         });
     }
@@ -543,8 +652,8 @@ function updateScore(timeGiven, timeLeft, streak = 0, boost = false) { // answer
 
     let basePoints = 200; // minimum points if player answers correct
     let timePoints = 200; // points amount that changes based on how fast player answers
-    let streakMultiply = 1.5;
-    let boostMultiply = 1.5;
+    let streakMultiply = 1.2;
+    let boostMultiply = 1.2;
 
     let pointsValue = basePoints; // give minimum amount
     let timeBonus = timeLeft / timeGiven * timePoints; // points earned for answering quickly
@@ -617,15 +726,26 @@ function updateScrStats() {
 
 
 
-// -------------------
-// START EVERYTHING...
-// -------------------
 
 
+// GLOBAL VARIABLES
 
+let minutes; // minutes integer
+let seconds; // seconds integer
+let timerInterval; // interval function goes here
 
+let yourScore = 0; // total score
+let yourStreak = 0; // answer streak
 
-// DATA
+let boosts = 3;
+let correctCount = 0;
+let longestStreak = 0;
+let highestScoring = {
+    qNum: null,
+    value: 0
+};
+
+let questionData, activeSection, activeQObj, activeQIndex;
 
 let sectionApprovals = [ // section types and rules for navigation forward/backward from each type
     // sectype == type of section [start, end, instruction, question]
@@ -648,101 +768,34 @@ let sectionApprovals = [ // section types and rules for navigation forward/backw
             return true;
         }
     },
-    {   sectype: "question-required",
-        approval: function () {
-            let sectionRadioChoices = activeSection.querySelectorAll(".q-choice");
-            let choicePicked = false;
-            sectionRadioChoices.forEach(function (choice) {
-                if (choice.checked) {
-                    choicePicked = true;
-                }
-            });
-
-            if (!choicePicked) {
-                alert("Choose an answer and we'll continue!");
-            }
-
-            return choicePicked;
-        }
-    },
     {   sectype: "question",
         approval: function () { // check if answer choice has been selected
 
             let choicePicked = checkPicked();
             let ansRevealed = activeSection.classList.contains("answer");
+            let radio = activeSection.classList.contains("radio");
+            let checkbox = activeSection.classList.contains("checkbox");
 
             if (!choicePicked && !ansRevealed) { // if no radio button on checkbox is checked
                 
                 // confirm that player wants to leave question blank
                 if (confirm("Are you sure you want to leave this question blank?")) {
-                    return true;
+                    if (radio) {return true;} // if question is radio
+                    else if (checkbox) {checkAnswer(); return false;} // if question is checkbox
                 } else {
                     return false; // do not approve navigation
                 }
 
             } else { // if radio button or checkbox is checked
-                if (!activeSection.classList.contains("answer")) { // if answer has not been revealed
+
+                if (!ansRevealed) { // if answer has not been revealed
                     checkAnswer(activeSection);
                     return false; // do not approve navigation
                 } else { // if answer has been revealed
                     return true; // approve navigation forward
                 }
-
             }
         }
-    }
-]
-
-let questionData = [ // questions and answers
-    /*
-        slug: "",
-        type: "radio",
-        question: "",
-        duration: 60,
-        img: "",
-        answers: [
-            "",
-            "",
-            "",
-            ""
-        ],
-        answerCorrect: 3,
-        answerRandomize: true,
-        answerExplain: "",
-        linkName: "",
-        linkURL: "",
-        userCorrect: null,
-        userScore: 0
-    */
-    {   slug: "problem-gambling",
-        type: "radio",
-        duration: 5,
-        question: "What is problem gambling?",
-        answers: [
-            "Gambling activity that has a negative impact on the gambler’s life",
-            "An addictive form of gambling involving solving complex puzzles",
-            "The technical term for gambling addiction in the DSM-5",
-            "Excessive gambling due to the gambler’s inability to control their urges"
-        ],
-        answerCorrect: 0,
-        answerRandomize: true,
-        answerExplain: "Test answer explanation",
-        linkName: "Test link",
-        linkURL: "https://google.ca"
-    },
-    {   slug: "gambling-beliefs",
-        type: "radio",
-        duration: 5,
-        question: "Which of the following statements is true?",
-        answers: [
-            "Betting is a good way to earn extra cash if you are skilled and knowledgeable enough",
-            "Near misses mean that you were close to winning",
-            "If you lose money, you’ll eventually win it back if you keep betting",
-            "None of the above are true"
-        ],
-        answerCorrect: 3,
-        answerRandomize: false,
-        answerExplain: "Test answer explanation"
     }
 ]
 
@@ -756,84 +809,13 @@ let ansPhrases = {
 
 
 
-// ADD DYNAMIC CONTENT
 
-// add all question sections
-questionData.forEach(function (qObj, qIndex) {
-    addQSection(qObj, qIndex);
-});
+// FETCH QUESTION DATA
 
+fetch("../data/questions.json")
+    .then((response) => response.json())
+    .then((data) => startQuiz(data));
 
-
-
-
-// DYNAMIC DOM ELEMENTS
-
-let navButtons = quiz.querySelectorAll(".btn-nav");
-let fieldsets = quiz.querySelectorAll("fieldset");
-let radioChoices = quiz.querySelectorAll(".q-choice");
-let boostButtons = quiz.querySelectorAll(".powerup-boost");
-
-
-
-
-
-
-// ACTIVE OBJECTS
-
-let activeSection = document.querySelector(".active");
-let activeQObj = getQObj(activeSection);
-let activeQIndex = activeSection.getAttribute("qindex");
-
-
-
-
-
-// DYNAMIC ELEMENT EVENTS
-
-// nav button events
-navButtons.forEach(function (btn) {
-    btn.onclick = tapNavButton;
-});
-
-// change to answer choice enables button
-radioChoices.forEach(function (radio) {
-    radio.onchange = enableButton;
-});
-
-// clicking fieldset changes radio button
-fieldsets.forEach(function (set) {
-    set.onclick = function (e) {
-        set.querySelector("input").checked = true;
-        enableButton(e);
-    }
-});
-
-// boost button events
-boostButtons.forEach(function (btn) {
-    btn.onclick = toggleBoost;
-});
-
-
-
-
-
-// GLOBAL VARIABLES
-
-let minutes; // minutes integer
-let seconds; // seconds integer
-let timerInterval; // interval function goes here
-
-let yourScore = 0; // total score
-let yourStreak = 0; // answer streak
-
-let boosts = 1;
-let correctCount = 0;
-let longestStreak = 0;
-let highestScoring = {
-    qNum: null,
-    value: 0
-};
 
 
 
@@ -841,20 +823,14 @@ let highestScoring = {
 
 // MORE STATIC ELEMENTS
 
-let numBoosts = quiz.querySelector(".num-boosts");
+let numBoosts = quiz.querySelector(".num-boosts"); // # of times player can boost pointsValue
 let timerMinutes = quiz.querySelector(".timer-minutes"); // minutes string
 let timerSeconds = quiz.querySelector(".timer-seconds"); // seconds string
 let yourName = quiz.querySelector(".your-name");
-let statsTotalQs = quiz.querySelector(".stats-total-qs");
 let nomLink = quiz.querySelector(".nominate-link");
 let nomButton = quiz.querySelector(".nominate-button");
 
-statsTotalQs.innerText = questionData.length;
 numBoosts.innerText = boosts;
-
-
-
-
 
 // STATIC ELEMENT EVENTS
 
@@ -876,7 +852,7 @@ nickname.onkeyup = function (e) {
 
 nomLink.onclick = function () { // when nomLink field is clicked, select entire value
     nomLink.select();
-};
+}
 
 nomButton.onclick = function () { // when "Copy Link" button clicked, copy nomLink.value
     nomLink.select();

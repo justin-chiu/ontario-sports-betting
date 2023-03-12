@@ -1,0 +1,57 @@
+[
+    {   "slug": "problem-gambling",
+        "qSet": 1,
+        "category": "responsible-gambling",
+        "type": "radio",
+        "duration": 5,
+        "question": "What is problem gambling?",
+        "answers": [
+            "Gambling activity that has a negative impact on the gambler’s life",
+            "An addictive form of gambling involving solving complex puzzles",
+            "The technical term for gambling addiction in the DSM-5",
+            "Excessive gambling due to the gambler’s inability to control their urges"
+        ],
+        "answerCorrect": 0,
+        "answerRandomize": true,
+        "answerExplain": "Test answer explanation",
+        "linkName": "Test link",
+        "linkURL": "https://google.ca"
+    },
+    {   "slug": "gambling-beliefs",
+        "qSet": 1,
+        "category": "responsible-gambling",
+        "type": "radio",
+        "duration": 5,
+        "question": "Which of the following statements is true?",
+        "answers": [
+            "Betting is a good way to earn extra cash if you are skilled and knowledgeable enough",
+            "Near misses mean that you were close to winning",
+            "If you lose money, you’ll eventually win it back if you keep betting",
+            "None of the above are true"
+        ],
+        "answerCorrect": 3,
+        "answerRandomize": false,
+        "answerExplain": "Test answer explanation"
+    },
+    {   "slug": "bettor-demographics",
+        "qSet": 1,
+        "category": "responsible-gambling",
+        "type": "checkbox",
+        "duration": 60,
+        "img": "",
+        "question": "Which groups of sports bettors are at higher risk of problem gambling?",
+        "answers": [
+            "Men are at higher risk than women",
+            "Middle-aged adults are at higher risk than young adults",
+            "Single adults are at higher risk than adults in a relationship",
+            "Caucasians are at higher risk than Asians"
+        ],
+        "answerCorrect": [true, false, true, false],
+        "answerRandomize": false,
+        "answerExplain": "Being younger puts bettors at greater risk of problem gambling due to lack of experience and knowledge of healthy gambling beliefs and practices. Other risk factors include being male, single, and Asian.",
+        "linkName": "Who is at risk",
+        "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/whos-at-risk/",
+        "userCorrect": null,
+        "userScore": 0
+    }
+]

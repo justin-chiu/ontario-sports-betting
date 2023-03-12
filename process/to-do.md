@@ -2,17 +2,13 @@
 
 CONTENT:
 
-Instructions
-Questions
+Multiple answer questions
+Question sets
 
 FUNCTIONALITY:
 
-
-NEXT WEEK:
-
-Multiple answer questions
-Question sets
 UI design
+Randomize questions
 
 BLUE SKY:
 
@@ -27,12 +23,32 @@ Get someone to proofread my code
 
 
 What I did:
+• fetch questionData from json
+• wrote instruction text
+• multiple-answer question answer evaluation
+• multiple-answer question events
+• question blank logic for multiple-answer questions
+• correct/incorrect indicators for multiple-answer questions
 
-• created score page elements
-• reading query portion of URL into challenger name and score
-• nickname field changes nickname displayed elsewhere
-• automatic updates to score page values
-• fixed boost issues
-• boost count functionality
-• remove challenger if none
-• challenge a friend interface
+JSON keys
+{   "slug": "",
+    "qset": 1,
+    "category": "responsible-gambling",
+    "type": "radio",
+    "duration": 60,
+    "img": "",
+    "question": "",
+    "answers": [
+        "",
+        "",
+        "",
+        ""
+    ],
+    "answerCorrect": 3,
+    "answerRandomize": true,
+    "answerExplain": "",
+    "linkName": "",
+    "linkURL": "",
+    "userCorrect": null,
+    "userScore": 0
+}
