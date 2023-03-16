@@ -812,7 +812,17 @@ let ansPhrases = {
 
 // FETCH QUESTION DATA
 
-fetch("../data/questions.json")
+let dataPath = "data/questions.json";
+let dataURL;
+
+if (window.location.hostname.indexOf("github.io") !== -1) {
+    dataURL = window.location.protocol + "//" + window.location.hostname + window.location.pathname + dataPath;
+
+} else {
+    dataURL = "../" + dataPath;
+}
+
+fetch(dataURL)
     .then((response) => response.json())
     .then((data) => startQuiz(data));
 
