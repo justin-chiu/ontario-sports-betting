@@ -1,7 +1,16 @@
 // VARIABLES
 
-$vp-padding: 1.5rem;
-$default-margin: 1rem;
+$vp-padding: 1.75rem;
+$default-margin: 1.25rem;
+
+// colours
+$cobalt: #2768B8;
+$indigo: #262860;
+$salmon: #E55A51;
+$white: #ffffff;
+$deck: #D6E9F4;
+$overcast: #B7D2E9;
+
 
 
 
@@ -10,8 +19,14 @@ $default-margin: 1rem;
 
 * {
     box-sizing: border-box;
+    font-smooth: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+*:before, *:after {
+    box-sizing: border-box;
 }
 
 body {
@@ -25,33 +40,119 @@ body {
 
 
 
-// ELEMENTS
+// TYPE
 
 h1, h2, h3, p, .challenger {
-    margin-top: 0;
-    margin-bottom: $default-margin;
+    margin: 0;
 }
 
 h1 {
-    font-size: 1.75rem;
+    font-family: 'Chivo', sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 4rem;
+    line-height: 95%;
+    text-align: center;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
 }
 
 h2 {
-    font-size: 1.5rem;
+    font-family: 'Source Serif 4', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 150%;
+    letter-spacing: -0.01em;
 }
 
 h3 {
+    font-family: 'Chivo', sans-serif;
+    font-style: italic;
+    font-weight: 900;
     font-size: 1.125rem;
+    line-height: 150%;
+    text-transform: uppercase;
 }
+
+b, strong, .text-bold, .btn-next {
+    font-family: 'Chivo', sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+}
+
+i, em, .text-italic, .btn-back {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: 0;
+}
+
+.text-regular {
+    font-family: 'Chivo', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: -0.005em;
+}
+
+.text-size-medium {font-size: 1rem;}
+.text-size-small {font-size: 0.875rem;}
+
+a {
+    font-family: 'Chivo', sans-serif;
+    font-style: normal;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    text-decoration-line: underline;
+}
+
+div {
+    font-size: inherit;
+    line-height: 150%;
+}
+
+.text-centered {
+    text-align: center;
+}
+
+
+
+
+
+// ELEMENTS
 
 button {
     flex-grow: 1;
     margin: 0;
+    border-radius: 0;
+    border: none;
+    font-size: 0.9375rem;
+
     .btn-check-text {display: none;}
     .btn-next-text {display: none;}
 
-    &.btn-back {flex-grow: 0; width: 4rem;}
+    &.btn-inline {
+        background-color: $indigo;
+        color: $white;
+        padding: 1rem 1.675rem;
+    }
+
+    &.btn-back {
+        flex-grow: 0; 
+        background-color: $cobalt;
+        color: $white;
+        padding: 0 2rem;
+    }
+
+    &.btn-next {
+        background-color: $indigo;
+        color: $white;
+    }
+
     &.disabled {opacity: 0.5;}
+    &.hide {opacity: 0;}
     &.check-answer {
         .btn-skip-text {display: none;}
         .btn-check-text {display: inline;}
@@ -69,7 +170,6 @@ fieldset {
 }
 
 input {
-    width: 100%;
     margin: 0;
 }
 
@@ -97,14 +197,21 @@ ol {
     height: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .quiz-container {
     width: 100%;
     height: 100%;
     max-width: 500px;
+    max-height: 1000px;
     display: flex;
     flex-direction: column;
+    position: relative;
+
+    @media screen and (min-width: 501px) and (min-height: 1001px) {
+        border: 0.0625rem solid $cobalt;
+    }
 }
 
 .sections-container {
@@ -117,8 +224,21 @@ ol {
     margin-bottom: $default-margin;
 }
 
+.dflt-margin-self-small {
+    margin-bottom: 1rem;
+}
+
 .dflt-margin-child {
     > *:not(:last-child) {margin-bottom: $default-margin;}
+}
+
+.flex-grow {
+    flex-grow: 1;
+}
+
+.bg-blue {
+    background-color: $cobalt;
+    color: $white;
 }
 
 
@@ -127,37 +247,66 @@ ol {
 
 .progress {
     width: 100%;
-    height: 6rem;
     flex-shrink: 0;
-    padding: $vp-padding;
+    position: absolute;
+    z-index: 1000;
+    overflow-x: hidden;
 
     &.disabled {
         .progress-indicator {opacity: 0;}
         .progress-content {opacity: 0;}
     }
 
+    &.light-mode {
+        .progress-bar {background-color: $white};
+        .progress-indicator {background-color: $indigo;}
+        .progress-content {color: $indigo;}
+        .boosts-bolt {path {fill: $indigo;}}
+    }
+
+    &.dark-mode {
+        .progress-bar {background-color: $indigo;}
+        .progress-indicator {background-color: $white;}
+        .progress-content {color: $white;}
+        .boosts-bolt {path {fill: $white;}}
+    }
+
 }
 
 .progress-bar {
     height: 0.5rem;
-    background-color: lightgrey;
+    width: 100%;
 }
 
 .progress-indicator {
     height: 100%;
     width: 20%;
-    background-color: grey;
 }
 
 .progress-content {
     display: flex;
     justify-content: space-between;
+    padding: 1.125rem $vp-padding;
+
+    div {display: flex;}
 }
 
-.progress-content-right {
-    text-align: right;
+.progress-content-section {
+    column-gap: 1.25rem;
 }
 
+.progress-pair {
+    column-gap: 0.5rem;
+}
+
+.boosts-bolt {
+    margin-bottom: 0.125rem;
+}
+
+.boosts-lockup {
+    align-items: center;
+    column-gap: 0.25rem;
+}
 
 
 
@@ -174,6 +323,7 @@ section {
     justify-content: space-between;
     display: none;
     opacity: 0;
+    color: $indigo;
 
     &.active {display: flex; opacity: 1;}
 
@@ -187,17 +337,56 @@ section {
             pointer-events: none;
         }
     }
+
+    &.sports-trivia {
+        .q-question {
+            background-color: $cobalt;
+            color: $white;
+        }
+        .q-number {
+            background-color: $white;
+            color: $indigo;
+        }
+        .q-timer {
+            background-color: $indigo;
+            color: $white;
+        }
+    }
+
+    &.resp-betting {
+        .q-question {
+            background-color: $deck;
+            color: $indigo;
+            border-bottom: 0.125rem solid $indigo;
+        }
+        .q-number {
+            background-color: $indigo;
+            color: $white;
+        }
+        .q-timer {
+            background-color: $white;
+            color: $indigo;
+        }
+    }
 }
 
 .section-content {
-    padding: $vp-padding;
     overflow-x: none;
     overflow-y: scroll;
+
+    padding-bottom: 5.5rem;
 
     &::-webkit-scrollbar {display: none;}
     -ms-overflow-style: none;
     scrollbar-width: none;
 
+}
+
+.basic-padding {
+    padding-top: 3rem;
+    padding-bottom: 5.5rem;
+    padding-left: $vp-padding;
+    padding-right: $vp-padding;
 }
 
 
@@ -228,7 +417,13 @@ section {
 
 .controls-nav {
     display: flex;
-    height: 4rem;
+    height: 3.5rem;
+    margin-bottom: 0.875rem;
+    padding-left: $vp-padding;
+    padding-right: $vp-padding;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 
@@ -237,57 +432,159 @@ section {
 
 // QUESTION
 
-.q-number {
+.q-question {
+    padding-top: 5rem;
+    padding-bottom: $default-margin;
+    padding-left: $vp-padding;
+    padding-right: $vp-padding;
+}
+
+.q-flag {
+    display: flex;
+}
+
+.q-flag-box {
     width: fit-content;
-    padding: 0.5rem 0.75rem;
+    height: 2.125rem;
+    padding: 0.375rem 0.875rem;
+}
+
+.q-number {
+    background-color: grey;
+}
+
+.q-timer {
     background-color: lightgrey;
 }
 
 .q-choice-set {
+    padding-top: $default-margin;
+    color: $indigo;
+}
 
+.q-choice {
+    flex-shrink: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    display: grid;
+    place-content: center;
 }
 
 .q-fieldset {
     display: flex;
     position: relative;
-}
-
-.q-choice {
-    display: block;
-    width: auto;
-    margin-top: 0;
+    padding: 1.25rem $vp-padding;
+    column-gap: 1rem;
+    align-items: center;
     margin-left: 0;
-    margin-right: 0.675rem;
+    margin-right: 0;
+
+    &.checked {
+        background-color: $deck;
+    }
+
+    &.radio {
+        .q-choice {
+            width: 1.75rem;
+            height: 1.75rem;
+            border: 0.125rem solid $indigo;
+            border-radius: 50%;
+        }
+        .q-choice::before {
+            content: "";
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            transform: scale(0);
+            background-color: $indigo;
+        }
+        .q-choice:checked::before {
+            transform: scale(1);
+        }
+        .q-result-icon {
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+        }
+    }
+    
+    &.checkbox {
+        .q-choice {
+            width: 1.675rem;
+            height: 1.675rem;
+            border: 0.125rem solid $indigo;
+            border-radius: 0;
+        }
+        .q-choice::before {
+            content: "";
+            width: 0.75rem;
+            height: 0.75rem;
+            transform: scale(0);
+            background-color: $indigo;
+        }
+        .q-choice:checked::before {
+            transform: scale(1);
+        }
+        .q-result-icon {
+            width: 1.675rem;
+            height: 1.675rem;
+            border-radius: 0;
+        }
+    }
 }
 
 .q-result-icon {
+
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    border-radius: 50%;
     pointer-events: none;
-    width: 13px;
-    height: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {display: none;}
 
     &.correct-selected {
-        display: block;
-        background-color: green;
+        display: flex;
+        background-color: $indigo;
+        .vector-correct {
+            display: block;
+            path {fill: $white;}
+        }
     }
     &.correct-blank {
-        display: block;
-        background-color: lightblue;
+        display: flex;
+        background-color: $white;
+        border: 0.125rem solid $indigo;
+        .vector-correct {
+            display: block;
+            path {fill: $indigo;}
+        }
     }
     &.incorrect {
-        display: block;
-        background-color: salmon;
+        display: flex;
+        background-color: $salmon;
+        .vector-incorrect {
+            display: block;
+            path {fill: $white;}
+        }
     }
 }
 
 .q-answer {
-
+    padding-top: $default-margin;
+    padding-bottom: 3rem;
+    padding-left: $vp-padding;
+    padding-right: $vp-padding;
 }
 
-
+.q-answer-heading {
+    display: inline-block;
+    margin-right: 0.675rem;
+}
 
 
 // RESULTS
@@ -300,10 +597,25 @@ section {
 
 }
 
+.results-your {
+    font-family: 'Source Serif 4', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 150%;
+    letter-spacing: -0.01em;
+}
+
 .nominate-link {
+    display: block;
+    width: 100%;
+    height: 3.5rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    border-radius: 0;
+    border: 0.125rem solid $indigo;
+    padding: 0 1rem;
+    color: $indigo;
 }
 
 
@@ -312,11 +624,42 @@ section {
 
 // INTRO
 
-.chal-container {
-    padding: 0.5rem;
-    background-color: lightgrey;
+#s-start {
+    .section-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
+.quiz-title {
+    svg {
+        margin: 2.675rem 0;
+        .top-lines {fill: $white;}
+        .bottom-lines {fill: $overcast;}
+    }
+}
+
+.chal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chal-icon {
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 50%;
+    background-color: $indigo;
+    margin-top: $default-margin;
+    margin-bottom: 0.5rem;
+    color: $white;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
 
@@ -326,4 +669,20 @@ section {
     height: 5rem;
     background-color: lightgrey;
     margin-left: -1em;
+}
+
+#nickname {
+    width: 100%;
+    height: 3.5rem;
+    border-radius: 0;
+    border: 0.125rem solid $cobalt;
+    padding: 0 1rem;
+    font-size: inherit;
+    color: $indigo;
+
+    &:focus {
+        border-radius: 0;
+        background-color: $deck;
+        border: 0.125ren solid $indigo;
+    }
 }

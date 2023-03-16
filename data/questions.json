@@ -1,9 +1,9 @@
 [
     {   "slug": "problem-gambling",
         "qSet": 1,
-        "category": "responsible-gambling",
+        "category": "sports-trivia",
         "type": "radio",
-        "duration": 5,
+        "duration": 60,
         "question": "What is problem gambling?",
         "answers": [
             "Gambling activity that has a negative impact on the gambler’s life",
@@ -19,9 +19,9 @@
     },
     {   "slug": "gambling-beliefs",
         "qSet": 1,
-        "category": "responsible-gambling",
+        "category": "resp-betting",
         "type": "radio",
-        "duration": 5,
+        "duration": 60,
         "question": "Which of the following statements is true?",
         "answers": [
             "Betting is a good way to earn extra cash if you are skilled and knowledgeable enough",
@@ -35,7 +35,7 @@
     },
     {   "slug": "bettor-demographics",
         "qSet": 1,
-        "category": "responsible-gambling",
+        "category": "resp-betting",
         "type": "checkbox",
         "duration": 60,
         "img": "",

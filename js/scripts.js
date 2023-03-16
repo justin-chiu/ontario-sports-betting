@@ -3,6 +3,7 @@
 let quiz = document.querySelector(".quiz-container");
 let nickname = quiz.querySelector("#nickname");
 let chalContainer = quiz.querySelector(".chal-container");
+let chalIcon = quiz.querySelector(".chal-icon");
 let chalName = quiz.querySelectorAll(".chal-name");
 let chalScore = quiz.querySelectorAll(".chal-score");
 let resultsSection = quiz.querySelector("#s-results");
@@ -21,6 +22,8 @@ console.log("query: " + query);
 let queryObj = queryToObj(query);
 
 if (queryObj) {
+
+    chalIcon.innerText = queryObj.chal[0];
 
     chalName.forEach(function (element) {
         element.innerText = queryObj.chal;
@@ -56,7 +59,6 @@ function startQuiz(qData) {
     // DYNAMIC DOM ELEMENTS
 
     let navButtons = quiz.querySelectorAll(".btn-nav");
-    let fieldsets = quiz.querySelectorAll("fieldset");
     let radioFieldsets = quiz.querySelectorAll("fieldset.radio");
     let checkboxFieldsets = quiz.querySelectorAll("fieldset.checkbox");
     let inputChoices = quiz.querySelectorAll(".q-choice");
@@ -80,15 +82,19 @@ function startQuiz(qData) {
         btn.onclick = tapNavButton;
     });
 
-    // change to answer choice enables button
+    // change to answer choice enables button, shades fieldset
     inputChoices.forEach(function (radio) {
         radio.onchange = enableButton;
+        radio.onclick = function (e) {
+            fieldsetShade(e.currentTarget, e.currentTarget.parentElement); // change shading
+        };
     });
 
     // clicking fieldset changes radio button
     radioFieldsets.forEach(function (set) {
         set.onclick = function (e) {
-            e.currentTarget.querySelector("input").checked = true;
+            e.currentTarget.querySelector("input").checked = true; // set input
+            fieldsetShade(e.currentTarget.querySelector("input"), e.currentTarget); // change shading
             enableButton(e);
         }
     });
@@ -99,6 +105,7 @@ function startQuiz(qData) {
             if (e.target.tagName !== "INPUT") {
                 let thisInput = e.currentTarget.querySelector("input");
                 thisInput.checked = !thisInput.checked;
+                fieldsetShade(thisInput, e.currentTarget);
             }
         }
     });
@@ -181,6 +188,13 @@ function checkPicked() { // check if answer has been selected
 
 }
 
+function splitTime(time) { // time in total seconds, returns object
+    return {
+        "min": Math.floor(time / 60), 
+        "sec": time % 60, 
+        "secAddZeroes": addZeroes(time % 60)
+    };
+}
 
 
 
@@ -277,7 +291,26 @@ function toggleBoost() { // turns boost on and off
     }
 }
 
+function fieldsetShade(input, fieldset) {
 
+    if (input.getAttribute("type") == "radio") {
+        if (input.checked) {
+            let shaded = fieldset.parentElement.querySelectorAll(".checked");
+            shaded.forEach(function (set) {
+                set.classList.remove("checked");
+            });
+            fieldset.classList.add("checked");
+        } else {
+            fieldset.classList.remove("checked");
+        }
+    } else if (input.getAttribute("type") == "checkbox") {
+        if (input.checked) {
+            fieldset.classList.add("checked");
+        } else {
+            fieldset.classList.remove("checked");
+        }
+    }
+}
 
 
 
@@ -291,11 +324,17 @@ function startTimer(timeLeft) {
     minutes = Math.floor(timeLeft / 60);
     seconds = timeLeft % 60;
 
+    let timerMinutes = activeSection.querySelector(".timer-minutes");
+    let timerSeconds = activeSection.querySelector(".timer-seconds");
+
     // inner text
     timerMinutes.innerText = minutes;
     timerSeconds.innerText = addZeroes(seconds); // adding leading zeroes
 
     timerInterval = setInterval(function () {
+
+        let timerMinutes = activeSection.querySelector(".timer-minutes");
+        let timerSeconds = activeSection.querySelector(".timer-seconds");
 
         // m:ss display
 
@@ -329,6 +368,15 @@ function setProgress() { // sets progress bar and indicators
     let progress = document.querySelector(".progress");
 
     if (activeSection.getAttribute("sectype") == "question") {
+
+        // set light/darkmode
+        if (activeSection.getAttribute("darkmode") || activeQObj.category == "sports-trivia") {
+            progress.classList.remove("light-mode");
+            progress.classList.add("dark-mode");
+        } else {
+            progress.classList.remove("dark-mode");
+            progress.classList.add("light-mode");
+        }
 
         // show progress elements
         progress.classList.remove("disabled");
@@ -365,17 +413,21 @@ function createFieldset(type, slug, ansChoice, ansIndex) {
     input.setAttribute("ansindex", ansIndex);
 
     let label = document.createElement("label");
+    label.classList.add("text-regular");
+    label.classList.add("text-size-small");
     label.innerText = ansChoice;
 
-    let resultIcon = document.createElement("figure");
-    resultIcon.classList.add("q-result-icon");
+    // let resultIcon = document.createElement("figure");
+    // resultIcon.classList.add("q-result-icon");
+
+    let resultIcon = '<figure class="q-result-icon"><svg class="vector-incorrect" width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.9142 1.99991L10.5 0.585693L6.00003 5.08569L1.50003 0.585693L0.0858154 1.99991L4.58582 6.49991L0.0858154 10.9999L1.50003 12.4141L6.00003 7.91412L10.5 12.4141L11.9142 10.9999L7.41424 6.49991L11.9142 1.99991Z"/></svg><svg class="vector-correct" width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.4142 1.49991L5.75003 11.1641L0.585815 5.99991L2.00003 4.58569L5.75003 8.33569L14 0.0856934L15.4142 1.49991Z"/></svg></figure>';
 
     let fieldset = document.createElement("fieldset");
     fieldset.classList.add("q-fieldset");
     fieldset.classList.add(type);
     fieldset.appendChild(input);
     fieldset.appendChild(label);
-    fieldset.appendChild(resultIcon);
+    fieldset.innerHTML += resultIcon;
 
     return fieldset;
 }
@@ -398,7 +450,6 @@ function addQSection(qObj, qIndex) { // add question section
     let qChoiceSet = document.createElement("div");
     qChoiceSet.classList.add("q-choice-set");
     qChoiceSet.classList.add("dflt-margin-self");
-    qChoiceSet.classList.add("dflt-margin-child");
     qFieldsets.forEach(function (fieldset) {
         qChoiceSet.appendChild(fieldset);
     });
@@ -406,14 +457,49 @@ function addQSection(qObj, qIndex) { // add question section
     // Question heading
     let qHeading = document.createElement("h2");
     qHeading.innerText = qObj.question;
+
+    if (qObj.type == "checkbox") {
+        qHeading.classList.add("dflt-margin-self-small");
+    }
+
+    // Select all that apply
+    let qAllApply = '<p class="text-regular text-size-medium">Select all that apply.</p>';
+    
+    // Question number
     let qNumber = document.createElement("div");
     qNumber.classList.add("q-number");
+    qNumber.classList.add("q-flag-box");
     qNumber.classList.add("dflt-margin-self");
+    qNumber.classList.add("text-bold");
+    qNumber.classList.add("text-size-small");
     qNumber.innerText = "Q" + (qIndex + 1);
+
+    // Timer
+    let qTimer = document.createElement("div");
+    qTimer.classList.add("q-timer");
+    qTimer.classList.add("q-flag-box");
+    qTimer.classList.add("text-size-small");
+    qTimer.classList.add("text-italic");
+
+    let timerObj = splitTime(qObj.duration);
+
+    qTimer.innerHTML = '<span class="timer-minutes">' + timerObj.min + '</span>';
+    qTimer.innerHTML += ':' + '<span class="timer-seconds">' + timerObj.secAddZeroes + '</span>';
+
+    // Question flag
+    let qFlag = document.createElement("div");
+    qFlag.classList.add("q-flag");
+    qFlag.appendChild(qNumber);
+    qFlag.appendChild(qTimer);
+
     let qQuestion = document.createElement("div");
     qQuestion.classList.add("q-question");
-    qQuestion.appendChild(qNumber);
+    qQuestion.appendChild(qFlag);
     qQuestion.appendChild(qHeading);
+    
+    if (qObj.type == "checkbox") { // Note to select all that apply
+        qQuestion.innerHTML += qAllApply;
+    }
     
     // Question content container
     let qContent = document.createElement("div");
@@ -428,6 +514,7 @@ function addQSection(qObj, qIndex) { // add question section
     // Section container
     let qSection = document.createElement("section");
     qSection.classList.add(qObj.type);
+    qSection.classList.add(qObj.category);
     qSection.id = qObj.slug;
     qSection.setAttribute("sectype", "question");
     qSection.setAttribute("qnum", (qIndex + 1));
@@ -458,26 +545,30 @@ function presentAnswer(result) { // show answer explanation
 
     // heading logic
 
+    ansHeading = document.createElement("h3");
+    ansHeading.classList.add("q-answer-heading");
+
     if (result && result !== null) {
 
         let randomPhrase = Math.round(Math.random() * (ansPhrases.correct.length - 1));
-        ansHeading = document.createElement("h3");
         ansHeading.innerText = ansPhrases.correct[randomPhrase];
 
-        ansScore = document.createElement("div");
+        ansScore = document.createElement("span");
+        ansScore.classList.add("text-regular");
+        ansScore.classList.add("text-size-small");
         ansScore.innerText = "+" + result.pointsValue;
     } else if (result == null) {
         let randomPhrase = Math.round(Math.random() * (ansPhrases.blank.length - 1));
-        ansHeading = document.createElement("h3");
         ansHeading.innerText = ansPhrases.blank[randomPhrase];
 
     } else {
         let randomPhrase = Math.round(Math.random() * (ansPhrases.incorrect.length - 1));
-        ansHeading = document.createElement("h3");
         ansHeading.innerText = ansPhrases.incorrect[randomPhrase];
     }
 
     let ansExplain = document.createElement("p");
+    ansExplain.classList.add("text-regular");
+    ansExplain.classList.add("text-size-small");
     ansExplain.innerText = activeQObj.answerExplain;
 
     let ansLink;
@@ -485,6 +576,7 @@ function presentAnswer(result) { // show answer explanation
         ansLink = document.createElement("a");
         ansLink.setAttribute("href", activeQObj.linkURL);
         ansLink.setAttribute("target", "_blank");
+        ansLink.classList.add("text-size-small");
         ansLink.innerText = activeQObj.linkName;
     }
 
@@ -623,6 +715,9 @@ function evalAnswer () { // returns true if answer is correct
             longestStreak = yourStreak;
         }
 
+        // set streak indicator
+        numStreak.innerText = yourStreak;
+
         // add result to questionData
         questionData[activeQIndex].userCorrect = true;
 
@@ -635,6 +730,8 @@ function evalAnswer () { // returns true if answer is correct
         }
 
         yourStreak = 0; // reset streak
+
+        numStreak.innerText = yourStreak;
 
         // add results to questionData
         questionData[activeQIndex].userCorrect = false;
@@ -834,8 +931,10 @@ fetch(dataURL)
 // MORE STATIC ELEMENTS
 
 let numBoosts = quiz.querySelector(".num-boosts"); // # of times player can boost pointsValue
-let timerMinutes = quiz.querySelector(".timer-minutes"); // minutes string
-let timerSeconds = quiz.querySelector(".timer-seconds"); // seconds string
+// let timerMinutes = quiz.querySelector(".timer-minutes"); // minutes string
+// let timerSeconds = quiz.querySelector(".timer-seconds"); // seconds string
+let numStreak = quiz.querySelector(".num-streak");
+let buttonSetNickname = quiz.querySelector("#btn-nickname-inline");
 let yourName = quiz.querySelector(".your-name");
 let nomLink = quiz.querySelector(".nominate-link");
 let nomButton = quiz.querySelector(".nominate-button");
@@ -845,7 +944,7 @@ numBoosts.innerText = boosts;
 // STATIC ELEMENT EVENTS
 
 nickname.onchange = function () { // set nickname on results page
-    yourName.innerText = nickname.value;
+    // yourName.innerText = nickname.value;
     updateNomLink();
     console.log("nickname set to " + nickname.value);
 }
@@ -855,8 +954,11 @@ nickname.onkeyup = function (e) {
     let buttonStart = quiz.querySelector("#btn-nickname");
     if (nickname.value.length == 0) {
         buttonStart.classList.add("disabled");
+        buttonSetNickname.classList.add("hide");
+
     } else {
         buttonStart.classList.remove("disabled");
+        buttonSetNickname.classList.remove("hide");
     }
 }
 
@@ -868,4 +970,9 @@ nomButton.onclick = function () { // when "Copy Link" button clicked, copy nomLi
     nomLink.select();
     nomLink.setSelectionRange(0,99999);
     navigator.clipboard.writeText(nomLink.value);
+}
+
+buttonSetNickname.onclick = function () {
+    nickname.blur();
+    document.activeElement.blur();
 }

@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,400;1,400;1,900&family=Source+Serif+4:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
 
@@ -13,35 +16,78 @@
     <div class="quiz-wrapper">
         <div class="quiz-container">
             <div class="progress disabled">
-                <div class="progress-bar dflt-margin-self">
+                <div class="progress-bar">
                     <div class="progress-indicator">
                     </div>
                 </div>
-                <div class="progress-content">
-                    <div class="progress-content-left">
-                        <div><b>Score</b></div>
-                        <div class="total-score">0</div>
-                    </div>
-                    <div class="progress-content-right">
-                        <div class="timer">
-                            <div><span class="timer-minutes">0</span>:<span class="timer-seconds">00</span></div>
+                <div class="progress-content text-size-small">
+                    <div class="progress-content-section">
+                        <div class="progress-pair">
+                            <div class="text-regular">Score</div>
+                            <div class="total-score text-bold">0</div>
                         </div>
-                        <div class="inventory">
-                            <div>Boosts x<span class="num-boosts">0</span></div>
+                    </div>
+                    <div class="progress-content-section">
+                        <!--<div class="timer">
+                            <div><span class="timer-minutes">0</span>:<span class="timer-seconds">00</span></div>
+                        </div>-->
+                        <div class="progress-pair">
+                            <div class="text-regular">Streak</div>
+                            <div class="num-streak text-bold">0</div>
+                        </div>
+                        <div class="progress-pair">
+                            <div class="text-regular">Boosts</div>
+                            <div class="boosts-lockup">
+                                <svg class="boosts-bolt" width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.59638 12H2.69684L3.59638 7.33333H0.447987C-0.343608 7.33333 0.151139 6.83333 0.16913 6.81333C1.32954 5.29333 3.07465 3.02667 5.40445 0H6.30399L5.40445 4.66667H8.56184C8.92166 4.66667 9.11955 4.79333 8.92166 5.10667C5.36847 9.7 3.59638 12 3.59638 12Z"/>
+                                </svg>
+                                <div class="num-boosts text-bold">0</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="sections-container">
-                <section class="" sectype="walkthrough" id="s-start">
-                    <div class="section-content">
-                        <h1>Blue Jays Trivia +<br>Responsible Betting <br>Quiz Challenge</h1>
+                <section class="active" sectype="walkthrough" id="s-start">
+                    <div class="section-content basic-padding text-centered flex-grow bg-blue">
+                        <p class="text-regular text-size-medium">
+                            The Smart Play Betting <br>Project presents:
+                        </p>
+                        <h1 alt="Blue Jays Trivia Zone" class="quiz-title">
+                            <svg width="218" height="228" viewBox="0 0 218 228" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g class="bottom-lines">
+                                    <path d="M37.4139 122.096L35.9419 132.656H24.8059L20.0699 166H6.75791L11.4939 132.656H0.35791L1.82991 122.096H37.4139Z"/>
+                                    <path d="M65.9554 122.096C67.9181 122.096 69.7101 122.502 71.3314 123.312C72.9954 124.08 74.2967 125.19 75.2354 126.64C76.2167 128.048 76.7074 129.691 76.7074 131.568C76.7074 133.616 76.2807 135.494 75.4274 137.2C74.5741 138.864 73.4221 140.23 71.9714 141.296C70.5634 142.363 69.0061 143.046 67.2994 143.344L67.2354 143.664C69.1554 144.262 70.5634 145.328 71.4594 146.864C72.3981 148.358 72.8674 150.192 72.8674 152.368C72.8674 152.923 72.8461 153.414 72.8034 153.84C72.7607 154.267 72.7181 154.63 72.6754 154.928C72.5047 156.294 72.4194 157.382 72.4194 158.192C72.4194 160.838 73.2301 162.374 74.8514 162.8L74.4674 165.424C72.3767 166.235 69.7741 166.64 66.6594 166.64C64.0141 166.64 62.0087 166.15 60.6434 165.168C59.2781 164.187 58.5954 162.587 58.5954 160.368C58.5954 159.856 58.6807 158.96 58.8514 157.68C59.0221 156.315 59.1074 155.27 59.1074 154.544C59.1074 152.838 58.7447 151.494 58.0194 150.512C57.3367 149.488 56.1207 148.976 54.3714 148.976H50.6594L48.2914 166H35.1714L41.3154 122.096H65.9554ZM53.0274 132.144L52.0674 139.184H58.8514C59.8754 139.184 60.7074 138.886 61.3474 138.288C61.9874 137.691 62.3714 136.923 62.4994 135.984L62.5634 134.768C62.6061 134.043 62.3287 133.424 61.7314 132.912C61.1767 132.4 60.5367 132.144 59.8114 132.144H53.0274Z"/>
+                                    <path d="M106.956 122.096L105.612 131.504H100.428L96.9084 156.528H102.092L100.748 166H76.8124L78.1564 156.528H83.3404L86.8604 131.504H81.6764L83.0204 122.096H106.956Z"/>
+                                    <path d="M150.751 122.096L131.231 166H115.231L108.319 122.096H122.271L126.111 149.36H126.367L137.823 122.096H150.751Z"/>
+                                    <path d="M176.176 122.096L174.832 131.504H169.648L166.128 156.528H171.312L169.968 166H146.032L147.376 156.528H152.56L156.08 131.504H150.896L152.24 122.096H176.176Z"/>
+                                    <path d="M208.963 122.096L217.411 166H203.459L201.923 158.192H187.971L184.323 166H171.459L192.259 122.096H208.963ZM198.339 135.6H198.019L192.387 148.912H200.195L198.339 135.6Z"/>
+                                    <path d="M66.6417 183.096L66.0657 187L45.0097 216.696H62.4177L60.9457 227H24.4657L25.0417 223.096L46.3537 193.336H30.6737L32.1457 183.096H66.6417Z"/>
+                                    <path d="M91.5647 182.584C94.7647 182.584 97.6233 183.31 100.141 184.76C102.701 186.211 104.685 188.195 106.093 190.712C107.543 193.23 108.269 196.024 108.269 199.096C108.269 199.694 108.226 200.27 108.141 200.824C108.098 201.336 108.013 202.019 107.885 202.872L107.117 208.44C106.605 212.024 105.367 215.267 103.405 218.168C101.442 221.07 98.882 223.374 95.7247 225.08C92.61 226.787 89.1113 227.64 85.2287 227.64H81.6447C78.4447 227.64 75.5647 226.915 73.0047 225.464C70.4873 224.014 68.5033 222.03 67.0527 219.512C65.6447 216.995 64.9407 214.2 64.9407 211.128C64.9407 210.574 64.962 209.998 65.0047 209.4C65.09 208.76 65.1753 208.099 65.2607 207.416C65.3887 206.691 65.474 206.094 65.5167 205.624C65.6447 205.027 65.7513 204.408 65.8367 203.768C65.922 203.128 66.0073 202.467 66.0927 201.784C66.6047 198.243 67.842 195.022 69.8047 192.12C71.7673 189.176 74.306 186.851 77.4207 185.144C80.578 183.438 84.098 182.584 87.9807 182.584H91.5647ZM88.2367 192.44C86.146 192.44 84.4607 193.038 83.1807 194.232C81.9433 195.427 81.1967 196.963 80.9407 198.84L79.2127 211.192C79.17 211.278 79.1487 211.427 79.1487 211.64V212.088C79.1487 213.667 79.6607 214.99 80.6847 216.056C81.7513 217.08 83.0953 217.592 84.7167 217.592H85.0367C87.1273 217.592 88.7913 216.995 90.0287 215.8C91.3087 214.606 92.0767 213.07 92.3327 211.192L94.0607 198.84C94.1033 198.712 94.1247 198.414 94.1247 197.944C94.1247 196.408 93.5913 195.107 92.5247 194.04C91.5007 192.974 90.178 192.44 88.5567 192.44H88.2367Z"/>
+                                    <path d="M146.781 227H135.261L126.557 211.256C126.301 210.915 125.938 210.232 125.469 209.208L124.637 207.544L121.885 227H109.533L115.741 183.096H127.005L135.965 199.416L137.757 203L140.573 183.096H152.989L146.781 227Z"/>
+                                    <path d="M192.623 183.096L189.935 193.208H171.439L170.479 199.608H188.271L186.927 209.4H169.135L168.111 216.504H186.415V227H153.455L159.663 183.096H192.623Z"/>
+                                </g>
+                                <g class="top-lines">
+                                    <path d="M61.3182 0.0961914C63.2382 0.0961914 64.9662 0.522859 66.5022 1.37619C68.0382 2.18686 69.2328 3.29619 70.0862 4.70419C70.9395 6.11219 71.3662 7.69086 71.3662 9.44019C71.3662 12.8109 70.5128 15.4135 68.8062 17.2482C67.1422 19.0829 65.0515 20.3629 62.5342 21.0882L62.4702 21.3442C67.1208 22.4962 69.4462 25.3975 69.4462 30.0482C69.4462 32.3949 68.8702 34.6562 67.7182 36.8322C66.5662 38.9655 64.9235 40.6935 62.7902 42.0162C60.6995 43.3389 58.2675 44.0002 55.4942 44.0002H31.0462L37.2542 0.0961914H61.3182ZM48.2622 9.44019L47.2382 16.9282H54.5982C55.4515 16.9282 56.2622 16.6082 57.0302 15.9682C57.7982 15.3282 58.2035 14.5815 58.2462 13.7282L58.3742 12.1922C58.3742 11.3815 58.1182 10.7202 57.6062 10.2082C57.0942 9.69619 56.4328 9.44019 55.6222 9.44019H48.2622ZM45.8942 26.2722L44.8702 33.8242H52.9982C53.8515 33.8242 54.6622 33.5042 55.4302 32.8642C56.1982 32.2242 56.6035 31.4775 56.6462 30.6242L56.7742 29.0242C56.7742 28.2135 56.5182 27.5522 56.0062 27.0402C55.4942 26.5282 54.8328 26.2722 54.0222 26.2722H45.8942Z"/>
+                                    <path d="M92.1822 0.0961914L87.5102 33.2482H103.19V44.0002H72.4062L78.6142 0.0961914H92.1822Z"/>
+                                    <path d="M145.305 30.0482C144.622 34.6135 142.638 38.1975 139.353 40.8002C136.067 43.3602 131.609 44.6402 125.977 44.6402H123.225C118.489 44.6402 114.734 43.5309 111.961 41.3122C109.187 39.0935 107.801 36.1069 107.801 32.3522C107.801 31.5842 107.865 30.8162 107.993 30.0482L112.153 0.0961914H125.657L121.497 29.8562C121.454 29.9842 121.433 30.2189 121.433 30.5602C121.433 31.7975 121.859 32.8002 122.713 33.5682C123.609 34.2935 124.718 34.6562 126.041 34.6562C127.747 34.6562 129.091 34.2295 130.073 33.3762C131.054 32.4802 131.651 31.3069 131.865 29.8562L136.025 0.0961914H149.465L145.305 30.0482Z"/>
+                                    <path d="M188.794 0.0961914L186.106 10.2082H167.61L166.65 16.6082H184.442L183.098 26.4002H165.306L164.282 33.5042H182.586V44.0002H149.626L155.834 0.0961914H188.794Z"/>
+                                    <path d="M61.1117 93.4802C60.5143 97.3629 58.7223 100.371 55.7357 102.504C52.7917 104.595 49.1223 105.64 44.7277 105.64H42.7437C38.7757 105.64 35.7037 104.766 33.5277 103.016C31.3517 101.267 30.2637 98.7922 30.2637 95.5922V94.8882C30.2637 94.0775 30.5197 92.1575 31.0317 89.1282H43.3197L42.9997 91.1762C42.7863 92.3709 42.6797 93.1815 42.6797 93.6082C42.6797 94.3335 42.893 94.9309 43.3197 95.4002C43.789 95.8269 44.3437 96.0402 44.9837 96.0402C45.7517 96.0402 46.413 95.7842 46.9677 95.2722C47.565 94.7175 47.9277 93.9922 48.0557 93.0962L52.5357 61.0962H65.6557L61.1117 93.4802Z"/>
+                                    <path d="M99.6377 61.0962L108.086 105H94.1337L92.5977 97.1922H78.6457L74.9977 105H62.1337L82.9337 61.0962H99.6377ZM89.0137 74.6002H88.6937L83.0617 87.9122H90.8697L89.0137 74.6002Z"/>
+                                    <path d="M149.877 61.0962L131.509 88.2322L129.141 105H115.765L118.133 88.2322L107.381 61.0962H122.485L127.029 75.4962H127.349L136.117 61.0962H149.877Z"/>
+                                    <path d="M169.304 60.4562C174.083 60.4562 177.966 61.4162 180.952 63.3362C183.939 65.2562 185.432 68.1149 185.432 71.9122C185.432 72.8935 185.347 73.8109 185.176 74.6642H172.888L172.952 73.4482C172.995 72.5522 172.59 71.7842 171.736 71.1442C170.926 70.5042 169.752 70.1842 168.216 70.1842C166.339 70.1842 164.91 70.4615 163.928 71.0162C162.947 71.5709 162.456 72.2962 162.456 73.1922C162.456 74.1735 163.011 74.9202 164.12 75.4322C165.272 75.9015 167.171 76.4562 169.816 77.0962C172.675 77.6935 175.043 78.3549 176.92 79.0802C178.84 79.7629 180.483 80.8509 181.848 82.3442C183.214 83.8375 183.896 85.8215 183.896 88.2962C183.896 93.1602 182.232 97.2775 178.904 100.648C175.576 103.976 169.987 105.64 162.136 105.64C157.272 105.64 153.24 104.638 150.04 102.632C146.84 100.584 145.24 97.5975 145.24 93.6722C145.24 92.8615 145.368 91.6455 145.624 90.0242H158.04C157.87 90.4082 157.784 90.8775 157.784 91.4322C157.784 92.5842 158.211 93.5229 159.064 94.2482C159.918 94.9735 161.304 95.3362 163.224 95.3362C167.534 95.3362 169.688 94.3122 169.688 92.2642C169.688 91.3255 169.134 90.6215 168.024 90.1522C166.958 89.6829 165.208 89.1709 162.776 88.6162C159.918 88.0189 157.528 87.3575 155.608 86.6322C153.688 85.8642 152.024 84.6909 150.616 83.1122C149.208 81.4909 148.504 79.3362 148.504 76.6482C148.504 71.4429 150.403 67.4535 154.2 64.6802C158.04 61.8642 163.075 60.4562 169.304 60.4562Z"/>
+                                </g>
+                            </svg>
+                                                             
+                        </h1>
                         <div class="chal-container">
-                            <div class="chal-label">
-                                <b>Your Challenger</b>
+                            <div class="chal-label text-italic text-size-medium">
+                                Challenged By:
                             </div>
-                            <div class="chal-info">
-                                <span class="chal-name"><b>Maxim</b></span> (<span class="chal-score">0</span> points)
+                            <div class="chal-icon text-regular text-size-small"></div>
+                            <div class="chal-name text-bold text-size-medium"></div>
+                            <div class="text-regular text-size-small">
+                                <span class="chal-score"></span> points
                             </div>
                         </div>
                     </div>
@@ -54,9 +100,11 @@
                     </div>
                 </section>
                 <section class="" sectype="text-input" id="s-nickname">
-                    <div class="section-content">
-                        <h2>Enter a nickname</h2>
-                        <input id="nickname" type="text">
+                    <div class="section-content basic-padding">
+                        <h2 class="dflt-margin-self-small">How well do you know <br>Canada’s only MLB team?</h2>
+                        <p class="text-regular text-size-medium dflt-margin-self">Test your baseball knowledge and  get some tips on responsible sports  betting along the way.</p>
+                        <input id="nickname" class="text-regular text-size-medium dflt-margin-self" type="text" placeholder="Enter a nickname…">
+                        <button class="btn-inline text-bold hide" id="btn-nickname-inline">Set Nickname</button>
                     </div>
                     <div class="section-controls">
                         <div class="controls-nav">
@@ -69,31 +117,11 @@
                         </div>
                     </div>
                 </section>
-                <section class="active" sectype="walkthrough" id="s-instruction-00">
-                    <div class="section-content">
-                        <h2>How to play</h2>
-                        <ol class="dflt-margin-child">
-                            <li>
-                                <p>Choose your answer</p>
-                                <div class="instruct-img">
-                                </div>
-                            </li>
-                            <li>
-                                <p>Score more points by answering quickly, maintaining a streak, or by tapping "Boost"</p>
-                                <div class="instruct-img">
-                                </div>
-                            </li>
-                            <li>
-                                <p>Tap "Check Answer" to see how you did</p>
-                                <div class="instruct-img">
-                                </div>
-                            </li>
-                            <li>
-                                <p>Challenge a friend to beat your score!</p>
-                                <div class="instruct-img">
-                                </div>
-                            </li>
-                        </ol>
+                <section class="" sectype="walkthrough" id="s-instruction-00">
+                    <div class="section-content basic-padding">
+                        <h2 class="dflt-margin-self">8 Baseball Trivia Questions <br>4 Responsible Betting Questions</h2>
+                        <p class="text-regular text-size-medium dflt-margin-self"><b>Tip:</b>&#8194;Press boost to score more points  if you’re correct</p>
+                        <p class="text-regular text-size-medium dflt-margin-self">You’ll also score more points for answering quickly or building a streak.</p>
                     </div>
                     <div class="section-controls">
                         <div class="controls-nav">
@@ -103,28 +131,28 @@
                     </div>
                 </section>
                 <section class="" id="s-results" sectype="walkthrough">
-                    <div class="section-content">
-                        <h2>How you did</h2>
+                    <div class="section-content basic-padding">
+                        <h3 class="dflt-margin-self-small">How you did</h3>
                         <div class="results-total-scores dflt-margin-self">
-                            <div class="results-your"><span class="your-name">You</span>: <span class="total-score">0</span> points</div>
-                            <div class="results-chal"><span class="chal-name"></span>: <span class="chal-score">0</span></div>
+                            <div class="results-your dflt-margin-self-small"><span class="total-score">0</span> points</div>
+                            <div class="results-chal text-regular text-size-medium"><span class="chal-name text-bold text-size-medium"></span>&#8194;<span class="chal-score text-regular">0</span> points</div>
                         </div>
                         <div class="results-stats dflt-margin-self">
-                            <h3>Quick stats</h3>
-                            <div>Correct: <span class="stats-correct">0</span> of <span class="stats-total-qs"></span></div>
-                            <div>Longest streak: <span class="stats-streak">0</span></div>
-                            <div>Highest-scoring question: <span class="stats-hs-qnum"">--</span> <span class="stats-hs-value"></span></div>
+                            <h3 class="dflt-margin-self">Quick stats</h3>
+                            <div class="text-italic text-size-medium"><span class="text-bold">Correct:&#8194;</span><span class="stats-correct">0</span> of <span class="stats-total-qs"></span></div>
+                            <div class="text-italic text-size-medium"><span class="text-bold">Longest streak:&#8194;</span><span class="stats-streak">0</span></div>
+                            <div class="text-italic text-size-medium"><span class="text-bold">Highest-scoring question:&#8194;</span><span class="stats-hs-qnum"">--</span> <span class="stats-hs-value"></span></div>
                         </div>
                         <div class="results-nominate dflt-margin-child">
                             <h3>Challenge a friend</h3>
-                            <input class="nominate-link" type="text" readonly>
-                            <button class="nominate-button">Copy Link</button>
+                                <input class="nominate-link text-regular text-size-medium dflt-margin-self-small" type="text" readonly>
+                                <button class="nominate-button btn-inline text-bold">Copy Link</button>
                         </div>
                     </div>
                     <div class="controls-nav">
                         <button class="btn-nav btn-back">Back</button>
                         <button class="btn-nav btn-next">
-                            Next
+                            Play Again
                         </button>
                         </div>
                 </section>

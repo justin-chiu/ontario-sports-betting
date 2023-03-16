@@ -2,19 +2,27 @@
 
 CONTENT:
 
-Multiple answer questions
+Questions
 Question sets
 
 FUNCTIONALITY:
 
-UI design
-Randomize questions
+Boosting
+Scroll animations
+Add icons to buttons
+Disabled button state
+Button tap states
+Bring back progress bar
+Illustrations
+Checkbox positioning
+
 
 BLUE SKY:
 
 See score breakdown
 Leaderboard
 Social media share button
+Text field corner
 
 CLEAN-UP:
 
@@ -23,12 +31,18 @@ Get someone to proofread my code
 
 
 What I did:
-• fetch questionData from json
-• wrote instruction text
-• multiple-answer question answer evaluation
-• multiple-answer question events
-• question blank logic for multiple-answer questions
-• correct/incorrect indicators for multiple-answer questions
+• fieldset shaders
+• custom radio buttons and checkboxes
+• custom nickname field
+• set nickname button
+• colours
+• typography
+• progress light/dark mode
+• title section
+• results page
+• select all that apply
+• moved question timer
+
 
 JSON keys
 {   "slug": "",
