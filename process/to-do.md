@@ -2,6 +2,7 @@
 
 CONTENT:
 
+Instructions
 Questions
 Question sets
 
@@ -9,20 +10,27 @@ FUNCTIONALITY:
 
 Boosting
 Scroll animations
-Add icons to buttons
-Disabled button state
-Button tap states
-Bring back progress bar
-Illustrations
+Transitions
+Button states
 Checkbox positioning
+Highlight correct false answer?
+
+Add icons to buttons
+Images, illustrations
 
 
 BLUE SKY:
 
-See score breakdown
-Leaderboard
 Social media share button
+Leaderboard
+Music
+Sound and visual efforts
+Choose avatar or jersey number
+See score breakdown
 Text field corner
+Enter button
+URL changing history
+
 
 CLEAN-UP:
 
@@ -31,17 +39,8 @@ Get someone to proofread my code
 
 
 What I did:
-• fieldset shaders
-• custom radio buttons and checkboxes
-• custom nickname field
-• set nickname button
-• colours
-• typography
-• progress light/dark mode
-• title section
-• results page
-• select all that apply
-• moved question timer
+• Safari viewport height issue workaround
+• Enter button event on nickname field
 
 
 JSON keys

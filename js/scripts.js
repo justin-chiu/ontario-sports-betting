@@ -41,6 +41,24 @@ if (queryObj) {
 
 
 
+// HEIGHT
+
+let windowInitHeight = window.innerHeight;
+
+function setQuizHeight () { // a fix for mobile browser viewport height issue
+    quiz.style.height = Math.min(windowInitHeight, 1000) + "px";
+
+    if (windowInitHeight == document.documentElement.clientHeight) {
+        quiz.parentElement.style.alignItems = "center";
+    } else {
+        quiz.parentElement.style.alignItems = "start";
+    }
+}
+
+setQuizHeight();
+
+
+
 
 
 // ASYNC START QUIZ
@@ -396,6 +414,8 @@ function setProgress() { // sets progress bar and indicators
     } else {
         // hide progress elements
         progress.classList.add("disabled");
+        progress.classList.remove("light-mode");
+        progress.classList.add("dark-mode");
     }
 }
 
@@ -414,7 +434,7 @@ function createFieldset(type, slug, ansChoice, ansIndex) {
 
     let label = document.createElement("label");
     label.classList.add("text-regular");
-    label.classList.add("text-size-small");
+    label.classList.add("text-size-medium");
     label.innerText = ansChoice;
 
     // let resultIcon = document.createElement("figure");
@@ -503,12 +523,12 @@ function addQSection(qObj, qIndex) { // add question section
     
     // Question content container
     let qContent = document.createElement("div");
-    qContent.classList.add("section-content"); 
+    qContent.classList.add("section-content");
     qContent.appendChild(qQuestion);
     qContent.appendChild(qChoiceSet);  
 
     // Navigation controls
-    let qControls = '<div class=section-controls><div class=controls-powerups><button class=powerup-boost>Boost</button></div><div class=controls-nav><button class="btn-nav btn-back">Back</button> <button class="btn-nav btn-next"><span class=btn-skip-text>Skip</span><span class=btn-check-text>Check Answer</span><span class=btn-next-text>Next</span></button></div></div>';
+    let qControls = '<div class="section-controls"><div class=controls-powerups><button class=powerup-boost>Boost</button></div><div class=controls-nav><button class="btn-nav btn-back">Back</button> <button class="btn-nav btn-next"><span class=btn-skip-text>Skip</span><span class=btn-check-text>Check Answer</span><span class=btn-next-text>Next</span></button></div></div>';
     
 
     // Section container
@@ -568,7 +588,7 @@ function presentAnswer(result) { // show answer explanation
 
     let ansExplain = document.createElement("p");
     ansExplain.classList.add("text-regular");
-    ansExplain.classList.add("text-size-small");
+    ansExplain.classList.add("text-size-medium");
     ansExplain.innerText = activeQObj.answerExplain;
 
     let ansLink;
@@ -576,7 +596,7 @@ function presentAnswer(result) { // show answer explanation
         ansLink = document.createElement("a");
         ansLink.setAttribute("href", activeQObj.linkURL);
         ansLink.setAttribute("target", "_blank");
-        ansLink.classList.add("text-size-small");
+        ansLink.classList.add("text-size-medium");
         ansLink.innerText = activeQObj.linkName;
     }
 
@@ -874,14 +894,9 @@ let sectionApprovals = [ // section types and rules for navigation forward/backw
             let checkbox = activeSection.classList.contains("checkbox");
 
             if (!choicePicked && !ansRevealed) { // if no radio button on checkbox is checked
-                
-                // confirm that player wants to leave question blank
-                if (confirm("Are you sure you want to leave this question blank?")) {
-                    if (radio) {return true;} // if question is radio
-                    else if (checkbox) {checkAnswer(); return false;} // if question is checkbox
-                } else {
-                    return false; // do not approve navigation
-                }
+
+                if (radio) {return true;} // if question is radio
+                else if (checkbox) {checkAnswer(); return false;} // if question is checkbox
 
             } else { // if radio button or checkbox is checked
 
@@ -897,7 +912,7 @@ let sectionApprovals = [ // section types and rules for navigation forward/backw
 ]
 
 let ansPhrases = {
-    correct: ["You got it!"],
+    correct: ["You got it!", "Bullseye!", "Score!"],
     incorrect: ["Not quite…"],
     blank: ["The answer"]
 }
@@ -960,6 +975,11 @@ nickname.onkeyup = function (e) {
         buttonStart.classList.remove("disabled");
         buttonSetNickname.classList.remove("hide");
     }
+
+    if (e.keyCode == 13 || e.which == 13) {
+        let btnNext = activeSection.querySelector(".btn-next");
+        btnNext.click();
+    }
 }
 
 nomLink.onclick = function () { // when nomLink field is clicked, select entire value
@@ -973,6 +993,9 @@ nomButton.onclick = function () { // when "Copy Link" button clicked, copy nomLi
 }
 
 buttonSetNickname.onclick = function () {
-    nickname.blur();
-    document.activeElement.blur();
+
+}
+
+window.onresize = function() {
+    setQuizHeight();
 }
