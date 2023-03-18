@@ -2,21 +2,25 @@
 
 CONTENT:
 
-Instructions
+Instructions and intro
 Questions
 Question sets
 
 FUNCTIONALITY:
 
 Boosting
-Scroll animations
-Transitions
-Separate quick stats
-Link copied
 
-Add icons to buttons
+Scroll animations
+• after navigating next/back, scroll to top of activeSection
+• scroll to answer explanation/answer choices when presenting answer
+• when scrolling down, hide progress content and buttons
+
+Transitions
+• Delay show answer choices
+• Show image in between questions
+
 Images, illustrations
-Highlight correct false answer?
+Play again
 
 
 BLUE SKY:
@@ -28,7 +32,7 @@ Sound and visual efforts
 Choose avatar or jersey number
 URL changing history
 See score breakdown
-
+Highlight correct false answer?
 
 
 CLEAN-UP:
@@ -38,13 +42,12 @@ Get someone to proofread my code
 
 
 What I did:
-• Safari viewport height issue workaround
-• enter button event on nickname field
-
-• button states
-• text behind h1 title
-• input states
-
+• link copied
+• standardized spacing and font-size classes
+• standardized SASS variables
+• split results page into two sections
+• made quick stats into table
+• icons for next button
 
 
 JSON keys

@@ -1,7 +1,9 @@
 // VARIABLES
 
-$vp-padding: 1.75rem;
-$default-margin: 1.25rem;
+$spacing-sides: 1.75rem;
+$spacing-top: 5rem;
+$spacing-bottom: 5.5rem;
+$spacing-btwn-vert: 1.25rem;
 
 // colours
 $cobalt: #2768B8;
@@ -97,8 +99,9 @@ i, em, .text-italic, .btn-back {
     letter-spacing: -0.005em;
 }
 
-.text-size-medium {font-size: 1rem;}
-.text-size-small {font-size: 0.875rem;}
+.text-size-lg {font-size: 1rem;}
+.text-size-md {font-size: 0.9375rem;}
+.text-size-sm {font-size: 0.875rem;}
 
 a {
     font-family: 'Chivo', sans-serif;
@@ -114,10 +117,6 @@ div {
     line-height: 150%;
 }
 
-.text-centered {
-    text-align: center;
-}
-
 
 
 
@@ -131,6 +130,10 @@ button {
     border: none;
     font-size: 1rem;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 0.5rem;
 
     .btn-check-text {display: none;}
     .btn-next-text {display: none;}
@@ -159,12 +162,14 @@ button {
         &:hover, &:active {background-color: $indigoDark;}
     }
 
-    &.disabled {color: $whiteTrans;}
-    &.hide {opacity: 0;}
+    &.disabled {color: $whiteTrans; .btn-icon {opacity: 0.5;}}
+
+
 
     &.check-answer {
         .btn-skip-text {display: none;}
         .btn-check-text {display: inline;}
+        .btn-icon {display: none;}
     }
     &.continue {
         .btn-skip-text {display: none;}
@@ -233,27 +238,86 @@ ol {
     position: relative;
 }
 
-.dflt-margin-self {
-    margin-bottom: $default-margin;
+
+
+// SPACING
+
+.basic-padding {
+    padding-top: $spacing-top;
+    padding-left: $spacing-sides;
+    padding-right: $spacing-sides;
 }
 
-.dflt-margin-self-small {
+.smalltop-padding {
+    padding-top: 3rem;
+    padding-left: $spacing-sides;
+    padding-right: $spacing-sides;
+}
+
+.halftop-padding {
+    padding-top: $spacing-top;
+    padding-bottom: $spacing-btwn-vert;
+    padding-left: $spacing-sides;
+    padding-right: $spacing-sides;
+}
+
+.halfbottom-padding {
+    padding-top: $spacing-sides;
+    padding-left: $spacing-sides;
+    padding-right: $spacing-sides;
+}
+
+.space-bottom-xl {
+    margin-bottom: 1.5rem;
+}
+
+.space-bottom-lg {
+    margin-bottom: $spacing-btwn-vert;
+}
+
+.space-bottom-md {
     margin-bottom: 1rem;
 }
 
-.dflt-margin-child {
-    > *:not(:last-child) {margin-bottom: $default-margin;}
+.space-bottom-sm {
+    margin-bottom: 0.75rem;
+}
+
+.space-bottom-xs {
+    margin-bottom: 0.5rem;
+}
+
+.child-space-bottom-lg {
+    > *:not(:last-child) {margin-bottom: $spacing-btwn-vert;}
 }
 
 .flex-grow {
     flex-grow: 1;
 }
 
+
+
+
+// OTHER
+
 .bg-blue {
     background-color: $cobalt;
     color: $white;
 }
 
+.bg-deck {
+    background-color: $deck;
+    color: $indigo;
+    border-bottom: 0.125rem solid $indigo;
+}
+
+.text-centered {
+    text-align: center;
+}
+
+.hide {
+    opacity: 0;
+}
 
 
 // PROGRESS
@@ -299,7 +363,7 @@ ol {
 .progress-content {
     display: flex;
     justify-content: space-between;
-    padding: 1.125rem $vp-padding;
+    padding: 1.125rem $spacing-sides;
 
     div {display: flex;}
 }
@@ -393,19 +457,12 @@ section {
     overflow-x: none;
     overflow-y: scroll;
 
-    padding-bottom: 5.5rem;
+    padding-bottom: $spacing-bottom;
 
     &::-webkit-scrollbar {display: none;}
     -ms-overflow-style: none;
     scrollbar-width: none;
 
-}
-
-.basic-padding {
-    padding-top: 3rem;
-    padding-bottom: 5.5rem;
-    padding-left: $vp-padding;
-    padding-right: $vp-padding;
 }
 
 
@@ -421,7 +478,7 @@ section {
 .controls-powerups {
     position: absolute;
     width: 100%;
-    padding: 0 $vp-padding;
+    padding: 0 $spacing-sides;
     top: 0;
     left: 0;
     transform: translateY(-3rem);
@@ -438,8 +495,8 @@ section {
     display: flex;
     height: 3.5rem;
     margin-bottom: 0.875rem;
-    padding-left: $vp-padding;
-    padding-right: $vp-padding;
+    padding-left: $spacing-sides;
+    padding-right: $spacing-sides;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -452,10 +509,6 @@ section {
 // QUESTION
 
 .q-question {
-    padding-top: 5rem;
-    padding-bottom: $default-margin;
-    padding-left: $vp-padding;
-    padding-right: $vp-padding;
 }
 
 .q-flag {
@@ -477,7 +530,7 @@ section {
 }
 
 .q-choice-set {
-    padding-top: $default-margin;
+    padding-top: $spacing-btwn-vert;
     color: $indigo;
 }
 
@@ -494,7 +547,7 @@ section {
 .q-fieldset {
     display: flex;
     position: relative;
-    padding: 1.25rem $vp-padding;
+    padding: 1.25rem $spacing-sides;
     column-gap: 1rem;
     align-items: center;
     margin-left: 0;
@@ -602,10 +655,10 @@ section {
 }
 
 .q-answer {
-    padding-top: $default-margin;
+    padding-top: $spacing-btwn-vert;
     padding-bottom: 3rem;
-    padding-left: $vp-padding;
-    padding-right: $vp-padding;
+    padding-left: $spacing-sides;
+    padding-right: $spacing-sides;
 }
 
 .q-answer-heading {
@@ -624,9 +677,29 @@ section {
 
 }
 
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+tr.results-row {
+
+    background-color: $deck;
+
+    &:first-of-type {
+        border-bottom: 0.125rem solid $overcast;
+    }
+
+}
+
+td {
+    padding: 0.75rem 1rem;
+}
+
+
 .results-your {
     font-family: 'Source Serif 4', sans-serif;
-    font-size: 3rem;
+    font-size: 2.75rem;
     font-weight: 700;
     line-height: 150%;
     letter-spacing: -0.01em;
@@ -644,7 +717,6 @@ section {
     padding: 0 1rem;
     color: $indigo;
 }
-
 
 
 
@@ -691,7 +763,7 @@ section {
     height: 1.875rem;
     border-radius: 50%;
     background-color: $indigo;
-    margin-top: $default-margin;
+    margin-top: $spacing-btwn-vert;
     margin-bottom: 0.5rem;
     color: $white;
     text-transform: uppercase;

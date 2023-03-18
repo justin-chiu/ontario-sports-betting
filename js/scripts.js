@@ -441,7 +441,7 @@ function createFieldset(type, slug, ansChoice, ansIndex) {
 
     let label = document.createElement("label");
     label.classList.add("text-regular");
-    label.classList.add("text-size-medium");
+    label.classList.add("text-size-sm");
     label.innerText = ansChoice;
 
     // let resultIcon = document.createElement("figure");
@@ -476,7 +476,7 @@ function addQSection(qObj, qIndex) { // add question section
     // Answer choice container
     let qChoiceSet = document.createElement("div");
     qChoiceSet.classList.add("q-choice-set");
-    qChoiceSet.classList.add("dflt-margin-self");
+    qChoiceSet.classList.add("space-bottom-lg");
     qFieldsets.forEach(function (fieldset) {
         qChoiceSet.appendChild(fieldset);
     });
@@ -486,26 +486,26 @@ function addQSection(qObj, qIndex) { // add question section
     qHeading.innerText = qObj.question;
 
     if (qObj.type == "checkbox") {
-        qHeading.classList.add("dflt-margin-self-small");
+        qHeading.classList.add("space-bottom-md");
     }
 
     // Select all that apply
-    let qAllApply = '<p class="text-regular text-size-medium">Select all that apply.</p>';
+    let qAllApply = '<p class="text-regular text-size-lg">Select all that apply.</p>';
     
     // Question number
     let qNumber = document.createElement("div");
     qNumber.classList.add("q-number");
     qNumber.classList.add("q-flag-box");
-    qNumber.classList.add("dflt-margin-self");
+    qNumber.classList.add("space-bottom-lg");
     qNumber.classList.add("text-bold");
-    qNumber.classList.add("text-size-small");
+    qNumber.classList.add("text-size-sm");
     qNumber.innerText = "Q" + (qIndex + 1);
 
     // Timer
     let qTimer = document.createElement("div");
     qTimer.classList.add("q-timer");
     qTimer.classList.add("q-flag-box");
-    qTimer.classList.add("text-size-small");
+    qTimer.classList.add("text-size-sm");
     qTimer.classList.add("text-italic");
 
     let timerObj = splitTime(qObj.duration);
@@ -521,6 +521,7 @@ function addQSection(qObj, qIndex) { // add question section
 
     let qQuestion = document.createElement("div");
     qQuestion.classList.add("q-question");
+    qQuestion.classList.add("halftop-padding");
     qQuestion.appendChild(qFlag);
     qQuestion.appendChild(qHeading);
     
@@ -535,7 +536,7 @@ function addQSection(qObj, qIndex) { // add question section
     qContent.appendChild(qChoiceSet);  
 
     // Navigation controls
-    let qControls = '<div class="section-controls"><div class=controls-powerups><button class=powerup-boost>Boost</button></div><div class=controls-nav><button class="btn-nav btn-back">Back</button> <button class="btn-nav btn-next"><span class=btn-skip-text>Skip</span><span class=btn-check-text>Check Answer</span><span class=btn-next-text>Next</span></button></div></div>';
+    let qControls = '<div class="section-controls"><div class=controls-powerups><button class=powerup-boost>Boost</button></div><div class=controls-nav><button class="btn-nav btn-back">Back</button> <button class="btn-nav btn-next"><div><span class=btn-skip-text>Skip</span><span class=btn-check-text>Check Answer</span><span class=btn-next-text>Next</span></div><img class="btn-icon" src="img/chevron-right.svg"></button></div></div>';
     
 
     // Section container
@@ -575,14 +576,14 @@ function presentAnswer(result) { // show answer explanation
     ansHeading = document.createElement("h3");
     ansHeading.classList.add("q-answer-heading");
 
-    if (result && result !== null) {
+    if (result && result !== null) { // answer phrase, e.g. "You got it!"
 
         let randomPhrase = Math.round(Math.random() * (ansPhrases.correct.length - 1));
         ansHeading.innerText = ansPhrases.correct[randomPhrase];
 
         ansScore = document.createElement("span");
         ansScore.classList.add("text-regular");
-        ansScore.classList.add("text-size-small");
+        ansScore.classList.add("text-size-sm");
         ansScore.innerText = "+" + result.pointsValue;
     } else if (result == null) {
         let randomPhrase = Math.round(Math.random() * (ansPhrases.blank.length - 1));
@@ -593,23 +594,27 @@ function presentAnswer(result) { // show answer explanation
         ansHeading.innerText = ansPhrases.incorrect[randomPhrase];
     }
 
+    // answer explanation
+
     let ansExplain = document.createElement("p");
     ansExplain.classList.add("text-regular");
-    ansExplain.classList.add("text-size-medium");
+    ansExplain.classList.add("text-size-md");
     ansExplain.innerText = activeQObj.answerExplain;
+
+    // answer link
 
     let ansLink;
     if (activeQObj.linkName && activeQObj.linkURL) {
         ansLink = document.createElement("a");
         ansLink.setAttribute("href", activeQObj.linkURL);
         ansLink.setAttribute("target", "_blank");
-        ansLink.classList.add("text-size-medium");
+        ansLink.classList.add("text-size-md");
         ansLink.innerText = activeQObj.linkName;
     }
 
     let ansContainer = document.createElement("div");
     ansContainer.classList.add("q-answer");
-    ansContainer.classList.add("dflt-margin-child");
+    ansContainer.classList.add("child-space-bottom-lg");
     if (ansHeading !== undefined) {ansContainer.appendChild(ansHeading)}
     if (ansScore !== undefined) {ansContainer.appendChild(ansScore)}
     ansContainer.appendChild(ansExplain);
@@ -960,6 +965,7 @@ let buttonSetNickname = quiz.querySelector("#btn-nickname-inline");
 let yourName = quiz.querySelector(".your-name");
 let nomLink = quiz.querySelector(".nominate-link");
 let nomButton = quiz.querySelector(".nominate-button");
+let copyConfirm = quiz.querySelector(".copy-confirm");
 
 numBoosts.innerText = boosts;
 
@@ -997,6 +1003,7 @@ nomButton.onclick = function () { // when "Copy Link" button clicked, copy nomLi
     nomLink.select();
     nomLink.setSelectionRange(0,99999);
     navigator.clipboard.writeText(nomLink.value);
+    copyConfirm.classList.remove("hide");
 }
 
 buttonSetNickname.onclick = function () {

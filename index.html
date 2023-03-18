@@ -20,7 +20,7 @@
                     <div class="progress-indicator">
                     </div>
                 </div>
-                <div class="progress-content text-size-small">
+                <div class="progress-content text-size-sm">
                     <div class="progress-content-section">
                         <div class="progress-pair">
                             <div class="text-regular">Score</div>
@@ -49,8 +49,8 @@
             </div>
             <div class="sections-container">
                 <section class="active" sectype="walkthrough" id="s-start">
-                    <div class="section-content basic-padding text-centered flex-grow bg-blue">
-                        <p class="text-regular text-size-medium">
+                    <div class="section-content smalltop-padding text-centered flex-grow bg-blue">
+                        <p class="text-regular text-size-lg">
                             A Responsible Betting <br>Awareness Initiative
                         </p>
                         <h1 class="quiz-title">
@@ -82,12 +82,12 @@
                                                              
                         </h1>
                         <div class="chal-container">
-                            <div class="chal-label text-italic text-size-medium">
+                            <div class="chal-label text-italic text-size-lg">
                                 Challenged By
                             </div>
-                            <div class="chal-icon text-regular text-size-small"></div>
-                            <div class="chal-name text-bold text-size-medium"></div>
-                            <div class="text-regular text-size-small">
+                            <div class="chal-icon text-regular text-size-sm"></div>
+                            <div class="chal-name text-bold text-size-lg"></div>
+                            <div class="text-regular text-size-sm">
                                 <span class="chal-score"></span> points
                             </div>
                         </div>
@@ -95,16 +95,17 @@
                     <div class="section-controls">
                         <div class="controls-nav">
                             <button class="btn-nav btn-next"">
-                                Get Started
+                                <div>Get Started</div>
+                                <img class="btn-icon" src="img/chevron-right.svg">
                             </button>
                         </div>
                     </div>
                 </section>
                 <section class="" sectype="text-input" id="s-nickname">
                     <div class="section-content basic-padding">
-                        <h2 class="dflt-margin-self-small">How well do you know <br>Canada’s only MLB team?</h2>
-                        <p class="text-regular text-size-medium dflt-margin-self">Test your baseball knowledge and  get some tips on responsible sports  betting along the way.</p>
-                        <input id="nickname" class="text-regular text-size-medium dflt-margin-self" type="text" placeholder="Enter a nickname…">
+                        <h2 class="space-bottom-md">How well do you know <br>Canada’s only MLB team?</h2>
+                        <p class="text-regular text-size-lg space-bottom-lg">Test your baseball knowledge and  get some tips on responsible sports  betting along the way.</p>
+                        <input id="nickname" class="text-regular text-size-lg space-bottom-lg" type="text" placeholder="Enter a nickname…">
                         <button class="btn-inline btn-nav btn-next text-bold hide" id="btn-nickname-inline">Next</button>
                     </div>
                     <div class="section-controls">
@@ -113,41 +114,56 @@
                                 Back
                             </button>
                             <button class="btn-nav btn-next disabled" id="btn-nickname">
-                                Next
+                                <div>Next</div>
+                                <img class="btn-icon" src="img/chevron-right.svg">
                             </button>
                         </div>
                     </div>
                 </section>
                 <section class="" sectype="walkthrough" id="s-instruction-00">
                     <div class="section-content basic-padding">
-                        <h2 class="dflt-margin-self">8 Baseball Trivia Questions <br>4 Responsible Betting Questions</h2>
-                        <p class="text-regular text-size-medium dflt-margin-self"><b>Tip:</b>&#8194;Press boost to score more points  if you’re correct</p>
-                        <p class="text-regular text-size-medium dflt-margin-self">You’ll also score more points for answering quickly or building a streak.</p>
+                        <h2 class="space-bottom-lg">8 Baseball Trivia Questions <br>4 Responsible Betting Questions</h2>
+                        <p class="text-regular text-size-lg space-bottom-lg"><b>Tip:</b>&#8194;Press boost to score more points  if you’re correct</p>
+                        <p class="text-regular text-size-lg space-bottom-lg">You’ll also score more points for answering quickly or building a streak.</p>
                     </div>
                     <div class="section-controls">
                         <div class="controls-nav">
                             <button class="btn-nav btn-back">Back</button>
-                            <button class="btn-nav btn-next">Start Challenge</button>
+                            <button class="btn-nav btn-next">
+                                <div>Start Challenge</div>
+                                <img class="btn-icon" src="img/chevron-right.svg">
+                            </button>
                         </div>
                     </div>
                 </section>
                 <section class="" id="s-results" sectype="walkthrough">
-                    <div class="section-content basic-padding">
-                        <h3 class="dflt-margin-self-small">How you did</h3>
-                        <div class="results-total-scores dflt-margin-self">
-                            <div class="results-your dflt-margin-self-small"><span class="total-score">0</span> points</div>
-                            <div class="results-chal text-regular text-size-medium"><span class="chal-name text-bold text-size-medium"></span>&#8194;<span class="chal-score text-regular">0</span> points</div>
+                    <div class="section-content">
+                        <div class="halftop-padding bg-blue">
+                            <h3 class="space-bottom-xs">How you did</h3>
+                            <div class="results-total-scores">
+                                <div class="results-your space-bottom-xs"><span class="total-score">0</span> points</div>
+                                <div class="results-chal text-regular text-size-lg"><span class="chal-name text-bold text-size-lg"></span>&#8194;<span class="chal-score text-regular">0</span> points</div>
+                            </div>
                         </div>
-                        <div class="results-stats dflt-margin-self">
-                            <h3 class="dflt-margin-self">Quick stats</h3>
-                            <div class="text-italic text-size-medium"><span class="text-bold">Correct:&#8194;</span><span class="stats-correct">0</span> of <span class="stats-total-qs"></span></div>
-                            <div class="text-italic text-size-medium"><span class="text-bold">Longest streak:&#8194;</span><span class="stats-streak">0</span></div>
-                            <div class="text-italic text-size-medium"><span class="text-bold">Highest-scoring question:&#8194;</span><span class="stats-hs-qnum"">--</span> <span class="stats-hs-value"></span></div>
-                        </div>
-                        <div class="results-nominate dflt-margin-child">
-                            <h3>Challenge a friend</h3>
-                                <input class="nominate-link text-regular text-size-medium dflt-margin-self-small" type="text" readonly>
-                                <button class="nominate-button btn-inline text-bold">Copy Link</button>
+                        <div class="halfbottom-padding">
+                            <div class="results-stats space-bottom-xl">
+                                <h3 class="space-bottom-lg">Quick stats</h3>
+                                <table>
+                                <tr class="results-row">
+                                    <td class="text-italic text-size-lg"><span class="text-bold">Correct:&#8194;</span><span class="stats-correct">0</span> of <span class="stats-total-qs"></span></td>
+                                    <td class="text-italic text-size-lg"><span class="text-bold">Longest streak:&#8194;</span><span class="stats-streak">0</span></td>
+                                </tr>
+                                <tr class="results-row">
+                                    <td colspan="2" class="text-italic text-size-lg"><span class="text-bold">Highest-scoring question:&#8194;</span><span class="stats-hs-qnum"">N/A</span> <span class="stats-hs-value"></span></td>
+                                </tr>
+                                </table> 
+                            </div>
+                            <div class="results-nominate child-space-bottom-lg">
+                                <h3>Challenge a friend</h3>
+                                    <input class="nominate-link text-regular text-size-md space-bottom-md" type="text" readonly>
+                                    <button class="nominate-button btn-inline text-bold">Copy Link</button>
+                                    <p class="copy-confirm text-regular text-size-sm hide">Link copied!</p>
+                            </div>
                         </div>
                     </div>
                     <div class="controls-nav">
