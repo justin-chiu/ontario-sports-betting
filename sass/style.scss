@@ -11,8 +11,9 @@ $white: #ffffff;
 $deck: #D6E9F4;
 $overcast: #B7D2E9;
 
-
-
+$indigoDark: hsl(238, 43%, 19%); // -7%
+$cobaltDark: hsl(213, 65%, 37%); // -7%
+$whiteTrans: rgba(255, 255, 255, 0.5);
 
 
 // BASE
@@ -138,6 +139,8 @@ button {
         background-color: $indigo;
         color: $white;
         padding: 1rem 1.675rem;
+
+        &:hover, &:active {background-color: $indigoDark;}
     }
 
     &.btn-back {
@@ -145,15 +148,20 @@ button {
         background-color: $cobalt;
         color: $white;
         padding: 0 2rem;
+
+        &:hover, &:active {background-color: $cobaltDark;}
     }
 
     &.btn-next {
         background-color: $indigo;
         color: $white;
+
+        &:hover, &:active {background-color: $indigoDark;}
     }
 
-    &.disabled {opacity: 0.5;}
+    &.disabled {color: $whiteTrans;}
     &.hide {opacity: 0;}
+
     &.check-answer {
         .btn-skip-text {display: none;}
         .btn-check-text {display: inline;}
@@ -180,6 +188,7 @@ input[type="radio"], input[type="checkbox"] {
 
 label {
     display: block;
+    cursor: pointer;
 }
 
 figure {
@@ -335,10 +344,16 @@ section {
         input, label {
             opacity: 0.5;
             pointer-events: none;
+            cursor: default;
         }
 
         fieldset {
             pointer-events: none;
+            cursor: default;
+        }
+
+        label {
+            cursor: default;
         }
     }
 
@@ -484,6 +499,7 @@ section {
     align-items: center;
     margin-left: 0;
     margin-right: 0;
+    cursor: pointer;
 
     &.checked {
         background-color: $deck;
@@ -535,6 +551,13 @@ section {
             width: 1.675rem;
             height: 1.675rem;
             border-radius: 0;
+        }
+    }
+
+    &:hover:not(.checked) {
+        .q-choice::before {
+            transform: scale(1);
+            opacity: 0.5;
         }
     }
 }
@@ -638,10 +661,22 @@ section {
 }
 
 .quiz-title {
+
+    margin: 2.675rem 0;
+    position: relative;
+
+    .dummy-text {opacity: 0;}
+    
     svg {
-        margin: 2.675rem 0;
         .top-lines {fill: $white;}
         .bottom-lines {fill: $overcast;}
+
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 0.45rem;
+        pointer-events: none;
     }
 }
 

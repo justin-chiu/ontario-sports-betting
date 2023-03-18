@@ -11,12 +11,12 @@ FUNCTIONALITY:
 Boosting
 Scroll animations
 Transitions
-Button states
-Checkbox positioning
-Highlight correct false answer?
+Separate quick stats
+Link copied
 
 Add icons to buttons
 Images, illustrations
+Highlight correct false answer?
 
 
 BLUE SKY:
@@ -26,10 +26,9 @@ Leaderboard
 Music
 Sound and visual efforts
 Choose avatar or jersey number
-See score breakdown
-Text field corner
-Enter button
 URL changing history
+See score breakdown
+
 
 
 CLEAN-UP:
@@ -40,7 +39,12 @@ Get someone to proofread my code
 
 What I did:
 • Safari viewport height issue workaround
-• Enter button event on nickname field
+• enter button event on nickname field
+
+• button states
+• text behind h1 title
+• input states
+
 
 
 JSON keys

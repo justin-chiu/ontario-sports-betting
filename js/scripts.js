@@ -43,15 +43,22 @@ if (queryObj) {
 
 // HEIGHT
 
-let windowInitHeight = window.innerHeight;
+let baseWindowHeight = window.innerHeight;
+let baseDocHeight = document.documentElement.clientHeight;
 
 function setQuizHeight () { // a fix for mobile browser viewport height issue
-    quiz.style.height = Math.min(windowInitHeight, 1000) + "px";
 
-    if (windowInitHeight == document.documentElement.clientHeight) {
-        quiz.parentElement.style.alignItems = "center";
-    } else {
+    if (baseDocHeight !== document.documentElement.clientHeight) {
+        baseWindowHeight = window.innerHeight;
+        baseDocHeight = document.documentElement.clientHeight;
+    }
+
+    if (baseWindowHeight < 1000) {
+        quiz.style.height = baseWindowHeight + "px";
         quiz.parentElement.style.alignItems = "start";
+    } else {
+        quiz.style.height = "1000px";
+        quiz.parentElement.style.alignItems = "center";
     }
 }
 
