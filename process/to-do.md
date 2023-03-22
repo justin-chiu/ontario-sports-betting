@@ -2,12 +2,18 @@
 
 CONTENT:
 
+Finish RG questions
+Healthy bettng beliefs
+Blue Jays questions - one set
+Rethink title
+Fair use
 Instructions and intro
-Questions
-Question sets
 
+    
 FUNCTIONALITY:
 
+evalAnswer blanks
+Bigger tracking
 Boosting
 
 Scroll animations
@@ -17,27 +23,36 @@ Scroll animations
 
 Transitions
 • Delay show answer choices
-• Show image in between questions
 
-Images, illustrations
+
+--- Next week ---
+
+All question sets
+Show image in between questions
+Title, intro, instruction illustrations
 Play again
+Code obfuscation - https://obfuscator.io/
 
 
 BLUE SKY:
 
 Social media share button
-Leaderboard
-Music
-Sound and visual efforts
+Visual effects
 Choose avatar or jersey number
-URL changing history
 See score breakdown
+Add multiple source lists
+
+
+BACKEND:
+
+Browser history and URL swapping
+Leaderboard
+Privacy policy
+
+
+OTHER:
+
 Highlight correct false answer?
-
-
-CLEAN-UP:
-
-Remove unused CSS classes
 Get someone to proofread my code
 
 
@@ -46,23 +61,23 @@ What I did:
 
 JSON keys
     {   "slug": "",
-        "qset": 1,
-        "category": "resp-betting", // "sports-trivia"
-        "type": "radio",
-        "duration": 60,
-        "img": "",
-        "question": "",
-        "answers": [
-            "",
-            "",
-            "",
-            ""
-        ],
-        "answerCorrect": 3, // [true, false, true, false]
-        "answerRandomize": true,
-        "answerExplain": "",
-        "linkName": "",
-        "linkURL": "",
-        "userCorrect": null,
-        "userScore": 0
-    }
+            "qset": 1,
+            "category": "resp-betting", "sports-trivia",
+            "type": "radio",
+            "duration": 60,
+            "img": "",
+            "question": "",
+            "answers": [
+                "",
+                "",
+                "",
+                ""
+            ],
+            "answerCorrect": 3, [true, false, true, false],
+            "answerRandomize": true,
+            "answerExplain": "",
+            "linkName": "",
+            "linkURL": "",
+            "userCorrect": null,
+            "userScore": 0
+        }

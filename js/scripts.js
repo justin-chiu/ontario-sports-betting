@@ -595,21 +595,26 @@ function presentAnswer(result) { // show answer explanation
     }
 
     // answer explanation
-
-    let ansExplain = document.createElement("p");
-    ansExplain.classList.add("text-regular");
-    ansExplain.classList.add("text-size-md");
-    ansExplain.innerText = activeQObj.answerExplain;
+    let ansExplain;
+    if (activeQObj.answerExplain !== null && activeQObj !== "") {
+        ansExplain = document.createElement("p");
+        ansExplain.classList.add("text-regular");
+        ansExplain.classList.add("text-size-md");
+        ansExplain.innerText = activeQObj.answerExplain;
+    }
 
     // answer link
 
     let ansLink;
-    if (activeQObj.linkName && activeQObj.linkURL) {
-        ansLink = document.createElement("a");
-        ansLink.setAttribute("href", activeQObj.linkURL);
-        ansLink.setAttribute("target", "_blank");
+    if (activeQObj.links && activeQObj.links !== null && activeQObj.links.length !== 0) {
+        ansLink = document.createElement("p");
+        ansLink.classList.add("text-regular");
         ansLink.classList.add("text-size-md");
-        ansLink.innerText = activeQObj.linkName;
+
+        activeQObj.links.forEach(function(link, index) {
+            if (index > 0) {ansLink.innerHTML += " • ";}
+            ansLink.appendChild(createLink(link.linkName, link.linkURL));
+        });
     }
 
     let ansContainer = document.createElement("div");
@@ -617,7 +622,7 @@ function presentAnswer(result) { // show answer explanation
     ansContainer.classList.add("child-space-bottom-lg");
     if (ansHeading !== undefined) {ansContainer.appendChild(ansHeading)}
     if (ansScore !== undefined) {ansContainer.appendChild(ansScore)}
-    ansContainer.appendChild(ansExplain);
+    if (ansExplain !== undefined) {ansContainer.appendChild(ansExplain)};
     if (ansLink !== undefined) {ansContainer.appendChild(ansLink);}
 
     let sectionContent = activeSection.querySelector(".section-content");
@@ -632,6 +637,15 @@ function presentAnswer(result) { // show answer explanation
     // add class "answer" to indicate that answer has been revealed
 
     activeSection.classList.add("answer");
+}
+
+function createLink(linkName, linkURL) { // creates <a> element
+    let link = document.createElement("a");
+    link.setAttribute("href", linkURL);
+    link.setAttribute("target", "_blank");
+    link.innerText = linkName;
+
+    return link;
 }
 
 function updateNomLink(allParams = [ // [paramName, paramValue]

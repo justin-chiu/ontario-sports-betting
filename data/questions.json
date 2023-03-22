@@ -1,6 +1,6 @@
 [
     {   "slug": "gamblers-fallacy",
-        "qset": 1,
+        "qset": 4,
         "category": "resp-betting",
         "type": "radio",
         "duration": 60,
@@ -8,78 +8,66 @@
         "question": "True or false: the longer you go without a win, the more likely you are to win on the next bet.",
         "answers": [
             "True",
-            "False",
-            "",
-            ""
+            "False"
         ],
         "answerCorrect": 1,
-        "answerRandomize": true,
+        "answerRandomize": false,
         "answerExplain": "Winning or losing bets in the past has no impact on the probability of winning in the future.",
-        "linkName": "More gambling myths",
-        "linkURL": "https://www.responsiblegambling.org/for-the-public/about-gambling/gambling-myths/",
+        "links" : [
+            {
+                "linkName": "What is gambler's fallacy?",
+                "linkURL": "https://www.wallstreetmojo.com/gamblers-fallacy/"
+            }
+        ],
         "userCorrect": null,
         "userScore": 0
     },
-    {   "slug": "bettor-demographics",
+    {   "slug": "gambling-beliefs-1",
         "qset": 1,
         "category": "resp-betting",
         "type": "checkbox",
         "duration": 60,
         "img": "",
-        "question": "Which groups of sports bettors are at higher risk of gambling problems?",
+        "question": "Which of the following are healthy beliefs about betting?",
         "answers": [
-            "Men are at higher risk than women",
-            "Middle-aged adults are at higher risk than young adults",
-            "Single adults are at higher risk than adults in a relationship",
-            "Caucasians are at higher risk than Asians"
-        ],
-        "answerCorrect": [true, false, true, false],
-        "answerRandomize": false,
-        "answerExplain": "Younger bettors are at higher risk of gambling problems due to lack of experience and knowledge of responsible gambling beliefs and practices. Other risk factors include being male, single, and Asian.",
-        "linkName": "Who is at risk",
-        "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/whos-at-risk/",
-        "userCorrect": null,
-        "userScore": 0
-    },
-    {   "slug": "gambling-beliefs",
-        "qset": 1,
-        "category": "resp-betting",
-        "type": "radio",
-        "duration": 60,
-        "img": "",
-        "question": "Which of the following is a healthy gambling belief?",
-        "answers": [
-            "You can earn money through betting if you are skilled enough",
+            "You can earn money through betting if you are knowledgeable enough",
             "You’ll eventually win back money you lost if you keep betting",
-            "A near miss means that you were close to winning",
-            "None of the above are healthy beliefs"
+            "A near miss means that you were close to winning"
         ],
-        "answerCorrect": 3,
+        "answerCorrect": [false, false, false],
         "answerRandomize": false,
         "answerExplain": "Sports betting odds are set in a way that sportsbooks make money from bettors no matter who wins. This, combined with the element of chance, makes it hard to win back lost money no matter how skilled or knowledgeable a bettor is. Near misses may be due to chance and do not necessarily mean that you were on the right track.",
-        "linkName": "More gambling myths",
-        "linkURL": "https://www.responsiblegambling.org/for-the-public/about-gambling/gambling-myths",
+        "links": [
+            {
+                "linkName": "More gambling myths",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/about-gambling/gambling-myths"
+            }
+        ],
         "userCorrect": null,
         "userScore": 0
     },
     {   "slug": "unhealthy-motivations",
-        "qset": 1,
+        "qset": 2,
         "category": "resp-betting",
         "type": "checkbox",
         "duration": 60,
         "img": "",
-        "question": "Which of the following are unhealthy reasons for betting on sports?",
+        "question": "Which of the following are bad reasons for betting on sports?",
         "answers": [
             "To have fun",
-            "To relieve negative feelings",
+            "To improve your mood",
             "To compete with others",
             "To pay bills"
         ],
         "answerCorrect": [false, true, true, true],
         "answerRandomize": true,
         "answerExplain": "Only gamble to have fun or entertain yourself. Gambling to pay bills, earn money, challenge other people, or relieve negative feelings are all unhealthy reasons for betting that are correlated with gambling problems.",
-        "linkName": "More tips for safer gambling",
-        "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/safer-gambling-tips/",
+        "links": [
+            {
+                "linkName": "More tips for safer gambling",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/safer-gambling-tips/"
+            }
+        ],
         "userCorrect": null,
         "userScore": 0
     },
@@ -89,18 +77,18 @@
         "type": "checkbox",
         "duration": 60,
         "img": "",
-        "question": "If you want to safely take advantage of a betting promotion, which of the following should you do?",
+        "question": "To safely take advantage of a betting promotion, which of the following should you do?",
         "answers": [
             "Read the fine print carefully",
             "Stop betting when the promotion no longer applies",
             "Take advantage of the offer by betting more money",
-            "Exceed your budget because the offer is low-risk"
+            "Sign up for multiple betting platforms so you can take advantage of more offers"
         ],
-        "answerCorrect": [true, true, false],
+        "answerCorrect": [true, true, false, false],
         "answerRandomize": true,
         "answerExplain": "Betting offers may have unexpected conditions, so be sure to read the fine print carefully. Promotions often appear to reduce the risk of losing while enhancing the reward for winning but are designed to encourage you to bet more and spend more. If you didn’t plan to, don’t continue betting once the offer no longer applies.",
-        "linkName": "",
-        "linkURL": "",
+        "links" : [
+        ],
         "userCorrect": null,
         "userScore": 0
     },
@@ -112,37 +100,20 @@
         "img": "",
         "question": "Why is it hard to earn money from sports betting?",
         "answers": [
-            "Most people are not knowledgeable enough to win",
-            "A significant number of sporting events are rigged",
+            "People are not knowledgeable enough to win",
+            "A significant number of sports games are rigged",
             "The sportsbook takes a cut of every bet",
             "People are too confident when they are winning"
         ],
         "answerCorrect": 2, 
         "answerRandomize": true,
         "answerExplain": "Earning more money than you lose is hard because sportsbook takes a cut of every bet, which is called the “juice” or “vig.” For example, if the odds are -110 on both sides, two bettors pay $110 in opposing bets, but the sportsbook takes $10 and the winner is only paid $210 rather than $220.",
-        "linkName": "Understanding juice/vig",
-        "linkURL": "https://www.bettingpros.com/articles/understanding-juice-vig-in-sports-betting/",
-        "userCorrect": null,
-        "userScore": 0
-    },
-    {   "slug": "advertising",
-        "qset": 2,
-        "category": "resp-betting",
-        "type": "checkbox",
-        "duration": 60,
-        "img": "",
-        "question": "Evidence shows the betting advertising has the following effects…",
-        "answers": [
-            "Reinforces social stigma of sports betting",
-            "Encourages people to spend more money betting",
-            "Encourages people to bet more often",
-            "Causes recovering gamblers to relapse"
+        "links" : [
+            {
+                "linkName": "Understanding juice/vig",
+                "linkURL": "https://www.bettingpros.com/articles/understanding-juice-vig-in-sports-betting/"
+            }
         ],
-        "answerCorrect": [false, true, true, true],
-        "answerRandomize": true,
-        "answerExplain": "Studies show that betting advertisements encourage people to bet, partly by reducing stigma and cultivating positive perceptions of sports betting. People who have (had) gambling problems are the most susceptible to advertising.",
-        "linkName": "How sportsbook advertising infiltrated U.S. college campuses",
-        "linkURL": "https://www.nytimes.com/2022/11/20/business/caesars-sports-betting-universities-colleges.html",
         "userCorrect": null,
         "userScore": 0
     },
@@ -155,15 +126,19 @@
         "question": "Which of the following are responsible betting strategies?",
         "answers": [
             "Stop betting if you’re not having fun",
-            "Bet while under the influence of substances",
+            "Bet while on alcohol or drugs",
             "Bet more money when you’ve been winning",
             "Set a limit on how often you bet and how much time you play for"
         ],
         "answerCorrect": [true, false, false, true],
         "answerRandomize": true,
         "answerExplain": "",
-        "linkName": "",
-        "linkURL": "",
+        "links": [
+            {
+                "linkName": "More tips for safer gambling",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/safer-gambling-tips/"
+            }
+        ],
         "userCorrect": null,
         "userScore": 0
     },
@@ -182,35 +157,43 @@
         ],
         "answerCorrect": [true, true, true, false],
         "answerRandomize": true,
-        "answerExplain": "Placing bets when you’re upset, in the heat of the moment, or immersed in the activity for prolonged periods can cause you to make impulsive decisions with your money. Be sure to take frequent breaks and stick to your budget.",
-        "linkName": "More tips for safer gambling",
-        "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/safer-gambling-tips/",
+        "answerExplain": "Placing bets when you’re upset, in the heat of the moment, or immersed in the activity for longe periods of time can cause you to make impulsive decisions with your money. Be sure to take frequent breaks and stick to your budget.",
+        "links": [
+            {
+                "linkName": "More tips for safer gambling",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/safer-gambling-tips/"
+            }
+        ],
         "userCorrect": null,
         "userScore": 0
     },
-    {   "slug": "",
-        "qset": 1,
+    {   "slug": "funds",
+        "qset": 3,
         "category": "resp-betting",
         "type": "radio",
         "duration": 60,
         "img": "",
-        "question": "",
+        "question": "What is the best way to avoid losing more money on bets than you can afford to lose?",
         "answers": [
             "Cash out losing bets early and bet on something else",
             "Only stop betting when you’ve broken even",
-            "Stop betting once you’ve spent the amount you planned to spend",
+            "Stop betting once you’ve spent what you had planned to spend",
             "Use your winnings to place more bets"
         ],
         "answerCorrect": 2,
         "answerRandomize": true,
         "answerExplain": "The best way to avoid losing more money than you can afford to lose is to stop betting once you’ve spent the amount of money you budgeted for betting, even if you’ve lost that money. Options to “cash-out” losing bets and reuse winnings to place more bets are correlated with gambling problems because they encourage bettors to continue betting. Recouping lost money by placing more bets is difficult because odds are designed so that the sportsbook makes money from bettors.",
-        "linkName": "",
-        "linkURL": "",
+        "links": [
+            {
+                "linkName": "Source: Parke et al. (2019)",
+            "linkURL": "https://doi.org/10.1007/s11469-018-0049-8"
+            }
+        ],
         "userCorrect": null,
         "userScore": 0
     },
     {   "slug": "odds-favourites",
-        "qset": 1,
+        "qset": 2,
         "category": "resp-betting",
         "type": "radio",
         "duration": 60,
@@ -221,31 +204,286 @@
             "False"
         ],
         "answerCorrect": 1,
-        "answerRandomize": true,
+        "answerRandomize": false,
         "answerExplain": "There is always a chance that the heavy favourite could lose. Sportsbooks set odds for favourites so that you must risk a lot of money for a small reward. The money you forfeit by losing a few times will exceed what you gain by winning many times.",
-        "linkName": "",
-        "linkURL": "",
+        "links": [],
         "userCorrect": null,
         "userScore": 0
     },
     {   "slug": "gambling-controls",
-        "qset": 1,
+        "qset": 4,
         "category": "resp-betting",
-        "type": "radio",
+        "type": "checkbox",
         "duration": 60,
         "img": "",
         "question": "All legal Ontario sportsbooks are required to provide the following…",
         "answers": [
-            "Spending or loss limiting controls",
+            "Time and money limiting tools",
             "Self-exclusion, a self-imposed platform ban",
             "Information about your betting activity",
             "Free counselling services"
         ],
         "answerCorrect": [true, true, true, false],
         "answerRandomize": true,
-        "answerExplain": "All Ontario sportsbooks are required to provide bettors with money limiting controls, betting account information, and the option to self-exclude. By self-excluding, bettors can ban themselves from a betting platform and opt out of betting-related marketing. In the future, Ontario iGaming is planning to implement a province-wide self-exclusion program that applies to all sportsbooks.",
-        "linkName": "",
-        "linkURL": "",
+        "answerExplain": "All Ontario sportsbooks are required to provide bettors with the ability to set time and money limiting controls, betting account information, and the option to self-exclude. By self-excluding, bettors can ban themselves from a betting platform and opt out of betting-related marketing. In the future, Ontario iGaming is planning to implement a province-wide self-exclusion program that applies to all sportsbooks.",
+        "links": [
+            {
+                "linkName": "Source: Responsible Gambling Council",
+                "linkURL": "https://www.responsiblegambling.org/for-industry/rg-check-accreditation/igaming-standards-criteria/"
+            }
+        ],
+        "userCorrect": null,
+        "userScore": 0
+    },
+    {   "slug": "unhealthy-behaviours",
+        "qset": 4,
+        "category": "resp-betting",
+        "type": "checkbox",
+        "duration": 60,
+        "img": "",
+        "question": "Which of the following are unhealthy gambling behaviours?",
+        "answers": [
+            "Using rent or grocery money for betting",
+            "Betting on long shots and underdogs",
+            "Borrowing money or selling things to bet",
+            "Watching sporting events to see how your bets fare"
+        ],
+        "answerCorrect": [true, false, true, false],
+        "answerRandomize": true,
+        "answerExplain": "",
+        "links": [
+            {
+                "linkName": "Signs of a gambling problem",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/when-is-gambling-a-problem/"
+            }
+        ],
+        "userCorrect": null,
+        "userScore": 0
+    },
+    {   "slug": "symptoms-1",
+        "qset": 1,
+        "category": "resp-betting",
+        "type": "checkbox",
+        "duration": 60,
+        "img": "",
+        "question": "Which of the following could be signs of harmful betting?",
+        "answers": [
+            "You rarely win at betting",
+            "You find it difficult to stop betting",
+            "You feel that you must hide your betting from others",
+            "You feel worse when you’re not  betting"
+        ],
+        "answerCorrect": [false, true, true, true],
+        "answerRandomize": true,
+        "answerExplain": "",
+        "links": [
+            {
+                "linkName": "Take RGC’s gambling self-assessment",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/self-assessment-quiz/"
+            }
+        ],
+        "userCorrect": null,
+        "userScore": 0
+    },
+    {   "slug": "symptoms-2",
+        "qset": 3,
+        "category": "resp-betting",
+        "type": "checkbox",
+        "duration": 60,
+        "img": "",
+        "question": "Which of the following could be signs of harmful betting?",
+        "answers": [
+            "Betting small amounts of money is boring",
+            "Betting gets in the way of work or family obligations",
+            "Betting takes up most of your leisure time",
+            "Betting is more exciting than other leisure activities"
+        ],
+        "answerCorrect": [true, true, true, false],
+        "answerRandomize": true,
+        "answerExplain": "Rarely winning when you bet on sports is not a sign of harmful gambling. Betting platforms are designed so that you lose money. Want to check in on your gambling habits?",
+        "links": [
+            {
+                "linkName": "Take RGC’s gambling self-assessment",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/self-assessment-quiz/"
+            }
+        ],
+        "userCorrect": null,
+        "userScore": 0
+    },
+    {   "slug": "mindset",
+        "qset": 4,
+        "category": "resp-betting",
+        "type": "checkbox",
+        "duration": 60,
+        "img": "",
+        "question": "Which of the following are healthy mindsets to have when trying to cut down on your betting?",
+        "answers": [
+            "If I lost this money, I would feel…",
+            "If I didn’t bet, I could spend the money on…",
+            "Others might think badly of me if they knew about my betting",
+            "I can prove to myself that I don’t have a gambling problem"
+        ],
+        "answerCorrect": [true, true, false, false],
+        "answerRandomize": true,
+        "answerExplain": "The stigma and shame of having a gambling problem can prevent gamblers from seeking help. If you’re trying to cut down on betting, think instead about what it took to earn the money you would use for gambling, how you would feel if you lost it all for nothing, and what you could spend it on instead.",
+        "links": [
+            {
+                "linkName": "Source: Hing et al. (2015)",
+                "linkURL": "https://link.springer.com/article/10.1007/s11469-014-9525-y"
+            }
+        ],
+        "userCorrect": null,
+        "userScore": 0
+    },
+    {   "slug": "getting-help-1",
+        "qset": 1,
+        "category": "resp-betting",
+        "type": "checkbox",
+        "duration": 60,
+        "img": "",
+        "question": "Which of the following are good solutions if you think you have a gambling problem?",
+        "answers": [
+            "Talk to a counsellor, support group, or someone you trust",
+            "Limit your access to money for gambling",
+            "Block gambling platforms",
+            "Call an addictions helpline",
+            "Deal with the problem on your own"
+        ],
+        "answerCorrect": [true, true, true, true, false],
+        "answerRandomize": true,
+        "answerExplain": "",
+        "links": [
+            {
+                "linkName": "Changing gambling habits",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/problem-gambling-help/changing-your-behaviour/"
+            },
+            {
+                "linkName": "Find support",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/problem-gambling-help/help-for-canadians/"
+            }
+        ],
+        "userCorrect": null,
+        "userScore": 0
+    },
+    {   "slug": "getting-help-2",
+        "qset": 3,
+        "category": "resp-betting",
+        "type": "checkbox",
+        "duration": 60,
+        "img": "",
+        "question": "If you are a responsible bettor, which of the following steps are optional?",
+        "answers": [
+            "Going to counselling",
+            "Using platform controls such as money and time limits",
+            "Setting a budget",
+            "Understanding the type of bet you’re placing"
+        ],
+        "answerCorrect": [true, false, false, false],
+        "answerRandomize": true,
+        "answerExplain": "",
+        "links": [
+            {
+                "linkName": "More tips for safer gambling",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/safer-gambling-tips/"
+            }
+        ],
+        "userCorrect": null,
+        "userScore": 0
+    },
+    {   "slug": "recommended-spending",
+        "qset": 4,
+        "category": "resp-betting",
+        "type": "radio",
+        "duration": 60,
+        "img": "",
+        "question": "To lower your risk of gambling-related harms, gamble no more than __ % of your household income per month.",
+        "answers": [
+            "1%",
+            "2%",
+            "5%",
+            "10%"
+        ],
+        "answerCorrect": 0,
+        "answerRandomize": false,
+        "answerExplain": "Responsible Gambling Council’s guidelines recommend gambling no more than 1% of your household income per month if you choose to gamble.",
+        "links": [
+            {
+                "linkName": "Lower-risk gambling guidelines",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/the-lower-risk-gambling-guidelines/"
+            }
+        ],
+        "userCorrect": null,
+        "userScore": 0
+    },
+    {   "slug": "recommended-frequency",
+        "qset": 3,
+        "category": "resp-betting",
+        "type": "radio",
+        "duration": 60,
+        "img": "",
+        "question": "To lower your risk of gambling-related harms, gamble no more than __ day(s) per month",
+        "answers": [
+            "1 day",
+            "4 days",
+            "8 days",
+            "15 days"
+        ],
+        "answerCorrect": 1,
+        "answerRandomize": false,
+        "answerExplain": "Responsible Gambling Council’s guidelines recommend gambling no more than 4 days a month or once a week if you choose to gamble.",
+        "links": [
+            {
+                "linkName": "Lower-risk gambling guidelines",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/the-lower-risk-gambling-guidelines/"
+            }
+        ],
+        "userCorrect": null,
+        "userScore": 0
+    },
+    {   "slug": "gambling-beliefs-2",
+        "qset": 2,
+        "category": "resp-betting",
+        "type": "checkbox",
+        "duration": 60,
+        "img": "",
+        "question": "Which of the following statements about betting harms are true?",
+        "answers": [
+            "If betting is not affecting your financial health, it's not harmful",
+            "If you don’t bet often, it won't be harmful",
+            "If you’re knowledgeable about how betting works, you won't experience betting-related harms"
+        ],
+        "answerCorrect": [false, false, false],
+        "answerRandomize": true,
+        "answerExplain": "Gambling can be harmful to area of your life other than your finances even if you are knowledgeable about gambling and don’t do it often.",
+        "links": [ 
+            {
+                "linkName": "Signs of a gambling problem",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/when-is-gambling-a-problem/"
+            }
+        ],
+        "userCorrect": null,
+        "userScore": 0
+    },
+    {   "slug": "demographics",
+        "qset": 3,
+        "category": "resp-betting",
+        "type": "radio",
+        "duration": 60,
+        "img": "",
+        "question": "True or false: older people are at higher risk of  betting-related harms",
+        "answers": [
+            "True",
+            "False"
+        ],
+        "answerCorrect": 1,
+        "answerRandomize": false,
+        "answerExplain": "Younger bettors are at higher risk of gambling problems due to lack of experience and knowledge of responsible gambling beliefs and practices. Other risk factors include being male, single, and Asian.",
+        "links": [
+            {
+                "linkName": "Who is at risk",
+                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/sports-and-gambling/"
+            }
+        ],
         "userCorrect": null,
         "userScore": 0
     }
