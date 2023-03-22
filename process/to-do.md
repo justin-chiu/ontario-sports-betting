@@ -42,33 +42,27 @@ Get someone to proofread my code
 
 
 What I did:
-• link copied
-• standardized spacing and font-size classes
-• standardized SASS variables
-• split results page into two sections
-• made quick stats into table
-• icons for next button
 
 
 JSON keys
-{   "slug": "",
-    "qset": 1,
-    "category": "responsible-gambling",
-    "type": "radio",
-    "duration": 60,
-    "img": "",
-    "question": "",
-    "answers": [
-        "",
-        "",
-        "",
-        ""
-    ],
-    "answerCorrect": 3,
-    "answerRandomize": true,
-    "answerExplain": "",
-    "linkName": "",
-    "linkURL": "",
-    "userCorrect": null,
-    "userScore": 0
-}
+    {   "slug": "",
+        "qset": 1,
+        "category": "resp-betting", // "sports-trivia"
+        "type": "radio",
+        "duration": 60,
+        "img": "",
+        "question": "",
+        "answers": [
+            "",
+            "",
+            "",
+            ""
+        ],
+        "answerCorrect": 3, // [true, false, true, false]
+        "answerRandomize": true,
+        "answerExplain": "",
+        "linkName": "",
+        "linkURL": "",
+        "userCorrect": null,
+        "userScore": 0
+    }
