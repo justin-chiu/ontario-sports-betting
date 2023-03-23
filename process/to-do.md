@@ -3,15 +3,10 @@
 CONTENT:
 
 Blue Jays questions - one set
-Rethink title
-Fair use
-Instructions and intro
-
+Instructions
     
 FUNCTIONALITY:
 
-evalAnswer blanks
-Bigger tracking, lower weight
 Boosting
 
 Scroll animations
@@ -22,6 +17,10 @@ Scroll animations
 Transitions
 • Delay show answer choices
 • GSAP progress bar
+• Changed serif font sizing to optical
+• Changed serif font tracking
+• Updated intro and instructions text
+
 
 
 --- Next week ---
@@ -31,7 +30,8 @@ Show image in between questions
 Title, intro, instruction illustrations
 Play again
 Code obfuscation - https://obfuscator.io/
-About section
+About section and disclaimer
+Open graph
 
 
 BLUE SKY:
@@ -53,7 +53,9 @@ Get someone to proofread my code
 
 
 What I did:
-
+• fixed hover issue
+• blank checkbox answers allowed
+• progress-bar scroll animation
 
 JSON keys
     {   "slug": "",

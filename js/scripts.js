@@ -2,6 +2,7 @@
 
 let quiz = document.querySelector(".quiz-container");
 let nickname = quiz.querySelector("#nickname");
+let startSection = quiz.querySelector("#s-start");
 let chalContainer = quiz.querySelector(".chal-container");
 let chalIcon = quiz.querySelector(".chal-icon");
 let chalName = quiz.querySelectorAll(".chal-name");
@@ -61,10 +62,10 @@ function setQuizHeight () { // a fix for mobile browser viewport height issue
         quiz.parentElement.style.alignItems = "center";
     }
 
-    if (window.innerHeight < 660) {
-        quiz.classList.add("height-sm");
+    if (window.innerHeight < 660) { // responsive title
+        startSection.classList.add("height-sm");
     } else {
-        quiz.classList.remove("height-sm");
+        startSection.classList.remove("height-sm");
     }
 }
 
@@ -89,6 +90,7 @@ function startQuiz(qData) {
 
     // DYNAMIC DOM ELEMENTS
 
+    let contentSections = quiz.querySelectorAll(".section-content");
     let navButtons = quiz.querySelectorAll(".btn-nav");
     let radioFieldsets = quiz.querySelectorAll("fieldset.radio");
     let checkboxFieldsets = quiz.querySelectorAll("fieldset.checkbox");
@@ -139,12 +141,21 @@ function startQuiz(qData) {
                 fieldsetShade(thisInput, e.currentTarget);
             }
         }
+
+        set.onmouseout = function (e) {
+        }
     });
 
     // boost button events
     boostButtons.forEach(function (btn) {
         btn.onclick = toggleBoost;
     });
+
+    // scroll events
+    contentSections.forEach(function(element) {
+        setScroll(element);
+    });
+
 }
 
 
@@ -688,7 +699,7 @@ function checkAnswer() { // evaluates answer, presents answer explanation, and u
 
     let timeLeft = activeSection.getAttribute("timeleft");
 
-    if (checkPicked()) { // if any answer choice was selected
+    if (checkPicked() || activeSection.classList.contains("checkbox")) { // if any answer choice was selected
         if (evalAnswer()) { // if answer is correct 
             presentAnswer(updateScore(activeQObj.duration, timeLeft, yourStreak, activeSection.getAttribute("boost")));
         } else { // if answer is incorrect
@@ -952,6 +963,33 @@ let ansPhrases = {
 
 
 
+// TRANSITIONS + ANIMATIONS
+
+function setScroll(element) {
+    element.addEventListener ("scroll", function(e) { // on scroll, change opacity of progress-content if necessary
+
+        // progress animation
+
+        let progressContent = quiz.querySelector(".progress-content");
+        let progressOuterBottom = progressContent.getBoundingClientRect().bottom; // after padding-bottom
+        let progressInnerBottom = progressContent.querySelector(".progress-content-section").getBoundingClientRect().bottom; // before padding-bottom
+
+        let flagTop = e.currentTarget.querySelector(".q-flag").getBoundingClientRect().top;
+
+        if (flagTop >= progressOuterBottom) {
+            progressContent.style.opacity = 1;
+        } else if (flagTop <= progressInnerBottom) {
+            progressContent.style.opacity = 0;
+        } else if (flagTop < progressOuterBottom) {
+            let completion = (flagTop - progressInnerBottom) / (progressOuterBottom - progressInnerBottom);
+            progressContent.style.opacity = completion;
+        }
+    });
+}
+
+
+
+
 
 
 // FETCH QUESTION DATA
@@ -1033,3 +1071,4 @@ buttonSetNickname.onclick = function () {
 window.onresize = function() {
     setQuizHeight();
 }
+
