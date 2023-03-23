@@ -60,6 +60,12 @@ function setQuizHeight () { // a fix for mobile browser viewport height issue
         quiz.style.height = "1000px";
         quiz.parentElement.style.alignItems = "center";
     }
+
+    if (window.innerHeight < 660) {
+        quiz.classList.add("height-sm");
+    } else {
+        quiz.classList.remove("height-sm");
+    }
 }
 
 setQuizHeight();

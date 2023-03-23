@@ -2,8 +2,6 @@
 
 CONTENT:
 
-Finish RG questions
-Healthy bettng beliefs
 Blue Jays questions - one set
 Rethink title
 Fair use
@@ -13,7 +11,7 @@ Instructions and intro
 FUNCTIONALITY:
 
 evalAnswer blanks
-Bigger tracking
+Bigger tracking, lower weight
 Boosting
 
 Scroll animations
@@ -23,6 +21,7 @@ Scroll animations
 
 Transitions
 • Delay show answer choices
+• GSAP progress bar
 
 
 --- Next week ---
@@ -32,6 +31,7 @@ Show image in between questions
 Title, intro, instruction illustrations
 Play again
 Code obfuscation - https://obfuscator.io/
+About section
 
 
 BLUE SKY:
@@ -40,10 +40,6 @@ Social media share button
 Visual effects
 Choose avatar or jersey number
 See score breakdown
-Add multiple source lists
-
-
-BACKEND:
 
 Browser history and URL swapping
 Leaderboard

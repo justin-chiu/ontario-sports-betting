@@ -54,7 +54,7 @@ h1 {
     font-style: italic;
     font-weight: 900;
     font-size: 4rem;
-    line-height: 95%;
+    line-height: 0.907em;
     text-align: center;
     letter-spacing: -0.01em;
     text-transform: uppercase;
@@ -102,6 +102,7 @@ i, em, .text-italic, .btn-back {
 .text-size-lg {font-size: 1rem;}
 .text-size-md {font-size: 0.9375rem;}
 .text-size-sm {font-size: 0.875rem;}
+.text-size-xs {font-size: 0.675rem;}
 
 a {
     font-family: 'Chivo', sans-serif;
@@ -317,6 +318,10 @@ ol {
 
 .hide {
     opacity: 0;
+}
+
+.none {
+    display: none;
 }
 
 
@@ -734,23 +739,40 @@ td {
 
 .quiz-title {
 
-    margin: 2.675rem 0;
+    margin-top: 2.75rem;
+    margin-bottom: 2rem;
     position: relative;
 
     .dummy-text {opacity: 0;}
-    
-    svg {
-        .top-lines {fill: $white;}
-        .bottom-lines {fill: $overcast;}
 
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-top: 0.45rem;
-        pointer-events: none;
-    }
 }
+
+.title-vector {
+
+    &.vector-sm {
+        display: none;
+        margin-left: 5px;
+        margin-top: 6px;
+    }
+    &.vector-md {display: block;}
+
+    .top-lines {fill: $white;}
+    .bottom-lines {fill: $overcast; cursor: pointer;}
+    margin-top: 6px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.height-sm {
+    .title-vector.vector-sm {display: block;}
+    .title-vector.vector-md {display: none;}
+
+    h1 {font-size: 3rem; line-height: 1em;}
+    .br-md {display: none;}
+}
+
 
 .chal-container {
     display: flex;
@@ -763,7 +785,7 @@ td {
     height: 1.875rem;
     border-radius: 50%;
     background-color: $indigo;
-    margin-top: $spacing-btwn-vert;
+    margin-top: 0.75rem;
     margin-bottom: 0.5rem;
     color: $white;
     text-transform: uppercase;
