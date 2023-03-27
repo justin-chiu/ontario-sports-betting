@@ -1,50 +1,60 @@
 **To Do:**
 
-CONTENT:
-
+--Week 10--
 Blue Jays questions - one set
-Instructions
-    
-FUNCTIONALITY:
-
+--
 Boosting
+Instructions
+Char limits on nickname
+--
+Open graph image and link sharing
+https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+Enforce HTTPS
+--
 
+
+
+--Week 11--
+All question sets
+--
+All question sets
+--
+Question sets coding
+Play again
+Code obfuscation - https://obfuscator.io/
+--
+Transitions
+• Question present
+• Delay show answer choices
+• GSAP progress bar
+
+
+--Week 12--
+Title illustrations
+--
+
+
+--Week 13--
+Show image in between questions
+--
+About section and disclaimer
+--
 Scroll animations
 • after navigating next/back, scroll to top of activeSection
 • scroll to answer explanation/answer choices when presenting answer
-• when scrolling down, hide progress content and buttons
-
-Transitions
-• Delay show answer choices
-• GSAP progress bar
-• Changed serif font sizing to optical
-• Changed serif font tracking
-• Updated intro and instructions text
-
-
-
---- Next week ---
-
-All question sets
-Show image in between questions
-Title, intro, instruction illustrations
-Play again
-Code obfuscation - https://obfuscator.io/
-About section and disclaimer
-Open graph
 
 
 BLUE SKY:
 
-Social media share button
 Visual effects
 Choose avatar or jersey number
 See score breakdown
-
 Browser history and URL swapping
+
+DON'T NEED
+
 Leaderboard
 Privacy policy
-
 
 OTHER:
 
@@ -53,9 +63,9 @@ Get someone to proofread my code
 
 
 What I did:
-• fixed hover issue
-• blank checkbox answers allowed
-• progress-bar scroll animation
+• show progress content, scroll to top when navigating to section
+• installed GSAP and GSAP ScrollTo
+• scroll to answer when user taps "Check Answer"
 
 JSON keys
     {   "slug": "",

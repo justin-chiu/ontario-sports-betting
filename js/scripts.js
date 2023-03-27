@@ -407,7 +407,7 @@ function startTimer(timeLeft) {
 
 function setProgress() { // sets progress bar and indicators
 
-    let progress = document.querySelector(".progress");
+    let progress = quiz.querySelector(".progress");
 
     if (activeSection.getAttribute("sectype") == "question") {
 
@@ -421,11 +421,20 @@ function setProgress() { // sets progress bar and indicators
         }
 
         // show progress elements
+        let progressContent = progress.querySelector(".progress-content");
         progress.classList.remove("disabled");
+        progressContent.style.opacity = 1;
+
 
         // set progress indicator
         let indicator = progress.querySelector(".progress-indicator");
         indicator.style.width = (100 * (activeSection.getAttribute("qindex")) / questionData.length) + "%";
+
+
+        // scroll to top
+        let sectionContent = activeSection.querySelector(".section-content");
+        sectionContent.scrollTo(0,0);
+
 
         // start timer
         
@@ -654,6 +663,8 @@ function presentAnswer(result) { // show answer explanation
     // add class "answer" to indicate that answer has been revealed
 
     activeSection.classList.add("answer");
+
+    scrollToAnswer();
 }
 
 function createLink(linkName, linkURL) { // creates <a> element
@@ -974,7 +985,7 @@ function setScroll(element) {
         let progressOuterBottom = progressContent.getBoundingClientRect().bottom; // after padding-bottom
         let progressInnerBottom = progressContent.querySelector(".progress-content-section").getBoundingClientRect().bottom; // before padding-bottom
 
-        let flagTop = e.currentTarget.querySelector(".q-flag").getBoundingClientRect().top;
+        let flagTop = e.currentTarget.firstElementChild.firstElementChild.getBoundingClientRect().top;
 
         if (flagTop >= progressOuterBottom) {
             progressContent.style.opacity = 1;
@@ -984,6 +995,19 @@ function setScroll(element) {
             let completion = (flagTop - progressInnerBottom) / (progressOuterBottom - progressInnerBottom);
             progressContent.style.opacity = completion;
         }
+    });
+}
+
+function scrollToAnswer() { // scroll down to answer when user taps "Check Answer"
+    
+    let sectionContent = activeSection.querySelector(".section-content");
+    let choiceSet = activeSection.querySelector(".q-choice-set");
+    let scrollable = sectionContent.scrollHeight - sectionContent.clientHeight;
+
+    gsap.to(".section-content", {
+        scrollTo: Math.min(choiceSet.offsetTop, scrollable), // scroll to top of answer choices or entire scrollable distance
+        duration: 1,
+        ease: "power2.inOut"
     });
 }
 
