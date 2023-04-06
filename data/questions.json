@@ -1,24 +1,43 @@
 [
-    {   "slug": "gamblers-fallacy",
-        "qset": 4,
-        "category": "resp-betting",
+    {   "slug": "team-opponents-3",
+        "qset": 1,
+        "category": "sports-trivia",
         "type": "radio",
         "duration": 60,
         "img": "",
-        "question": "True or false: the longer you go without a win, the more likely you are to win on the next bet.",
+        "question": "Which team did the Blue Jays beat in the 2015 and 2016 American League Division Series (ALDS)?",
         "answers": [
-            "True",
-            "False"
+            "Texas Rangers",
+            "Baltimore Orioles",
+            "Kansas City Royals",
+            "Boston Red Sox"
         ],
-        "answerCorrect": 1,
-        "answerRandomize": false,
-        "answerExplain": "Winning or losing bets in the past has no impact on the probability of winning in the future.",
-        "links" : [
-            {
-                "linkName": "What is gambler's fallacy?",
-                "linkURL": "https://www.wallstreetmojo.com/gamblers-fallacy/"
-            }
+        "answerCorrect": 0,
+        "answerRandomize": true,
+        "answerExplain": "",
+        "linkName": "",
+        "linkURL": "",
+        "userCorrect": null,
+        "userScore": 0
+    },
+    {   "slug": "height-1",
+        "qset": 1,
+        "category": "sports-trivia",
+        "type": "radio",
+        "duration": 60,
+        "img": "",
+        "question": "Who is the shortest player to suit up for the Blue Jays since 2015?",
+        "answers": [
+            "Marcus Stroman",
+            "Alejandro Kirk",
+            "Devon Travis",
+            "Jonathan Davis"
         ],
+        "answerCorrect": 0,
+        "answerRandomize": true,
+        "answerExplain": "",
+        "linkName": "",
+        "linkURL": "",
         "userCorrect": null,
         "userScore": 0
     },
@@ -46,28 +65,24 @@
         "userCorrect": null,
         "userScore": 0
     },
-    {   "slug": "unhealthy-motivations",
-        "qset": 2,
-        "category": "resp-betting",
-        "type": "checkbox",
+    {   "slug": "fan-1",
+        "qset": 1,
+        "category": "sports-trivia",
+        "type": "radio",
         "duration": 60,
         "img": "",
-        "question": "Which of the following are bad reasons for betting on sports?",
+        "question": "A man was banned from all MLB games for __ at the American League Wild Card Game between the Jays and Orioles in 2016.",
         "answers": [
-            "To have fun",
-            "To improve your mood",
-            "To compete with others",
-            "To pay bills"
+            "Reaching over the barrier to grab a live baseball",
+            "Yelling obscenities at the umpire",
+            "Running onto the field with his shirt off",
+            "Throwing a beer can at an outfielder"
         ],
-        "answerCorrect": [false, true, true, true],
+        "answerCorrect": 3,
         "answerRandomize": true,
-        "answerExplain": "Only gamble to have fun or entertain yourself. Gambling to pay bills, earn money, challenge other people, or relieve negative feelings are all unhealthy reasons for betting that are correlated with gambling problems.",
-        "links": [
-            {
-                "linkName": "More tips for safer gambling",
-                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/safer-gambling-tips/"
-            }
-        ],
+        "answerExplain": "",
+        "linkName": "",
+        "linkURL": "",
         "userCorrect": null,
         "userScore": 0
     },
@@ -77,7 +92,7 @@
         "type": "checkbox",
         "duration": 60,
         "img": "",
-        "question": "To safely take advantage of a betting promotion, which of the following should you do?",
+        "question": "To safely take advantage of a betting offer, which of the following should you do?",
         "answers": [
             "Read the fine print carefully",
             "Stop betting when the promotion no longer applies",
@@ -92,28 +107,22 @@
         "userCorrect": null,
         "userScore": 0
     },
-    {   "slug": "earning-money",
-        "qset": 2,
-        "category": "resp-betting", 
+    {   "slug": "logo-1",
+        "qset": 1,
+        "category": "sports-trivia",
         "type": "radio",
         "duration": 60,
         "img": "",
-        "question": "Why is it hard to earn money from sports betting?",
+        "question": "Which way is the bird’s beak pointing in the Blue Jays logo?",
         "answers": [
-            "People are not knowledgeable enough to win",
-            "A significant number of sports games are rigged",
-            "The sportsbook takes a cut of every bet",
-            "People are too confident when they are winning"
+            "Left",
+            "Right"
         ],
-        "answerCorrect": 2, 
+        "answerCorrect": 0,
         "answerRandomize": true,
-        "answerExplain": "Earning more money than you lose is hard because sportsbook takes a cut of every bet, which is called the “juice” or “vig.” For example, if the odds are -110 on both sides, two bettors pay $110 in opposing bets, but the sportsbook takes $10 and the winner is only paid $210 rather than $220.",
-        "links" : [
-            {
-                "linkName": "Understanding juice/vig",
-                "linkURL": "https://www.bettingpros.com/articles/understanding-juice-vig-in-sports-betting/"
-            }
-        ],
+        "answerExplain": "",
+        "linkName": "",
+        "linkURL": "",
         "userCorrect": null,
         "userScore": 0
     },
@@ -142,121 +151,24 @@
         "userCorrect": null,
         "userScore": 0
     },
-    {   "slug": "rg-strategies-2",
-        "qset": 2,
-        "category": "resp-betting",
-        "type": "checkbox",
-        "duration": 60,
-        "img": "",
-        "question": "Which of the following are responsible betting strategies?",
-        "answers": [
-            "Don’t bet when you’re upset",
-            "Set a budget and stick to it",
-            "Take frequent breaks",
-            "Bet on the spur of the moment when the odds are good"
-        ],
-        "answerCorrect": [true, true, true, false],
-        "answerRandomize": true,
-        "answerExplain": "Placing bets when you’re upset, in the heat of the moment, or immersed in the activity for longe periods of time can cause you to make impulsive decisions with your money. Be sure to take frequent breaks and stick to your budget.",
-        "links": [
-            {
-                "linkName": "More tips for safer gambling",
-                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/safer-gambling-tips/"
-            }
-        ],
-        "userCorrect": null,
-        "userScore": 0
-    },
-    {   "slug": "funds",
-        "qset": 3,
-        "category": "resp-betting",
+    {   "slug": "team-opponents-2",
+        "qset": 1,
+        "category": "sports-trivia",
         "type": "radio",
         "duration": 60,
         "img": "",
-        "question": "What is the best way to avoid losing more money on bets than you can afford to lose?",
+        "question": "Which American League team has the worst all-time win-loss percentage against the Blue Jays?",
         "answers": [
-            "Cash out losing bets early and bet on something else",
-            "Only stop betting when you’ve broken even",
-            "Stop betting once you’ve spent what you had planned to spend",
-            "Use your winnings to place more bets"
-        ],
-        "answerCorrect": 2,
-        "answerRandomize": true,
-        "answerExplain": "The best way to avoid losing more money than you can afford to lose is to stop betting once you’ve spent the amount of money you budgeted for betting, even if you’ve lost that money. Options to “cash-out” losing bets and reuse winnings to place more bets are correlated with gambling problems because they encourage bettors to continue betting. Recouping lost money by placing more bets is difficult because odds are designed so that the sportsbook makes money from bettors.",
-        "links": [
-            {
-                "linkName": "Source: Parke et al. (2019)",
-            "linkURL": "https://doi.org/10.1007/s11469-018-0049-8"
-            }
-        ],
-        "userCorrect": null,
-        "userScore": 0
-    },
-    {   "slug": "odds-favourites",
-        "qset": 2,
-        "category": "resp-betting",
-        "type": "radio",
-        "duration": 60,
-        "img": "",
-        "question": "True or false: if you always bet on the heavy favourite, you’ll gain money over the long term.",
-        "answers": [
-            "True",
-            "False"
+            "Detroit Tigers",
+            "Minnesota Twins",
+            "Kansas City Royals",
+            "Baltimore Orioles"
         ],
         "answerCorrect": 1,
-        "answerRandomize": false,
-        "answerExplain": "There is always a chance that the heavy favourite could lose. Sportsbooks set odds for favourites so that you must risk a lot of money for a small reward. The money you forfeit by losing a few times will exceed what you gain by winning many times.",
-        "links": [],
-        "userCorrect": null,
-        "userScore": 0
-    },
-    {   "slug": "gambling-controls",
-        "qset": 4,
-        "category": "resp-betting",
-        "type": "checkbox",
-        "duration": 60,
-        "img": "",
-        "question": "All legal Ontario sportsbooks are required to provide the following…",
-        "answers": [
-            "Time and money limiting tools",
-            "Self-exclusion, a self-imposed platform ban",
-            "Information about your betting activity",
-            "Free counselling services"
-        ],
-        "answerCorrect": [true, true, true, false],
-        "answerRandomize": true,
-        "answerExplain": "All Ontario sportsbooks are required to provide bettors with the ability to set time and money limiting controls, betting account information, and the option to self-exclude. By self-excluding, bettors can ban themselves from a betting platform and opt out of betting-related marketing. In the future, Ontario iGaming is planning to implement a province-wide self-exclusion program that applies to all sportsbooks.",
-        "links": [
-            {
-                "linkName": "Source: Responsible Gambling Council",
-                "linkURL": "https://www.responsiblegambling.org/for-industry/rg-check-accreditation/igaming-standards-criteria/"
-            }
-        ],
-        "userCorrect": null,
-        "userScore": 0
-    },
-    {   "slug": "unhealthy-behaviours",
-        "qset": 4,
-        "category": "resp-betting",
-        "type": "checkbox",
-        "duration": 60,
-        "img": "",
-        "question": "Which of the following are unhealthy gambling behaviours?",
-        "answers": [
-            "Using rent or grocery money for betting",
-            "Betting on long shots and underdogs",
-            "Borrowing money or selling things to bet",
-            "Watching sporting events to see how your bets fare"
-        ],
-        "answerCorrect": [true, false, true, false],
         "answerRandomize": true,
         "answerExplain": "",
-        "links": [
-            {
-                "linkName": "Signs of a gambling problem",
-                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/when-is-gambling-a-problem/"
-            }
-        ],
+        "linkName": "",
+        "linkURL": "",
         "userCorrect": null,
         "userScore": 0
     },
@@ -285,53 +197,24 @@
         "userCorrect": null,
         "userScore": 0
     },
-    {   "slug": "symptoms-2",
-        "qset": 3,
-        "category": "resp-betting",
-        "type": "checkbox",
+    {   "slug": "offense-doubles-1",
+        "qset": 1,
+        "category": "sports-trivia",
+        "type": "radio",
         "duration": 60,
         "img": "",
-        "question": "Which of the following could be signs of harmful betting?",
+        "question": "Which Blue Jays player has the most doubles in one season since 2015?",
         "answers": [
-            "Betting small amounts of money is boring",
-            "Betting gets in the way of work or family obligations",
-            "Betting takes up most of your leisure time",
-            "Betting is more exciting than other leisure activities"
+            "Josh Donaldson",
+            "Marcus Semien",
+            "Bo Bichette",
+            "Kevin Pillar"
         ],
-        "answerCorrect": [true, true, true, false],
+        "answerCorrect": 2,
         "answerRandomize": true,
-        "answerExplain": "Rarely winning when you bet on sports is not a sign of harmful gambling. Betting platforms are designed so that you lose money. Want to check in on your gambling habits?",
-        "links": [
-            {
-                "linkName": "Take RGC’s gambling self-assessment",
-                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/self-assessment-quiz/"
-            }
-        ],
-        "userCorrect": null,
-        "userScore": 0
-    },
-    {   "slug": "mindset",
-        "qset": 4,
-        "category": "resp-betting",
-        "type": "checkbox",
-        "duration": 60,
-        "img": "",
-        "question": "Which of the following are healthy mindsets to have when trying to cut down on your betting?",
-        "answers": [
-            "If I lost this money, I would feel…",
-            "If I didn’t bet, I could spend the money on…",
-            "Others might think badly of me if they knew about my betting",
-            "I can prove to myself that I don’t have a gambling problem"
-        ],
-        "answerCorrect": [true, true, false, false],
-        "answerRandomize": true,
-        "answerExplain": "The stigma and shame of having a gambling problem can prevent gamblers from seeking help. If you’re trying to cut down on betting, think instead about what it took to earn the money you would use for gambling, how you would feel if you lost it all for nothing, and what you could spend it on instead.",
-        "links": [
-            {
-                "linkName": "Source: Hing et al. (2015)",
-                "linkURL": "https://link.springer.com/article/10.1007/s11469-014-9525-y"
-            }
-        ],
+        "answerExplain": "",
+        "linkName": "",
+        "linkURL": "",
         "userCorrect": null,
         "userScore": 0
     },
@@ -365,125 +248,24 @@
         "userCorrect": null,
         "userScore": 0
     },
-    {   "slug": "getting-help-2",
-        "qset": 3,
-        "category": "resp-betting",
-        "type": "checkbox",
+    {   "slug": "pitch-pos-player-1",
+        "qset": 1,
+        "category": "sports-trivia",
+        "type": "radio",
         "duration": 60,
         "img": "",
-        "question": "If you are a responsible bettor, which of the following steps are optional?",
+        "question": "Which Blue Jays position player has a 0.00 ERA for pitching one scoreless inning in his career?",
         "answers": [
-            "Going to counselling",
-            "Using platform controls such as money and time limits",
-            "Setting a budget",
-            "Understanding the type of bet you’re placing"
+            "Cliff Pennington",
+            "Darwin Barney",
+            "Ryan Goins",
+            "Whit Merrifield"
         ],
-        "answerCorrect": [true, false, false, false],
+        "answerCorrect": 2,
         "answerRandomize": true,
         "answerExplain": "",
-        "links": [
-            {
-                "linkName": "More tips for safer gambling",
-                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/safer-gambling-tips/"
-            }
-        ],
-        "userCorrect": null,
-        "userScore": 0
-    },
-    {   "slug": "recommended-spending",
-        "qset": 4,
-        "category": "resp-betting",
-        "type": "radio",
-        "duration": 60,
-        "img": "",
-        "question": "To lower your risk of gambling-related harms, gamble no more than __ % of your household income per month.",
-        "answers": [
-            "1%",
-            "2%",
-            "5%",
-            "10%"
-        ],
-        "answerCorrect": 0,
-        "answerRandomize": false,
-        "answerExplain": "Responsible Gambling Council’s guidelines recommend gambling no more than 1% of your household income per month if you choose to gamble.",
-        "links": [
-            {
-                "linkName": "Lower-risk gambling guidelines",
-                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/the-lower-risk-gambling-guidelines/"
-            }
-        ],
-        "userCorrect": null,
-        "userScore": 0
-    },
-    {   "slug": "recommended-frequency",
-        "qset": 3,
-        "category": "resp-betting",
-        "type": "radio",
-        "duration": 60,
-        "img": "",
-        "question": "To lower your risk of gambling-related harms, gamble no more than __ day(s) per month",
-        "answers": [
-            "1 day",
-            "4 days",
-            "8 days",
-            "15 days"
-        ],
-        "answerCorrect": 1,
-        "answerRandomize": false,
-        "answerExplain": "Responsible Gambling Council’s guidelines recommend gambling no more than 4 days a month or once a week if you choose to gamble.",
-        "links": [
-            {
-                "linkName": "Lower-risk gambling guidelines",
-                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/the-lower-risk-gambling-guidelines/"
-            }
-        ],
-        "userCorrect": null,
-        "userScore": 0
-    },
-    {   "slug": "gambling-beliefs-2",
-        "qset": 2,
-        "category": "resp-betting",
-        "type": "checkbox",
-        "duration": 60,
-        "img": "",
-        "question": "Which of the following statements about betting harms are true?",
-        "answers": [
-            "If betting is not affecting your financial health, it's not harmful",
-            "If you don’t bet often, it won't be harmful",
-            "If you’re knowledgeable about how betting works, you won't experience betting-related harms"
-        ],
-        "answerCorrect": [false, false, false],
-        "answerRandomize": true,
-        "answerExplain": "Gambling can be harmful to area of your life other than your finances even if you are knowledgeable about gambling and don’t do it often.",
-        "links": [ 
-            {
-                "linkName": "Signs of a gambling problem",
-                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/when-is-gambling-a-problem/"
-            }
-        ],
-        "userCorrect": null,
-        "userScore": 0
-    },
-    {   "slug": "demographics",
-        "qset": 3,
-        "category": "resp-betting",
-        "type": "radio",
-        "duration": 60,
-        "img": "",
-        "question": "True or false: older people are at higher risk of  betting-related harms",
-        "answers": [
-            "True",
-            "False"
-        ],
-        "answerCorrect": 1,
-        "answerRandomize": false,
-        "answerExplain": "Younger bettors are at higher risk of gambling problems due to lack of experience and knowledge of responsible gambling beliefs and practices. Other risk factors include being male, single, and Asian.",
-        "links": [
-            {
-                "linkName": "Who is at risk",
-                "linkURL": "https://www.responsiblegambling.org/for-the-public/safer-play/sports-and-gambling/"
-            }
-        ],
+        "linkName": "",
+        "linkURL": "",
         "userCorrect": null,
         "userScore": 0
     }

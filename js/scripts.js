@@ -592,6 +592,11 @@ function addQSection(qObj, qIndex) { // add question section
 
 function presentAnswer(result) { // show answer explanation
 
+    // disables next button
+
+    let nextBtn = activeSection.querySelector(".btn-next");
+    nextBtn.classList.add("disabled");
+
     // create nodes and add answer explanation from questionData obj
 
     let ansHeading;
@@ -622,7 +627,7 @@ function presentAnswer(result) { // show answer explanation
 
     // answer explanation
     let ansExplain;
-    if (activeQObj.answerExplain !== null && activeQObj !== "") {
+    if (activeQObj.answerExplain !== null && activeQObj.answerExplain !== "") {
         ansExplain = document.createElement("p");
         ansExplain.classList.add("text-regular");
         ansExplain.classList.add("text-size-md");
@@ -656,7 +661,6 @@ function presentAnswer(result) { // show answer explanation
 
     // change button from "check-answer" to "continue" class
 
-    let nextBtn = activeSection.querySelector(".btn-next");
     nextBtn.classList.remove("check-answer");
     nextBtn.classList.add("continue");
 
@@ -1007,7 +1011,11 @@ function scrollToAnswer() { // scroll down to answer when user taps "Check Answe
     gsap.to(".section-content", {
         scrollTo: Math.min(choiceSet.offsetTop, scrollable), // scroll to top of answer choices or entire scrollable distance
         duration: 1,
-        ease: "power2.inOut"
+        ease: "power2.inOut",
+        onComplete: function() {
+            let nextBtn = activeSection.querySelector(".btn-next");
+            nextBtn.classList.remove("disabled");
+        }
     });
 }
 
@@ -1048,6 +1056,7 @@ let yourName = quiz.querySelector(".your-name");
 let nomLink = quiz.querySelector(".nominate-link");
 let nomButton = quiz.querySelector(".nominate-button");
 let copyConfirm = quiz.querySelector(".copy-confirm");
+let btnPlayAgain = quiz.querySelector("#btn-play-again");
 
 numBoosts.innerText = boosts;
 
@@ -1090,6 +1099,10 @@ nomButton.onclick = function () { // when "Copy Link" button clicked, copy nomLi
 
 buttonSetNickname.onclick = function () {
 
+}
+
+btnPlayAgain.onclick = function () { // tapping "Play Again" goes to nomLink
+    window.location.href = nomLink.value;
 }
 
 window.onresize = function() {

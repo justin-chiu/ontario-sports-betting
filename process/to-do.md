@@ -1,47 +1,38 @@
 **To Do:**
 
---Week 10--
-Blue Jays questions - one set
---
-Boosting
-Instructions
-Char limits on nickname
---
-Open graph image and link sharing
-https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
-Enforce HTTPS
---
-
-
 
 --Week 11--
-All question sets
---
-All question sets
---
-Question sets coding
-Play again
-Code obfuscation - https://obfuscator.io/
+
+Boosting
+Instructions
 --
 Transitions
 • Question present
 • Delay show answer choices
-• GSAP progress bar
 
 
 --Week 12--
+Open graph image and link sharing
+https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+Enforce HTTPS
+Check if nickname and enable
+GSAP progress bar
+--
 Title illustrations
 --
-
+2 question sets
+--
+2 question sets
+--
+Question sets coding
+Code obfuscation - https://obfuscator.io/
 
 --Week 13--
 Show image in between questions
 --
 About section and disclaimer
 --
-Scroll animations
-• after navigating next/back, scroll to top of activeSection
-• scroll to answer explanation/answer choices when presenting answer
+Time warning
 
 
 BLUE SKY:
@@ -63,9 +54,13 @@ Get someone to proofread my code
 
 
 What I did:
-• show progress content, scroll to top when navigating to section
-• installed GSAP and GSAP ScrollTo
-• scroll to answer when user taps "Check Answer"
+• added Blue Jays trivia for one qset
+• made Copy Link and "Link copied" flex
+• navigating during scroll animation banned
+• fixed answerExplain bug
+• "Play Again" button goes to nomLink
+• char limits on nickname
+
 
 JSON keys
     {   "slug": "",

@@ -143,7 +143,7 @@
                     <div class="section-content basic-padding">
                         <h2 class="space-bottom-md">Are you a true Blue Jays fan?</h2>
                         <p class="text-regular text-size-lg space-bottom-lg">Find out how well you know the team and learn some responsible betting tips along the way!</p>
-                        <input id="nickname" class="text-regular text-size-lg space-bottom-lg" type="text" placeholder="Enter a nickname…">
+                        <input id="nickname" class="text-regular text-size-lg space-bottom-lg" type="text" placeholder="Enter a nickname…" maxlength="15">
                         <button class="btn-inline btn-nav btn-next text-bold hide" id="btn-nickname-inline">Next</button>
                     </div>
                     <div class="section-controls">
@@ -198,15 +198,17 @@
                             </div>
                             <div class="results-nominate child-space-bottom-lg">
                                 <h3>Challenge a friend</h3>
-                                    <input class="nominate-link text-regular text-size-md space-bottom-md" type="text" readonly>
+                                <input class="nominate-link text-regular text-size-md space-bottom-md" type="text" readonly>
+                                <div class="flex-align-center">
                                     <button class="nominate-button btn-inline text-bold">Copy Link</button>
                                     <p class="copy-confirm text-regular text-size-sm hide">Link copied!</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="controls-nav">
                         <button class="btn-nav btn-back">Back</button>
-                        <button class="btn-nav btn-next">
+                        <button class="btn-next-special" id="btn-play-again">
                             Play Again
                         </button>
                         </div>
