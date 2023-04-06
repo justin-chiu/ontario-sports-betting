@@ -2,13 +2,11 @@
 
 
 --Week 11--
-
-Boosting
-Instructions
 --
 Transitions
 • Question present
 • Delay show answer choices
+
 
 
 --Week 12--
@@ -17,6 +15,8 @@ https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
 Enforce HTTPS
 Check if nickname and enable
 GSAP progress bar
+--
+Test with Firefox
 --
 Title illustrations
 --
@@ -29,6 +29,8 @@ Code obfuscation - https://obfuscator.io/
 
 --Week 13--
 Show image in between questions
+Change streak and boost icons
+Instructions
 --
 About section and disclaimer
 --

@@ -518,7 +518,35 @@ section {
     width: 100%;
 }
 
+.controls-boost {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    overflow: hidden;
+}
 
+.btn-boost {
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    padding-left: 0.75rem;
+    padding-right: 1.5rem;
+    background-color: $indigo;
+
+    &.collapsed {
+        transform: translate(100%, -50%);
+    }
+
+    &.on {
+        background-color: $salmon;
+        .boost-bolt {fill: $white;}
+    }
+}
+
+.boost-bolt {
+    stroke-width: 0.0625rem;
+    stroke: $white;
+}
 
 
 

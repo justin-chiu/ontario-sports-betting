@@ -286,6 +286,9 @@ function goNext() { // navigate forward
     // update progress elements
     setProgress();
 
+    // update boost
+    setBoost();
+
     return "navigated to next section";
 }
 
@@ -306,6 +309,9 @@ function goPrevious() { // navigate backward
 
     // update progress elements
     setProgress();
+
+    // update boost
+    setBoost();
 
     return "navigated to previous section";
 }
@@ -330,6 +336,13 @@ function toggleBoost() { // turns boost on and off
         activeSection.setAttribute("boost", false);
     } else {
         activeSection.setAttribute("boost", true);
+    }
+}
+
+function disableBoost() { // disables boost if boosts exhausted, boosts = 0
+    if (boosts == 0) {
+        btnBoost.classList.add("collapsed");
+        btnBoost.classList.remove("on");
     }
 }
 
@@ -430,7 +443,6 @@ function setProgress() { // sets progress bar and indicators
         let indicator = progress.querySelector(".progress-indicator");
         indicator.style.width = (100 * (activeSection.getAttribute("qindex")) / questionData.length) + "%";
 
-
         // scroll to top
         let sectionContent = activeSection.querySelector(".section-content");
         sectionContent.scrollTo(0,0);
@@ -452,6 +464,20 @@ function setProgress() { // sets progress bar and indicators
     }
 }
 
+function setBoost() { // sets visibility and style of boost button
+
+    if (activeSection.getAttribute("sectype") == "question" && boosts > 0) {
+        btnBoost.classList.remove("collapsed");
+    } else {
+        btnBoost.classList.add("collapsed");
+    }
+
+    if (activeSection.getAttribute("boost") == "true") {
+        btnBoost.classList.add("on");
+    } else {
+        btnBoost.classList.remove("on");
+    }
+}
 
 
 
@@ -717,8 +743,16 @@ function checkAnswer() { // evaluates answer, presents answer explanation, and u
     if (checkPicked() || activeSection.classList.contains("checkbox")) { // if any answer choice was selected
         if (evalAnswer()) { // if answer is correct 
             presentAnswer(updateScore(activeQObj.duration, timeLeft, yourStreak, activeSection.getAttribute("boost")));
+        
         } else { // if answer is incorrect
+
             presentAnswer(false);
+
+            if (btnBoost.classList.contains("on")) {
+                boosts--;
+                numBoosts.innerText = boosts;
+                disableBoost(); // if boosts = 0;
+            }
         }
     } else { // if answer is blank
         evalAnswer();
@@ -845,6 +879,7 @@ function updateScore(timeGiven, timeLeft, streak = 0, boost = false) { // answer
 
         boosts--; // subtract used boost
         numBoosts.innerText = boosts; // update boost indicator
+        disableBoost(); // only if boosts = 0
     }
     pointsValue = Math.round(pointsValue); // round
 
@@ -1051,12 +1086,13 @@ let numBoosts = quiz.querySelector(".num-boosts"); // # of times player can boos
 // let timerMinutes = quiz.querySelector(".timer-minutes"); // minutes string
 // let timerSeconds = quiz.querySelector(".timer-seconds"); // seconds string
 let numStreak = quiz.querySelector(".num-streak");
-let buttonSetNickname = quiz.querySelector("#btn-nickname-inline");
+let btnSetNickname = quiz.querySelector("#btn-nickname-inline");
 let yourName = quiz.querySelector(".your-name");
 let nomLink = quiz.querySelector(".nominate-link");
-let nomButton = quiz.querySelector(".nominate-button");
+let nomBtn = quiz.querySelector(".nominate-button");
 let copyConfirm = quiz.querySelector(".copy-confirm");
 let btnPlayAgain = quiz.querySelector("#btn-play-again");
+let btnBoost = quiz.querySelector(".btn-boost");
 
 numBoosts.innerText = boosts;
 
@@ -1073,11 +1109,11 @@ nickname.onkeyup = function (e) {
     let buttonStart = quiz.querySelector("#btn-nickname");
     if (nickname.value.length == 0) {
         buttonStart.classList.add("disabled");
-        buttonSetNickname.classList.add("hide");
+        btnSetNickname.classList.add("hide");
 
     } else {
         buttonStart.classList.remove("disabled");
-        buttonSetNickname.classList.remove("hide");
+        btnSetNickname.classList.remove("hide");
     }
 
     if (e.keyCode == 13 || e.which == 13) {
@@ -1090,15 +1126,26 @@ nomLink.onclick = function () { // when nomLink field is clicked, select entire 
     nomLink.select();
 }
 
-nomButton.onclick = function () { // when "Copy Link" button clicked, copy nomLink.value
+nomBtn.onclick = function () { // when "Copy Link" button clicked, copy nomLink.value
     nomLink.select();
     nomLink.setSelectionRange(0,99999);
     navigator.clipboard.writeText(nomLink.value);
     copyConfirm.classList.remove("hide");
 }
 
-buttonSetNickname.onclick = function () {
+btnSetNickname.onclick = function () {
 
+}
+
+btnBoost.onclick = function () {
+
+    toggleBoost();
+    
+    if (btnBoost.classList.contains("on")) {
+        btnBoost.classList.remove("on");
+    } else {
+        btnBoost.classList.add("on");
+    }
 }
 
 btnPlayAgain.onclick = function () { // tapping "Play Again" goes to nomLink
