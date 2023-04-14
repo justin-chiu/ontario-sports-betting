@@ -44,8 +44,7 @@ if (queryObj) {
 
 // HEIGHT
 
-let baseWindowHeight = window.innerHeight;
-let baseDocHeight = document.documentElement.clientHeight;
+
 
 function setQuizHeight () { // a fix for mobile browser viewport height issue
 
@@ -69,7 +68,6 @@ function setQuizHeight () { // a fix for mobile browser viewport height issue
     }
 }
 
-setQuizHeight();
 
 
 
@@ -1071,9 +1069,7 @@ if (window.location.hostname.indexOf("github.io") !== -1) {
     dataURL = "../" + dataPath;
 }
 
-fetch(dataURL)
-    .then((response) => response.json())
-    .then((data) => startQuiz(data));
+
 
 
 
@@ -1150,6 +1146,21 @@ btnBoost.onclick = function () {
 
 btnPlayAgain.onclick = function () { // tapping "Play Again" goes to nomLink
     window.location.href = nomLink.value;
+}
+
+
+
+let baseWindowHeight;
+let baseDocHeight;
+
+window.onload = function () {
+    baseWindowHeight = window.innerHeight;
+    baseDocHeight = document.documentElement.clientHeight;
+    setQuizHeight();
+
+    fetch(dataURL)
+    .then((response) => response.json())
+    .then((data) => startQuiz(data));
 }
 
 window.onresize = function() {
