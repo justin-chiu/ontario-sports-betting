@@ -94,6 +94,7 @@ function startQuiz(qData) {
     let checkboxFieldsets = quiz.querySelectorAll("fieldset.checkbox");
     let inputChoices = quiz.querySelectorAll(".q-choice");
     let boostButtons = quiz.querySelectorAll(".powerup-boost");
+    let btnNickname = quiz.querySelector("#btn-nickname");
 
     // ACTIVE OBJECTS
 
@@ -127,6 +128,7 @@ function startQuiz(qData) {
             e.currentTarget.querySelector("input").checked = true; // set input
             fieldsetShade(e.currentTarget.querySelector("input"), e.currentTarget); // change shading
             enableButton(e);
+            e.preventDefault();
         }
     });
 
@@ -153,6 +155,10 @@ function startQuiz(qData) {
     contentSections.forEach(function(element) {
         setScroll(element);
     });
+
+    if (nickname.value.length > 0) {
+        btnNickname.classList.remove("disabled");
+    }
 
 }
 
@@ -242,7 +248,6 @@ function splitTime(time) { // time in total seconds, returns object
 // NAVIGATION
 
 function tapNavButton(e) { // whenever the navigation buttons are tapped
-
     console.log("button tapped");
 
     let approved; // value == true if navigation back/forward is allowed
@@ -264,28 +269,61 @@ function tapNavButton(e) { // whenever the navigation buttons are tapped
     } else if (e.currentTarget.classList.contains("btn-back")) { // button back
         console.log(goPrevious()); // navigate backward
     }
+
+    e.preventDefault();
 }
 
 function goNext() { // navigate forward
 
     // hide current section
-    activeSection.classList.remove("active");
     clearTimeout(timerInterval);
 
     // show next section
     let sectionNext = activeSection.nextElementSibling;
-    sectionNext.classList.add("active");
+    
 
-    // update activeSection and activeQObj
-    activeSection = sectionNext;
-    activeQObj = getQObj();
-    activeQIndex = activeSection.getAttribute("qindex");
+    let tl = gsap.timeline({
+        onComplete: function () {
+            activeSection.classList.remove("active");
+            sectionNext.classList.add("active");
+        
+            // update activeSection and activeQObj
+            activeSection = sectionNext;
+            activeQObj = getQObj();
+            activeQIndex = activeSection.getAttribute("qindex");
+        
+            // // update progress elements
+            // setProgress();
+        
+            // update boost
+            setBoost();
+        }
+    });
 
-    // update progress elements
-    setProgress();
+    let navBtns = Array.from(document.querySelectorAll(".btn-nav"));
 
-    // update boost
-    setBoost();
+    tl.to(".section-controls", {
+        opacity: 0,
+        ease: "none",
+        delay: 0.15,
+        duration: 0.15,
+        onComplete: function () {
+            navBtns.forEach(function (btn) {
+                btn.classList.add("disabled");
+            });
+            setProgress(sectionNext, getQObj(sectionNext));
+        }
+    });
+    tl.to(activeSection, {
+        translateX: "-100%",
+        duration: 0.8,
+        ease: "power4.inOut"
+    });
+    tl.to(sectionNext, {
+        translateX: "0",
+        duration: 0.8,
+        ease: "power4.inOut"
+    }, "<");
 
     return "navigated to next section";
 }
@@ -293,23 +331,58 @@ function goNext() { // navigate forward
 function goPrevious() { // navigate backward
 
     // hide current section
-    activeSection.classList.remove("active");
     clearTimeout(timerInterval);
 
     // show previous section
     let sectionPrev = activeSection.previousElementSibling;
-    sectionPrev.classList.add("active");
 
-    // update activeSection and activeQObj
-    activeSection = sectionPrev;
-    activeQObj = getQObj();
-    activeQIndex = activeSection.getAttribute("qindex");
+    let tl = gsap.timeline({
+        onComplete: function () {
+            activeSection.classList.remove("active");
+            sectionPrev.classList.add("active");
+        
+            // update activeSection and activeQObj
+            activeSection = sectionPrev;
+            activeQObj = getQObj();
+            activeQIndex = activeSection.getAttribute("qindex");
+        
+            // // update progress elements
+            // setProgress();
+        
+            // update boost
+            setBoost();            
+        }
+    });
 
-    // update progress elements
-    setProgress();
+    let navBtns = Array.from(document.querySelectorAll(".btn-nav"));
 
-    // update boost
-    setBoost();
+    tl.to(".section-controls", {
+        opacity: 0,
+        ease: "none",
+        delay: 0.15,
+        duration: 0.15,
+        onComplete: function () {
+            navBtns.forEach(function (btn) {
+                btn.classList.add("disabled");
+            });
+            setProgress(sectionPrev, getQObj(sectionPrev));
+        }
+    });
+    tl.to(activeSection, {
+        translateX: "100%",
+        duration: 0.8,
+        ease: "power3.inOut"
+    });
+    tl.to(sectionPrev, {
+        translateX: "0",
+        duration: 0.8,
+        ease: "power3.inOut"
+    }, "<");
+    tl.to(sectionPrev.querySelector(".section-controls"), {
+        opacity: 1,
+        ease: "none",
+        duration: 0.15
+    });
 
     return "navigated to previous section";
 }
@@ -365,11 +438,26 @@ function fieldsetShade(input, fieldset) {
     }
 }
 
+function fadeButtons(sectionTgt, del = 0) {
+
+    let navBtns = document.querySelectorAll(".btn-nav");
+
+    navBtns.forEach(function (btn) {
+        btn.classList.remove("disabled");
+    });
+    gsap.to(sectionTgt.querySelector(".section-controls"), {
+        opacity: 1,
+        ease: "none",
+        duration: 0.15,
+        delay: del
+    });
+}
+
 
 
 // STATUS
 
-function startTimer(timeLeft) {
+function startTimer(timeLeft, sectionTgt = activeSection) {
 
     clearInterval(timerInterval);
 
@@ -377,8 +465,8 @@ function startTimer(timeLeft) {
     minutes = Math.floor(timeLeft / 60);
     seconds = timeLeft % 60;
 
-    let timerMinutes = activeSection.querySelector(".timer-minutes");
-    let timerSeconds = activeSection.querySelector(".timer-seconds");
+    let timerMinutes = sectionTgt.querySelector(".timer-minutes");
+    let timerSeconds = sectionTgt.querySelector(".timer-seconds");
 
     // inner text
     timerMinutes.innerText = minutes;
@@ -386,8 +474,8 @@ function startTimer(timeLeft) {
 
     timerInterval = setInterval(function () {
 
-        let timerMinutes = activeSection.querySelector(".timer-minutes");
-        let timerSeconds = activeSection.querySelector(".timer-seconds");
+        let timerMinutes = sectionTgt.querySelector(".timer-minutes");
+        let timerSeconds = sectionTgt.querySelector(".timer-seconds");
 
         // m:ss display
 
@@ -402,10 +490,10 @@ function startTimer(timeLeft) {
 
         // counter
 
-        let timeLeft = activeSection.getAttribute("timeleft");
+        let timeLeft = sectionTgt.getAttribute("timeleft");
 
         if (timeLeft > 0) {
-            activeSection.setAttribute("timeleft", (timeLeft - 1));
+            sectionTgt.setAttribute("timeleft", (timeLeft - 1));
         } else {
             checkAnswer();
         }
@@ -416,14 +504,49 @@ function startTimer(timeLeft) {
     }, 1000);
 }
 
-function setProgress() { // sets progress bar and indicators
+function revealQuestion (sectionTgt) {
+
+    let timeleft = parseInt(sectionTgt.getAttribute("timeleft"));
+
+    if (sectionTgt.getAttribute("qvisited") == null) {
+
+        sectionTgt.setAttribute("qvisited", true);
+
+        let tl = gsap.timeline ({
+
+        });
+    
+        tl.to(sectionTgt.querySelectorAll(".q-fieldset"), {
+            opacity: 1,
+            delay: 4,
+            duration: 0.4,
+            stagger: 0.2,
+            ease: "none",
+            onComplete: function () {
+                startTimer(timeleft, sectionTgt);
+                fadeButtons(sectionTgt);
+            }
+        });
+        tl.to(sectionTgt.querySelector(".q-timer-wrapper"), {
+            width: "auto",
+            duration: 1,
+            ease: "power3.inOut"
+        });
+
+    } else {
+        startTimer(timeleft, sectionTgt);
+        fadeButtons(sectionTgt, 0.8);
+    }
+}
+
+function setProgress(sectionTgt = activeSection, qObjTgt = activeQObj) { // sets progress bar and indicators
 
     let progress = quiz.querySelector(".progress");
 
-    if (activeSection.getAttribute("sectype") == "question") {
+    if (sectionTgt.getAttribute("sectype") == "question") {
 
         // set light/darkmode
-        if (activeSection.getAttribute("darkmode") || activeQObj.category == "sports-trivia") {
+        if (sectionTgt.getAttribute("darkmode") || qObjTgt.category == "sports-trivia") {
             progress.classList.remove("light-mode");
             progress.classList.add("dark-mode");
         } else {
@@ -439,19 +562,25 @@ function setProgress() { // sets progress bar and indicators
 
         // set progress indicator
         let indicator = progress.querySelector(".progress-indicator");
-        indicator.style.width = (100 * (activeSection.getAttribute("qindex")) / questionData.length) + "%";
+        let targetWidth = (100 * (sectionTgt.getAttribute("qindex")) / questionData.length) + "%";
+
+        gsap.to(indicator, {
+            width: targetWidth,
+            duration: 0.8,
+            ease: "power4.inOut"
+        });
 
         // scroll to top
-        let sectionContent = activeSection.querySelector(".section-content");
+        let sectionContent = sectionTgt.querySelector(".section-content");
         sectionContent.scrollTo(0,0);
 
 
         // start timer
-        
-        let timeLeft = activeSection.getAttribute("timeleft");
 
-        if (!activeSection.classList.contains("answer")) {
-            startTimer(timeLeft);
+        if (!sectionTgt.classList.contains("answer")) {
+            revealQuestion(sectionTgt);
+        } else {
+            fadeButtons(sectionTgt, 0.8);
         }
 
     } else {
@@ -459,6 +588,7 @@ function setProgress() { // sets progress bar and indicators
         progress.classList.add("disabled");
         progress.classList.remove("light-mode");
         progress.classList.add("dark-mode");
+        fadeButtons(sectionTgt, 0.8);
     }
 }
 
@@ -558,6 +688,10 @@ function addQSection(qObj, qIndex) { // add question section
     qTimer.classList.add("text-size-sm");
     qTimer.classList.add("text-italic");
 
+    let qTimerWrapper = document.createElement("div");
+    qTimerWrapper.classList.add("q-timer-wrapper");
+    qTimerWrapper.appendChild(qTimer);
+
     let timerObj = splitTime(qObj.duration);
 
     qTimer.innerHTML = '<span class="timer-minutes">' + timerObj.min + '</span>';
@@ -567,7 +701,7 @@ function addQSection(qObj, qIndex) { // add question section
     let qFlag = document.createElement("div");
     qFlag.classList.add("q-flag");
     qFlag.appendChild(qNumber);
-    qFlag.appendChild(qTimer);
+    qFlag.appendChild(qTimerWrapper);
 
     let qQuestion = document.createElement("div");
     qQuestion.classList.add("q-question");
@@ -620,6 +754,10 @@ function presentAnswer(result) { // show answer explanation
 
     let nextBtn = activeSection.querySelector(".btn-next");
     nextBtn.classList.add("disabled");
+
+    let backBtn = activeSection.querySelector(".btn-back");
+    backBtn.classList.add("disabled");
+
 
     // create nodes and add answer explanation from questionData obj
 
@@ -1041,6 +1179,13 @@ function scrollToAnswer() { // scroll down to answer when user taps "Check Answe
     let choiceSet = activeSection.querySelector(".q-choice-set");
     let scrollable = sectionContent.scrollHeight - sectionContent.clientHeight;
 
+    if (scrollable == 0) {
+        let nextBtn = activeSection.querySelector(".btn-next");
+        nextBtn.classList.remove("disabled");
+        let backBtn = activeSection.querySelector(".btn-back");
+        backBtn.classList.remove("disabled");
+    }
+
     gsap.to(".section-content", {
         scrollTo: Math.min(choiceSet.offsetTop, scrollable), // scroll to top of answer choices or entire scrollable distance
         duration: 1,
@@ -1048,6 +1193,8 @@ function scrollToAnswer() { // scroll down to answer when user taps "Check Answe
         onComplete: function() {
             let nextBtn = activeSection.querySelector(".btn-next");
             nextBtn.classList.remove("disabled");
+            let backBtn = activeSection.querySelector(".btn-back");
+            backBtn.classList.remove("disabled");
         }
     });
 }
@@ -1118,23 +1265,24 @@ nickname.onkeyup = function (e) {
     }
 }
 
-nomLink.onclick = function () { // when nomLink field is clicked, select entire value
+nomLink.onclick = function (e) { // when nomLink field is clicked, select entire value
     nomLink.select();
+    e.preventDefault();
 }
 
-nomBtn.onclick = function () { // when "Copy Link" button clicked, copy nomLink.value
+nomBtn.onclick = function (e) { // when "Copy Link" button clicked, copy nomLink.value
     nomLink.select();
     nomLink.setSelectionRange(0,99999);
     navigator.clipboard.writeText(nomLink.value);
     copyConfirm.classList.remove("hide");
+    e.preventDefault();
 }
 
-btnSetNickname.onclick = function () {
-
+btnSetNickname.onclick = function (e) {
+    e.preventDefault();
 }
 
-btnBoost.onclick = function () {
-
+btnBoost.onclick = function (e) {
     toggleBoost();
     
     if (btnBoost.classList.contains("on")) {
@@ -1142,10 +1290,13 @@ btnBoost.onclick = function () {
     } else {
         btnBoost.classList.add("on");
     }
+
+    e.preventDefault();
 }
 
 btnPlayAgain.onclick = function () { // tapping "Play Again" goes to nomLink
     window.location.href = nomLink.value;
+    e.preventDefault();
 }
 
 

@@ -1,45 +1,29 @@
 **To Do:**
 
+x Check if nickname and enable
+x Transitions
+x Question present
+x Delay show answer choices
+x Progress bar
 
---Week 11--
---
-Transitions
-• Question present
-• Delay show answer choices
+Title illustrations, question loading icon
 
-
-
---Week 12--
-Open graph image and link sharing
+Navigator share
 https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
 Enforce HTTPS
-Check if nickname and enable
-GSAP progress bar
---
-Test with Firefox
---
-Title illustrations
---
+Accessibility on opacity
 2 question sets
---
-2 question sets
---
 Question sets coding
-Code obfuscation - https://obfuscator.io/
 
---Week 13--
-Show image in between questions
+Code obfuscation - https://obfuscator.io/
 Change streak and boost icons
 Instructions
---
 About section and disclaimer
---
 Time warning
-
+Visual effects
 
 BLUE SKY:
 
-Visual effects
 Choose avatar or jersey number
 See score breakdown
 Browser history and URL swapping
