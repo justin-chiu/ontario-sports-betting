@@ -128,7 +128,7 @@ function startQuiz(qData) {
             e.currentTarget.querySelector("input").checked = true; // set input
             fieldsetShade(e.currentTarget.querySelector("input"), e.currentTarget); // change shading
             enableButton(e);
-            e.preventDefault();
+            
         }
     });
 
@@ -270,7 +270,7 @@ function tapNavButton(e) { // whenever the navigation buttons are tapped
         console.log(goPrevious()); // navigate backward
     }
 
-    e.preventDefault();
+    
 }
 
 function goNext() { // navigate forward
@@ -1267,7 +1267,7 @@ nickname.onkeyup = function (e) {
 
 nomLink.onclick = function (e) { // when nomLink field is clicked, select entire value
     nomLink.select();
-    e.preventDefault();
+    
 }
 
 nomBtn.onclick = function (e) { // when "Copy Link" button clicked, copy nomLink.value
@@ -1275,11 +1275,11 @@ nomBtn.onclick = function (e) { // when "Copy Link" button clicked, copy nomLink
     nomLink.setSelectionRange(0,99999);
     navigator.clipboard.writeText(nomLink.value);
     copyConfirm.classList.remove("hide");
-    e.preventDefault();
+    
 }
 
 btnSetNickname.onclick = function (e) {
-    e.preventDefault();
+    
 }
 
 btnBoost.onclick = function (e) {
@@ -1291,12 +1291,12 @@ btnBoost.onclick = function (e) {
         btnBoost.classList.add("on");
     }
 
-    e.preventDefault();
+    
 }
 
 btnPlayAgain.onclick = function () { // tapping "Play Again" goes to nomLink
     window.location.href = nomLink.value;
-    e.preventDefault();
+    
 }
 
 
