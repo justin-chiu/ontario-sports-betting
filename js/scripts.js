@@ -513,12 +513,21 @@ function revealQuestion (sectionTgt) {
         sectionTgt.setAttribute("qvisited", true);
 
         let tl = gsap.timeline ({
-
         });
-    
+        
+        tl.to(sectionTgt.querySelector(".q-loading-ind"), {
+            width: "100%",
+            ease: "none",
+            delay: 0.8,
+            duration: 4
+        });
+        tl.to(sectionTgt.querySelector(".q-loading"), {
+            opacity: 0,
+            duration: 0.4,
+            ease: "none"
+        });
         tl.to(sectionTgt.querySelectorAll(".q-fieldset"), {
             opacity: 1,
-            delay: 4,
             duration: 0.4,
             stagger: 0.2,
             ease: "none",
@@ -653,10 +662,20 @@ function addQSection(qObj, qIndex) { // add question section
         qFieldsets = shuffleArray(qFieldsets);
     }
 
+    // Question loading indicator
+    let qLoadingInd = document.createElement("div");
+    qLoadingInd.classList.add("q-loading-ind");
+
+    // Question loading
+    let qLoading = document.createElement("div");
+    qLoading.classList.add("q-loading");
+    qLoading.appendChild(qLoadingInd);
+
     // Answer choice container
     let qChoiceSet = document.createElement("div");
     qChoiceSet.classList.add("q-choice-set");
     qChoiceSet.classList.add("space-bottom-lg");
+    qChoiceSet.appendChild(qLoading);
     qFieldsets.forEach(function (fieldset) {
         qChoiceSet.appendChild(fieldset);
     });

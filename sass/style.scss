@@ -592,6 +592,7 @@ section {
 .q-choice-set {
     padding-top: $spacing-btwn-vert;
     color: $indigo;
+    position: relative;
 }
 
 .q-choice {
@@ -880,4 +881,27 @@ td {
         background-color: $deck;
         border: 0.125ren solid $indigo;
     }
+}
+
+
+
+// LOADING
+
+.q-loading {
+    border-radius: 50%;
+    background-color: $overcast;
+    height: 1.375rem;
+    width: 1.375rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.q-loading-ind {
+    height: 100%;
+    width: 0;
+    background-color: $indigo;
 }
