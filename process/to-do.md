@@ -1,32 +1,32 @@
 **To Do:**
 
-x Check if nickname and enable
-x Transitions
-x Question present
-x Delay show answer choices
-x Progress bar
-
-Title illustrations, question loading icon
-
 Navigator share
 https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
 Enforce HTTPS
-Accessibility on opacity
+
 2 question sets
 Question sets coding
 
 Code obfuscation - https://obfuscator.io/
-Change streak and boost icons
-Instructions
-About section and disclaimer
+
 Time warning
 Visual effects
+
+Instructions
+Privacy policy
+About/disclaimer
+
+MAYBE:
+
+Browser history and URL swapping
+Backend
+
+Nerf the streak bonus
 
 BLUE SKY:
 
 Choose avatar or jersey number
 See score breakdown
-Browser history and URL swapping
 
 DON'T NEED
 
